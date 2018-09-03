@@ -1,0 +1,22 @@
+pacman -Ss - поиск пакета
+pacman -Rs - удаление пакета с зависимостями
+pacman -Qnq - список всех офф пакетов
+pacman -Qmq - список неофициальных
+pacman -S $(pacman -Qnq) - переустановка
+
+cache: 
+/var/cache/pacman/pkg
+
+-------
+Установка из архива
+
+pacman -U /var/cache/pacman/pkg/old_package.tar.xz
+Скачать пакет отсюда:
+archive.archlinux.org/packages/
+Игноруем проверку
+ignote update /etc/pacman.conf
+IgnorePkg = package
+-------
+
+при возникновении проблем с ключами обновляем
+archlinux-keyring

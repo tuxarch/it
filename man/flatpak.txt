@@ -1,0 +1,10 @@
+Для gentoo ставим из unofficial оверлея и отключаем systemd
+flatpak install flathub org.telegram.desktop
+flatpak run org.telegram.desktop
+
+Подрубаем репо
+
+Получить доступ к фс
+flatpak --user override --filesystem=home org.telegram.desktop 
+flatpak update - обновляем пакеты
+

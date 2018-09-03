@@ -1,0 +1,18 @@
+﻿
+alsa-utils - установка пакета
+смотрим ядро
+
+ALSA_CARDS="intel8x0" - use-flags
+
+alsamixer - настроить звук
+sudo! alsactl store - сохранить настройки
+
+speaker-test -t wav -c 2 - проверить настройку звука
+
+
+rc-update add alsasound boot - прописать в автозагрузку
+
+pavucontrol - регулировка громкости в pulseaudio
+
+amixer set Master 50%
+

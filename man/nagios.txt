@@ -1,0 +1,42 @@
+хрянятся команды
+
+/etc/nagios-plugins/config/
+/etc/nagios3/commands.cfg
+и еще разбросаны по conf.d
+
+____________________________
+check_nrpe_1arg!check_all_disks!10.5.5.40
+где первый параметр указывает на nrpe
+вторая команда должна быть на удаленном хосте
+
+
+./check_nrpe -H 10.5.5.4 -c check_dig -a 8.8.8.8 ya.ru
+удаленная проверка
+
+check_dns -s 8.8.8.8 -H ya.ru
+_____________________________
+
+проще всего настроить отправку почты через ssmtp
+
+mailhub=smtp.gmail.com:587
+UseTLS=YES
+UseSTARTTLS=YES
+AuthMethod=LOGIN
+AuthUser=chetnuy@gmail.com
+AuthPass=
+
+FromLineOverride=YES
+
+
+TLS_CA_File=/etc/pki/tls/certs/ca-bundle.crt
+root=zabbix@zeroxzed.ru
+FromLineOverride=YES
+root:mailbox@gmail.com:smtp.gmail.com:587 - в revaliases
+строка для центоса
+echo "test_ssmtp" | ssmtp -v nevernew@mail.ru
+___________________________
+
+
+Куча конфигурационных файлов которые нужно вылизывать
+
+

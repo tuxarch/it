@@ -1,0 +1,220 @@
+cat /proc/cpuinfo | grep -E "vmx|svm" - убедиться что есть поддержка
+аппаратной виртуализации. Частенько ее отключают в биосе.
+Также стоит убедиться загружен ли модуль.
+/dev/kvm  - проверить наличие
+
+gpasswd -a <username> kvm - добавить пользователя чтобы получить ускорение 
+и появилась возможность запускать не от рута.
+_________________________________
+Простой запуск:
+
+qemu-img create -f qcow2 RELS1.qcow2 8G - создать образ
+qemu-img resize /path/to/vm-disk.qcow2 +200G - увеличить размер образа
+Но диск нужно ресайзить еще руками
+
+qemu-system-x86_64 -enable-kvm -cdrom
+/mnt/data2/image/pentoo-amd64-hardened-2015.0_RC5.iso -hda ubuntu16.04.qcow2
+-m 512 - простой запуск
+______
+Сеть
+usermode-utilities bridge-utils - установить эти пакеты
+
+Если нужна виртуальная сеть, то необходимо поднимать мост
+Если есть сеть с интернетом то устройства получат адрес по внешнему dhcp
+и будут отображаться как отдельные машины.
+
+-------
+
+
+convert vdi to gcow2 (virtualbox)
+qemu-img convert -p -f vdi -O qcow2 /home/user/win_7.vdi
+/home/user/win_7.qcow2
+
+Примеры /etc/conf.d/net
+---------
+modules="!ifconfig"
+bridge_br0="enp0s25 tap0"
+rc_net_br0_need="net.enp0s25 net.tap0"
+config_br0="10.5.6.32/24"
+routes_br0="default gw 10.5.6.1"
+ 
+config_enp0s25="null"
+
+tuntap_tap0="tap"
+#tunctl_tap0="-u user -g user"
+config_tap0="null"
+---------
+
+tuntap_tap0="tap"
+config_tap0=null
+config_enp0s25=null
+
+config_br0="dhcp" # if we obtain IP from DHCP
+mac_br0="aa:bb:cc:dd:ee:ff"  
+bridge_br0="enp0s25 tap0" # add all interfaces to bridge, 
+rc_net_br0_need="net.enp0s25 net.tap0" # run forward interfaices
+
+same:))
+После настройки обязательно перезагрузить систему!!!!!
+-----------
+-net tap,ifname=tap0,script=no,downscript=no -net
+nic,model=virtio,macaddr=00:12:34:56:78:9a
+-----------
+
+
+По умолчанию сеть должна быть поднята на основе xml
+который лежит в /etc/libvirt/network/default.xml или /usr/share/libvirt
+смотрим доступные сети virsh net-list --all
+здесь же можно и создать новую сеть
+net-edit default - редактировать сети
+net-autostart default - автозагрузка сети
+Возможно перед использованием стоит подключиться connect qemu://sys
+
+_______________
+Тонкости:
+Для установки virtio необходимо подгружать драйвера с флопи или образа iso
+Делать это нужно при установке для подключения virtio для диска
+Дальше уже можно работать через менаджеры
+_____________________________________
+Графика:
+
+Несколько подходов к использованию графики
+можно присмотреться к 
+SPICE
+VNC
+VMware tools
+
+Подключить vnc
+-vga std -nographic -vnc :0
+vncviewer :0 - подключиться к соединению
+
+spice-gtk - client
+
+__________________________________________
+Опции:
+qemu-system-x86_64 -net nic,model=? - посмотреть доступные интерфейсы
+-redir tcp:5555::80 -redir tcp:5556::445 - пробросить порты 
+-localtime - прокинуть время
+-snapshot - позволяет писать изменения во временные файлы и с нажатием c-a s
+записывать все в файл.
+-nographic - отключить графику
+-vnc 0.0.0.0:0 - позволяет подключиться к хосту (vncviewer 10.19.1.1:0)
+-full-screen - 
+-usbdevice tablet - позволяет не захватывать мышь
+-usbdevice host:vendor_id:product_id disk_image - пробросить флешку
+
+Keybinds
+alt ctrl f - full screen
+ctrl alt (g)- отвезаться от экрана
+______________________
+Для повышение производительности:
+болонинг - выделение ОП
+Слияние процессов
+echo 1 > /sys/kernel/mm/ksm/run
+_________________________
+-boot c - Boot the first virtual hard drive.
+-boot d - Boot the first virtual CD-ROM drive.
+-boot n - Boot from virtual network.
+______________________________
+
+Установка:
+virt-manager - графическая среда для управления
+virsh - консольная настройка
+virt-install - установка вмашины
+----
+virsh 	pool-define-as mnt dir - - - - "/mnt" - установка пула
+	pool-list --all - список пулов
+	pool-build - собрать пул
+	pool-start - запуск хранилища
+	pool-autostart - автозапуск
+	pool-info - информация по пулу
+
+Изменить пул по умолчанию
+
+pool-destroy default
+pool-undefine default
+pool-define-as --name default --type dir --target /rum/media/user1/partition1
+pool-autostart default
+pool-build default
+pool-start default
+
+
+virt-install -n ubuntu --memory 512 --arch=x86_64 --vcpus=2 --cpu host
+--check-cpu --os-type linux --cdrom
+/mnt/data/images/ubuntu-16.04.1-server-amd64.iso --disk
+pool=vm,size=8,bus=virtio --network=bridge:br0,model=virtio --graphics
+vnc,listen=0.0.0.0,keymap=ru --noautoconsole
+
+virt-install -n archlinux --memory 512 --arch=x86_64 --vcpus=2 --cpu host
+--check-cpu --os-type linux --cdrom
+/mnt/data/images/archlinux-2016.09.03-dual.iso --disk
+pool=vm,size=8,bus=virtio --network=bridge:br0,model=virtio --graphics
+spice,listen=0.0.0.0,keymap=ru --noautoconsole
+
+
+Размер 8gb
+
+virsh vncdisplay ubuntu - посмотреть номер vnc
+-------
+
+virsh -c qemu:///system
+virsh && connect qemu:///system - подключиться к пулу
+	list --all - посмотреть статус вм
+	start <vm> - запуск вм
+	reboot - перезагрузка
+	suspend - приостановить
+	resume - возобновить остановленное
+	shutdown  - завершение
+	destroy - принудительное завершение
+	undefine - удалить
+
+virsh snapshot-create <имя вм> - создать снапшот
+virsh snapshot-revert Parus <номер снапшота вм> - откатиться к снапшоту  
+virsh snapshot-list <имя вм> - список снапшотов для данной ВМ
+
+dumpxml - запущенный конфиг вм
+create - создать из файла xml и запустить
+edit - xml редактировать
+save/restore - сохранить вм в файл и восстановить из него
+сохраняет в домашний каталог
+autostart - прописать в автозагрузку
+autostart ubuntu2 --disable - удалить
+
+__________________________
+
+Добавить сdrom - нужна такая секция
+<disk type='file' device='cdrom'>
+<driver name='qemu' type='raw'/>
+<source file='/mnt/data2/image/archlinux-2016.08.01-dual.iso'/>
+<target dev='hda' bus='ide'/>
+<readonly/>
+<boot order='1'/>
+<address type='drive' controller='0 bus='0' target='0' unit='0'/>
+</disk>
+
+__________________________________
+
+Для управления по сети через обычного пользователя
+
+создаем группу groupadd -r libvirt
+добавляем в нее пользователя
+
+редактируем /etc/libvirt/libvirtd.conf
+
+unix_sock_group = "libvirt"
+unix_sock_rw_perms = "0770"
+
+
+virsh -c qemu+ssh://username@host1.example.org/system - коннектимся
+
+Чтобы не прописывать пул постоянно руками добавляем 
+export LIBVIRT_DEFAULT_URI="qemu:///system"
+___________________________________________
+Переименовать вм
+
+virsh dumpxml myvm > foo.xml
+<edit foo.xml, change the name, move storage>
+virsh undefine myvm
+virsh define foo.xml
+
+

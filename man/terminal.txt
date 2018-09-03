@@ -1,0 +1,11 @@
+терминал не отображает как следует команды
+	export TERM='linux'
+	export TERM='xterm-256color'
+	Также эти комнады прописать в bashrc bash_profile
+
+
+Создаем каталог на сервере и копируем в него конфиг
+mkdir -p ~/.terminfo/r 
+scp /usr/share/terminfo/r/rxvt-unicode-256color user@server.com:.terminfo/r
+
+

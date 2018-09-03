@@ -1,0 +1,32 @@
+mstsc - подключиться через win
+
+rdesktop - простенький клиент
+xfreerdp, freerdp, xrdp - клиенты потяжелее
+
+3389 - стандартный порт
+	HKEY_LOCAL_MACHINE>SYSTEM>CurrentControlSet>Control>Terminal
+	Server>WinStations>RDP-Tcp/portnumber
+_____________________________
+Для подключения необходимо 
+	- разрешить подключение
+		Hkey_Local_Machine\system\currentcontrolset\control\terminal
+		server\FdenyTSConnections 0 - включен		
+	- создать правило фаервола
+	- добавить пользователя
+	- наличие пароля у пользователя 
+	- стартануть службы
+		- служба терминалов 
+		- деспетчер подключения уд. доступа
+______________
+
+rdesktop -u root -p pass 10.5.6.174 -g 1240x1024 
+
+_____________________
+
+freeNX x2go - альтернатива vnc
+
+PStools - набор утилит для командной строки. 
+	PSexe - позволяет запускать программы на удаленном хосте
+	работа только с консольными приложениями
+wmic и winexe - инструменты управления win из linux
+

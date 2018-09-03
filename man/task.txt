@@ -1,0 +1,110 @@
+wait - время ожидания до включения задачи в список (waiting list)
+scheduled - время начала работы с задачей
+due - время завершения
+
+Возможные состояния задания
+pending - в продолжении
+delete - удаленна
+waiting - в ожидании
+recurring - в повторении
+сompleted - завершенно
+
+
+
+taskwarrior.org
+
+task add - добавить задачу
+task help - ман
+long - подробная информация о задачах
+minimal - короткий список
+task add "message" progect:(без аргументов снимаем привязку)
+task project:name - инфо по проекту
+task project - список проектов
+start/stop - запуск задачи
+priority: (H,M,L) 
+task 1 rename - переименовать
+
+task 2 annotate Добавить аннотацию
+	denotate - удалить аннотацию
+task 3 due:8/28/2013 - назначить срок исполнения
+task 6 recur:(weekly, monthly, early) - сделать задачу рекурсивной
+task list pro:Projectname - фильт на группу
+done - завершение задачи
+delete - удаление
+undo - отменить последнее действие
+info - просмотр информации
+
+
+complete - просмотр завершенных задач
+edit - редактировать запись
+
+
+task 1 modify dependencies 3 - первая завист от 3(повышая ее приоритет)
+task 1 2  modify project:name
+
+task calc
+tasl calendar
+
+task export > backup.txt
+
+task append - добавить в конец заголовка
+task pretend - добавить в начало
+
+projects - просмотр проектов
+
+task ghistory история созданных и завершенных дел
+
+task timesheet - лист с последним заданием?
+task burndown - график создания 
+
+show - вывод конфига
+
+task active - спискок активных заданий
+
+task duplicate - создать копию задачи
+
+task 1 modify tags: new tags - изменить или добавить тэг
+
+task tags - спискок по тэгам
+
+alias t= task add $1 - создание алиаса
+
+task +tag - поиск по тэгу
+
+task 3 modify +tag = добавить тэг
+
+scheduled:due-4d
+wait:due-3d - создание отложенной записи
+
+task report - короткая справка
+___________
+
+UDA - пользовательские поля
+
+task config uda.cost.type numeric
+task config uda.cost.name cost - создаем собственное поле
+затем их можно редактировать через modufy name:value
+
+context
+task context define devops +devops - задать контекст и работать в нем
+task context devops - переключиться на него
+task context list - список контекстов
+___________
+
+task config alias.rm delete - создать алиасу
+
+task overdue - просроченные задачи
+
+task 1 modify until:eoy - удалить задачу после такой даты
+
+eom - последняя дата месяца
+
+
+task end.after:2015-05-01 and end.before:2015-05-31 completed - сортировка
+задач
+
+task /foo/ list - поиск по имени
+task count - количество заданий
+task status:delete count
+
+task add Pay the rent due:1st recur:monthly until:2015-03-31

@@ -1,0 +1,18 @@
+Для доступа к измененным линкам нужно добавить в конфиг сайта
+
+<Directory /var/www/>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+</Directory>
+
+
+Или подгрузить модуль    a2enmod rewrite
+LoadModule rewrite_module modules/mod_rewrite.so
+
+Либо смотреть настройки .htaccess
+
+_________________________________________
+
+
+

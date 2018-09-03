@@ -1,0 +1,12 @@
+oc login https://api.starter-ca-central-1.openshift.com
+oc project one-two-free
+oc status
+
+
+oc get pods - список запущенных образов
+oc rsh - подключаеся по ssh
+
+export TERM='linux'
+
+
+

@@ -1,0 +1,7 @@
+pm-utils -установить
+затем pm-suspend для перехода в гибернацию.
+
+/etc/acpi/default.sh  - отвечает за питание, для настройки крышки нужно
+добавить строку suspend в 
+
+systemctl suspend 

@@ -1,0 +1,59 @@
+Пакеты sudo php7.0 php5-gd libssh2-php php-mysql
+Нужно настроить mysql:
+mysql -u root -p
+CREATE DATABASE wordpress;
+CREATE USER wordpressuser@localhost IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON wordpress.* TO wordpressuser@localhost;
+FLUSH PRIVILEGES;
+exit
+
+Качаем вордпрес
+wget http://wordpress.org/latest.tar.gz
+создаем wp-config.php на основе шаблона
+
+define('DB_NAME', 'wordpress');
+
+/** MySQL database username */
+define('DB_USER', 'wordpressuser');
+
+/** MySQL database password */
+define('DB_PASSWORD', 'password');
+
+Копируем содержимое архива в каталог апача
+rsync -avP ~/wordpress/ /var/www/html/
+
+sudo chown -R www-data * - изменяем пользователя
+
+mkdir /var/www/html/wp-content/uploads
+создаем папку для содержимого и применяем для нее права
+
+____________________________________
+
+Стартуем апаче, скуэль .
+
+При переносе сервера нужно не забыть поменят домен в админке.
+
+___________________________________
+
+БЭКАП
+
+mysqldump -u user --opt -p base > base.sql - сделать бекап ( нужно ввести пароль)
+create database base - создаем пустую бд
+show databases - просмотр бд
+mysql -p base < base.sql - восстановит базу из резервной копии
+________________
+
+cd /var/www && tar czvf archive.tar.gz wordpress/ - создаем архив
+
+docker cp container:/path/file.txt file.txt 
+docker cp file.txt container:/path/file.txt
+
+
+________________________
+
+Проблема с загрузкой файлов добавляем в wp-config.php
+
+if(is_admin()) {
+	add_filter('filesystem_method', create_function('$a', 'return "direct";' ));
+	define( 'FS_CHMOD_DIR', 0751 );
+	}

@@ -1,0 +1,5 @@
+Позволяет автоматически монтировать сетевые ресурсы или съемные диски
+
+machine\ remoteserver\ \ 
+login\ myuser
+password\ mypassword

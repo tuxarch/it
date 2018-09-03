@@ -1,0 +1,47 @@
+grub - ниже 1.0 не держит загрузку с LVM
+
+создает логические тома вместо разделов на диске 
+
+______________
+modprobe dm-mod - проверяем наличие модуля
+
+разбиваем диск и создаем раздел с типом 8E (fdisk LVM type)
+
+pvdisplay - позволяет просмотреть инициализир разделы
+pvcreate /dev/sda1 - инициализация раздела
+
+vgcreate MVLM /dev/sda1 (,dev/sda2)- создание группы разделов
+vgdisplay - просмотор группы разделов
+
+lvcreate -l +100%FREE MLVM -n lvolhome - создание тома внутри группы томов
+lvcreate -L 10G
+lvdisplay - просмотр разделов 
+Этот том будет доступен позже как устойство /dev/mapper/Volgroup00-lvolhome
+или /dev/VolGroup00/lvolhome. 
+
+mkfs.ext3 /dev/mapper/VolGroup00-lvolhome - создаем и монтируем разделы
+mount /dev/mapper/VolGroup00-lvolhome /home
+
+
+
+Увеличить размер:
+lvextend -L 20G VolGroup00/lvolhome (или lvresize -L +5G VolGroup00/lvolhome)
+# resize2fs /dev/VolGroup00/lvolhome
+
+Использовать все свободное место:
+# lvextend -l +100%FREE VolGroup00/lvolhome
+
+Уменьшить размер
+resize2fs /dev/VolGroup00/lvolhome 9G
+# lvreduce -L 10G VolGroup00/lvolhome (или lvresize -L -5G VolGroup00/lvolhome)
+# resize2fs /dev/VolGroup00/lvolhome
+
+Добавить раздел
+pvcreate /dev/sdb1
+# vgextend VolGroup00 /dev/sdb1
+
+
+Перенести данные перед удалением тома sdb1
+# pvmove /dev/sdb1 /dev/sdf1
+
+

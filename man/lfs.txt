@@ -1,0 +1,124 @@
+	binutils-2.26
+
+--prefix=/tools \
+--with-sysroot=$LFS \
+--with-lib-path=/tools/lib \
+--target=$LFS_TGT \
+--disable-nls \
+--disable-werror \
+
+
+case $(uname -m) in
+x86_64) mkdir -v /tools/lib && ln -sv lib /tools/lib64 ;;
+esac
+
+___________________________
+	gcc
+for file in \
+$(find gcc/config -name linux64.h -o -name linux.h -o -name sysv4.h)
+do
+cp -uv $file{,.orig}
+sed -e 's@/lib\(64\)\?\(32\)\?/ld@/tools&@g' \
+-e 's@/usr@/tools@g' $file.orig > $file
+echo '
+#undef STANDARD_STARTFILE_PREFIX_1
+#undef STANDARD_STARTFILE_PREFIX_2
+#define STANDARD_STARTFILE_PREFIX_1 "/tools/lib/"
+#define STANDARD_STARTFILE_PREFIX_2 ""' >> $file
+touch $file.orig
+done
+
+../configure \
+--target=$LFS_TGT \
+--prefix=/tools \
+--with-glibc-version=2.11 \
+--with-sysroot=$LFS \
+--with-newlib \
+--without-headers \
+--with-local-prefix=/tools \
+--with-native-system-header-dir=/tools/include \
+--disable-nls \
+--disable-shared \
+--disable-multilib \
+--disable-decimal-float \
+--disable-threads \
+--disable-libatomic \
+--disable-libgomp \
+--disable-libquadmath \
+--disable-libssp \
+--disable-libvtv \
+--disable-libstdcxx \
+--enable-languages=c,c++ \
+____________________________________
+	libstdc++
+
+../libstdc++-v3/configure \
+--host=$LFS_TGT \
+--prefix=/tools \
+--disable-multilib \
+--disable-nls \
+--disable-libstdcxx-threads \
+--disable-libstdcxx-pch \
+--with-gxx-include-dir=/tools/$LFS_TGT/include/c++/5.3.0 \
+
+
+______________________________________
+	binutils (steps 2)
+CC=$LFS_TGT-gcc \
+AR=$LFS_TGT-ar \
+RANLIB=$LFS_TGT-ranlib \
+../configure \
+--prefix=/tools \
+--disable-nls \
+--disable-werror \
+--with-lib-path=/tools/lib \
+--with-sysroot \
+_____________________________
+	gcc (step 2)
+
+CC=$LFS_TGT-gcc \
+CXX=$LFS_TGT-g++ \
+AR=$LFS_TGT-ar \
+RANLIB=$LFS_TGT-ranlib \
+../configure \
+--prefix=/tools \
+--with-local-prefix=/tools \
+--with-native-system-header-dir=/tools/include \
+--enable-languages=c,c++ \
+--disable-libstdcxx-pch \
+--disable-multilib \
+--disable-bootstrap \
+--disable-libgomp \
+_____________________________________________
+
+	expect
+
+./configure --prefix=/tools \
+--with-./configure --prefix=/tools \
+--with-tcl=/tools/lib \
+--with-tclinclude=/tools/include \tcl=/tools/lib \
+--with-tclinclude=/tools/include \
+______________________________________________
+
+	ncurses
+./configure --prefix=/tools \
+--with-shared \
+--without-debug \
+--without-ada \
+--enable-widec \
+--enable-overwrite \
+
+___________________________________________
+	chroot
+
+mount -v --bind /dev $LFS/dev
+sudo mount -vt devpts devpts $LFS/dev/pts -o gid=5,mode=620
+sudo mount -vt proc proc $LFS/proc
+sudo mount -vt sysfs sysfs $LFS/sys
+sudo mount -vt tmpfs tmpfs $LFS/run
+
+
+sudo chroot "$LFS" /tools/bin/env -i HOME=/root TERM='linux'  PS1='\[\033[01;33m\]\u@:\033[01;31m\w \[\033[01;37m\]' PATH=/bin:/usr/bin:/sbin:/usr/sbin:/tools/bin /tools/bin/bash --login +h
+
+
+

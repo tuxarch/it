@@ -1,0 +1,32 @@
+<form action="https://echo.htmlacademy.ru" method="get"> - создание формы 
+<input type='text' name='login'> - создаем текстовую форму
+id="3dd" value='4' - задать ид и значение по умолчанию отображающееся в форме
+<label></label> - позволяет связать текст и ввод в форме
+<label for='login-field'> Ваш логин</label> - связываем объекты через id, в
+случае их различного размещения в коде
+type=password - делает форму не отображающей символы
+type=submit value='button' - создает кнопку button
+<textarea name='comment' id='comment-field'
+rows='10'cols='10'>comment</textarea> - создаем поле для ввода текста, где два
+поля указывают высоту и ширину.
+<input type='checkbox' id='subscribe-field' name='subscribe' checked> -
+создаем галочку, внимание на тип, а также на ее значение по умолчанию
+type='radio' - позволяет создать переключатель( точку )
+
+
+Создаем таким образом выпадающий список
+<select name='year'>
+         <option value='2000'>2000 год</option>
+	 <option value='2001'>2001 год</option>
+ </select>
+ Задаем множественный выбор с размером 7 и дефолтным значением
+ <select multiple size='7'>
+ 	<option selected>
+
+Чтобы загрузить фаил с помощью формы нужно добавать атрибут в <form>
+enctype="multipart/form-data"
+а затем задать поле <input type='file'>
+
+<input type='hidden'> - создаем скрытое поле
+
+

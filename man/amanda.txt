@@ -1,0 +1,116 @@
+Ставим amanda-server amanda-client xinet
+
+Сервер создаем проект 
+	mkdir /etc/amanda/project/
+	vi /etc/amanda/project/amanda.conf
+
+-----------
+org "as"
+infofile "/etc/amanda/project/curinfo"
+logdir "/etc/amanda/project/log"
+indexdir "/etc/amanda/project/index"
+dumpuser "backup" # пользователь
+
+tpchanger "chg-disk:/var/backup" #расположение бекапа
+labelstr "MyData[0-4][0-4]"
+autolabel "MyData%%" EMPTY VOLUME_ERROR
+tapecycle 4 # количество лент
+dumpcycle 3 days
+amrecover_changer "changer"
+
+tapetype DISK
+define tapetype DISK {
+  length 100 mbytes # размер директорий
+  filemark 4 kbytes
+}
+
+define dumptype tar {
+  compress none
+  program "GNUTAR" # метод сжатия
+}
+
+holdingdisk hd1 {
+directory "/var/backup/holding"
+use 50 mbytes
+chunksize 1 mbyte
+}
+--------
+
+создаем файлы и папки с конфигами
+ mkdir -p /etc/amanda/project/{log,curinfo,index}
+ touch /etc/amanda/project/{tapelist,disklist}
+
+создаем папки для бекапа, лейблы создавать ненадо(наверное:))
+    for i in 1 2 3 4;do mkdir -p /var/backup/slot$i;done
+
+Права для пользователя
+ chown -R backup:backup /etc/amanda/project
+ chown -R backup:backup /var/backup
+
+Кидаем конфиги для связи с клиентами
+	/etc/hosts
+	echo 'client /etc tar' >> /etc/amanda/project/disklist
+
+Проверяем amcheck project
+
+_______________________________
+
+Клиент 
+
+Запускаем xinetd и смотрим его конфиг /etc/xinet.d/amanda
+Правим /etc/amandahosts (/var/backup/.amandahosts)
+	echo 'server backup' >> /etc/amandahosts
+
+-------
+
+Для получения бэкапа на клиенте нужно создать
+	/etc/amanda/amanda-client.conf
+
+conf "DailySet1" # your config name
+index_server "as" # your amindexd server
+tape_server "as" # your amidxtaped server
+#tapedev "/dev/null" # your tape device
+# auth - authentication scheme to use between server and client.
+# Valid values are "bsd", "bsdudp", "bsdtcp" and "ssh".
+# Default: [auth "bsdtcp"]
+auth "bsdtcp"
+# your ssh keys file if you use ssh auth
+#ssh_keys "/var/lib/amanda/.ssh/id_rsa_amrecover" 
+
+А также закинуть на сервер 
+	echo 'client root' >> /etc/amandahost
+_____________________________________
+
+amdump project - создать бэкап
+echo $? -- 0 - бэкап создался
+amreport project - отчет по бекапу
+amadmin project info client /etc - инфо по машине и бекапу /etc
+amadmin project search client /etc - найти бекапы
+amcheck project - проверить кофигурацию
+
+--------
+Для восстановления на сервере
+	- ищем необходимый слот с бекапом (0-целый,1-инкремент)
+	- amtape project slot 1 - выбираем ленту с бекапом
+	- amrestore file:/var/backup/ client '/etc/' - восстанавлиеваем в
+	  текущую папку архив
+	- tar xvf client._etc.20130205.0 ./shells - восстанавливаем файл из
+	  архива
+
+Восстанавливаем на клиенте
+	amrecover
+	listdisk - просматриваем свои бэкапы
+	setdisk - выбираем тип бэкапа
+	ls && cd
+	add file - выбираем нужное
+	lcd /tmp - куда распаковывать
+	extract - извлечение
+_____________________________
+
+mailto "user@domain.com" 
+amanda /usr/sbin/amcheck -m MyConfig - -m отправлять отчет
+
+
+
+
+

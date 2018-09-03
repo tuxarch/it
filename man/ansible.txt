@@ -1,0 +1,113 @@
+ansible docker -m copy -a 'src=~/file.file dest=/tmp/' - копировать конфиг с
+сервера на машину
+ansible all - запустить команду на всех машинах
+
+ansible all -m shell -a 'grep DISTRIB_RELEASE /etc/lsb-release' - может
+вывести номер версии дистра.
+
+-m setup - выводит статистику по железу
+
+ ansible all -m setup -a 'filter=ansible_memtotal_mb - посмотреть количество
+ памяти
+
+ ansible all -m setup -a 'filter=ansibansible all -m setup -a 'filter=ansible_distribution'le_distribution' - посмотреть ОС
+
+ ansible-playbok --limut 10.5.5.40 - обработать только указынный хост
+ 		 --remote-user=rise -выбрать пользователя
+		 --sudo
+		 --ask-pass
+
+___________________________
+Работа с паролями
+ansible-vault encrypt file - зашифровать
+	      edit
+	      view
+	      decrypt
+
+Для получения доступа можно использовать файл для расшифровки с ключем
+--vault-password-file либо через конфиг
+______________________________
+
+ansible docker -m ping --limit=17.17.0.4,17.17.0.3 - работаем только с
+указанными ip из группы докер
+
+neinfile: dest=/tmp/sshd_config regexp="^PermitRootLogin"
+line="PermitRootLogin no" - изменить значение в конфиге
+
+
+____________________________
+
+Простая работа с локал хостом
+простое подключение (требуется ssh, python)
+ansible all -i "182.28.22.0" -c ssh -u root -m shell -a "echo hello"
+ansible all -i "localhost," -c local -m shell -a 'echo hello world' 
+ansible all -i "localhost," -m ping - просто ping локального хоста
+
+ansible-playbook -i "localhost," -c local helloworld.yml
+создаем конфиг файл и запускаем
+
+---
+- hosts: all
+  tasks:
+    - shell: echo "hello world" >> ~/file.ansible
+
+__________________
+galaxy
+
+ansible-galaxy init project --force - создать проект 
+install -p - скачать в каталог
+
+
+readme.md - описание проекта
+meta/main.yml - зависимости и версии от других проектов
+task/main.yml - можно закинуть тесты
+var - указать переменные для проекта
+
+travis-ci - подключаем travis.yml и подрубаем репо в аккаунте
+отдельная ветка для тестов
+ansible-lint - тестирование плэйбуков
+ansible-container - тулза для оркестрации контейнеров
+
+kargo-cli - kubernetes
+_______________________
+
+для того чтобы быстро работать с хостами нужно /etc/ansible/hosts
+all:
+   hosts:
+      jumper:
+         ansible_host: 192.168.1.1
+	 ansible_user: root
+
+_________________________
+
+ansible-container
+(install open source)
+
+ansible-container init 
+    Creates a directory ansible with files to get you started. Read the comments, and edit to suit your needs.
+
+ansible-container install
+    Downloads Ansible-Container-ready roles from Ansible Galaxy, and installs them in your project.
+
+ansible-container build
+    Creates images from your Ansible playbooks.
+
+ansible-container run
+    Launches the containers specified in the orchestration document, container.yml, for testing the built images. The format of container.yml is nearly identical to Docker Compose.
+    ansible-container deploy
+    Pushes the project's container images to a registry of your choice, and generates a playbook capable of deploying the project on a supported cloud provider.
+
+__________________________
+ansible tower & ansible awx - веб морды которые позволяют мониторить деплой,
+настраивать эксес-листы и тп
+
+
+
+___________________________
+ansible.cfg parametrs
+
+ansible_connection (default smart) use paramiko python library
+ansible_shell_type - (/bin/sh default)
+ansible_*_interpreter /usr/bin/ruby
+
+

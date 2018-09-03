@@ -1,0 +1,18 @@
+Установкa yaourt
+
+git clone https://aur.archlinux.org/package-query.git
+cd package-query
+makepkg -si
+cd ..
+git clone https://aur.archlinux.org/yaourt.git
+cd yaourt
+makepkg -si
+
+__________________
+
+Обойти проверку подписи ключа
+
+yaoutr -G packate
+makepkg -c --skippgpcheck
+makepgk -i
+

@@ -1,0 +1,24 @@
+sudo update-alternatives --config editor - редактор по умолчанию
+apt-get install lamp_server^ - ставит сет php mysql apache
+_//_ build-essantial - gcc + make
+
+задать таймзону
+
+dpkg-reconfigure tzdata 
+Перед этим поставить пакет ntp
+___________
+Если ругается на пакет:
+apt-get install -f && dpkg --configure -a
+
+cd /var/lib/dpkg/info
+rm package.*
+apt-get -f install
+
+/var/cache/apt/archives - удалить пакеты отсюда
+___________________
+
+apt-add-repository - команда ставиться из
+
+software-properties-common
+
+

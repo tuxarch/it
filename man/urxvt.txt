@@ -1,0 +1,34 @@
+shift+pageUP{pageDown} - позволяет прокручивать терминал
+
+xrdb -merge ~/.Xresources - перечитать конфиг
+
+--------
+Работа с буфером:
+
+sudo pacman -S urxvt-perls
+
+Добавь в ~/.Xdefaults:
+
+URxvt.perl-ext-common: default,clipboard
+URxvt.keysym.M-c:   perl:clipboard:copy
+URxvt.keysym.M-v:   perl:clipboard:paste
+URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
+
+https://github.com/muennich/urxvt-perls
+
+Если ты используешь select то используй shift+insert для вставки, чтобы
+терминал не зависал
+
+Для запуска 
+-hold 
+-e (run)
+флаг font-styles - влияет на отображение 
+
+M-u start url-select
+
+#   j/k:      Select next downward/upward URL (also with arrow keys)
+#   g/G:      Select first/last URL (also with home/end key)
+#   o/Return: Open selected URL in browser, Return: deactivate afterwards
+#   y:        Copy (yank) selected URL and deactivate selection mode
+#   q/Escape: Deactivate URL selection mode
+

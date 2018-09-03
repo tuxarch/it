@@ -1,0 +1,2 @@
+apache2 mysql-server php php-mysql - ставим этот софт
+vim wget busybox unzip - дополнительный софт

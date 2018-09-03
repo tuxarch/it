@@ -1,0 +1,19 @@
+/etc/timezone
+
+переконфигурировать тайм-зону
+ 	emerge --config sys-libs/timezone-data
+
+изменить шрифт 
+	setfont cyr-sun16
+обновить локали
+	env-update && source /etc/profile
+	
+Переключить шрифт /etc/conf.d/consolefont
+	consolefont="default8x16" на consolefont="cyr-sun16"
+
+	/etc/conf.d/keymaps
+		keymaps= "u -ru"
+
+Перегрузить службы env env-update && source /etc/profile
+			
+	/etc/init.d/consolefont restart && /etc/init.d/keymaps restart

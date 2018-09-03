@@ -1,0 +1,18 @@
+Устнановка состоит из трех частей
+	sys-power/acpid - установка обработчика событий
+
+	Секция отрабатывающая закрытие крышки
+			lid)
+			if grep -q closed /proc/acpi/button/lid/LID0/state
+					then pm-suspend
+			fi
+			;;
+
+	app-laptop/laptop-mode-tools - пакет для обработки событий ноутбука
+	(подсветка, файфай и тп)
+	sys-power/upower-pm-utils - содержит pm-suspend программу для
+	гибернации
+
+Две службы должны быть добавлены в автозагрузку
+
+systemd-sleep

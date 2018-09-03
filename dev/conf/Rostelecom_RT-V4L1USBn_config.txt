@@ -1,0 +1,147 @@
+! $$$ Model: Rostelecom RT-V4L1USBn
+! $$$ Version: 2.0
+! $$$ Agent: http/ci
+! $$$ Last change: Tue,  5 Apr 2016 15:44:30 GMT
+! $$$ Md5 checksum: 5f38b8bac6e5bc564306a2db1609d6ec
+
+system
+    set net.ipv4.ip_forward 1
+    set net.ipv4.tcp_fin_timeout 30
+    set net.ipv4.tcp_keepalive_time 120
+    set net.ipv4.netfilter.ip_conntrack_tcp_timeout_established 1200
+    set net.ipv4.netfilter.ip_conntrack_udp_timeout 60
+    set net.ipv4.netfilter.ip_conntrack_max 4096
+    hostname netgear
+    clock date  5 Apr 2016 18:44:33
+    clock timezone Europe/Moscow
+    domainname WORKGROUP
+!
+ntp server 0.pool.ntp.org
+ntp server 1.pool.ntp.org
+ntp server 2.pool.ntp.org
+ntp server 3.pool.ntp.org
+isolate-private
+dyndns profile _WEBADMIN
+!
+interface Switch0
+    port LAN1
+        mode access
+        access vlan 1
+    !
+    port LAN2
+        mode access
+        access vlan 1
+    !
+    port LAN3
+        mode access
+        access vlan 1
+    !
+    port LAN4
+        mode access
+        access vlan 2
+    !
+    port WAN
+        mode access
+        access vlan 2
+        vdsl profile 8a
+        vdsl profile 8b
+        vdsl profile 8c
+        vdsl profile 8d
+        vdsl profile 12a
+        vdsl profile 12b
+        vdsl profile 17a
+        vdsl profile 30a
+        vdsl carrier auto
+    !
+    up
+!
+interface Switch0/VLAN1
+    description "Home VLAN"
+    security-level private
+    ip dhcp client dns-routes
+    ip dhcp client name-servers
+    up
+!
+interface Switch0/VLAN2
+    name ISP
+    description "Broadband connection"
+    mac address factory wan
+    security-level public
+    ip dhcp client dns-routes
+    ip dhcp client name-servers
+    igmp upstream
+    up
+!
+interface WifiMaster0
+    country-code RU
+    compatibility BGN
+    power 50
+    up
+!
+interface WifiMaster0/AccessPoint0
+    name AccessPoint
+    description "Wi-Fi access point"
+    mac access-list type none
+    security-level private
+    authentication wpa-psk ns3 C/WiVu7tJlHf+LVlzscTD1FG
+    encryption enable
+    encryption wpa2
+    ip dhcp client dns-routes
+    ip dhcp client name-servers
+    ssid fido
+    wmm
+    up
+!
+interface Bridge0
+    name Home
+    description "Home network"
+    inherit Switch0/VLAN1
+    include AccessPoint
+    security-level private
+    ip address 192.168.1.1 255.255.255.0
+    ip dhcp client dns-routes
+    ip dhcp client name-servers
+    igmp downstream
+    up
+!
+interface PPPoE0
+    no ipv6cp
+    lcp echo 30 3
+    ipcp default-route
+    ipcp name-servers
+    ipcp dns-routes
+    no ccp
+    security-level public
+    authentication identity 505550_R
+    authentication password ns3 1AlDou2vHRGn9pAaupsoReKw
+    ip mtu 1400
+    ip global 1000
+    ip tcp adjust-mss pmtu
+    connect via ISP
+    up
+!
+ip dhcp pool _WEBADMIN
+    range 192.168.1.33 192.168.1.52
+    bind Home
+    enable
+!
+ip nat Home
+ip static tcp Home 5900 192.168.1.42 22 !ip
+ip static tcp PPPoE0 22 192.168.1.42 22
+ip static tcp 192.168.1.1 255.255.255.255 22 192.168.1.42 22
+ppe
+upnp lan Home
+user admin
+    password md5 54eada80a7e36d8aa802376d553447ae
+    password nt d9e9e45b8155039cbaf854b4c860d01a
+    tag http
+    tag ftp
+!
+service dhcp
+service dns-proxy
+service igmp-proxy
+service http
+service telnet
+service ntp-client
+service upnp
+!

@@ -1,0 +1,11 @@
+ffmpeg  -s 1366x768 -f x11grab -i :0.0 -vcodec qtrle screencast.mov - запись 
+без звука с большим расходом памяти
+ffmpeg -f alsa -i hw:0  ou.wav - запись звука с микрофона
+	arecord -l - посмотерь устройства записи
+ffmpeg -f pulse -i default /tmp/pulse.wav
+
+
+ffmpeg -framerate 25 -video_size 1280x1024 -f x11grab -i :0.0 -f alsa -ac 2 -i
+hw:0,0 -vcodec libx264 -crf 0 -preset ultrafast -acodec pcm_s16le output.mkv
+
+запись видео со звуком микрофона

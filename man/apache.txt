@@ -1,0 +1,14 @@
+/etc/apache2/sites-available/example.com.conf - создаем виртуальный хост
+
+<VirtualHost *:80>
+        ServerAdmin admin@photo.com   
+	DocumentRoot /var/www/wordpress  
+	ServerName photo.com
+	ServerAlias www.photo.com
+	ErrorLog ${APACHE_LOG_DIR}/error.log 
+	CustomLog ${APACHE_LOG_DIR}/access.log combined   
+</VirtualHost>   
+
+
+Меняем права
+

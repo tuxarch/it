@@ -1,0 +1,83 @@
+﻿Управляющие команды
+mod-e - сплит моде
+mod-s - стаки (открытие вниз-внутрь)
+mod-w - табы (открытие в горизонталь)
+mod-a - выбор корня (общий изменить режим)
+
+	
+mod4+return - вызвать терминал 
+mod4 J,k,l,; - перемещение между окнами
+
+mod+v - режим деления окна по вертикали
+mod+h - режим деления по горозонтали
+split(mod+e)	stacking(mod+s)	tabbed(mod+w) позволяет переключать режимы распределения контейнеров.
+	
+mod+f - полноэкранный режим окна
+
+Control+W - закрыть приложение
+mod+Shift+q - закрыть окно
+
+mod+num - переключение между рабочими столами
+mod+Shift+num - перемещение окна между рабочими столами
+
+Mod + Shift + R - перезагрузить wm
+Mod + Shift + E - выйти из wm
+
+mod+Shift+Space - плавающий режим
+Mod + Shift + K(jl;) - перемещение окна
+
+
+__________________________________________________________
+
+dmenu (mod4+d) - позволяет вызывать приложения, но прежде нужно прописать их в параметры $PATH. Устанавливается как отдельное прложение.
+
+Exec [--no-стартап-ID] <команда>		Задать выполнение команд при старте i3
+exec_always [--no-стартап-ID] <команда>
+
+Можно распределить окна на нескольких экранах.
+
+i3lock - блокировка экрана
+__________________________________________________________________________
+Раскладка в Х11
+
+setxkbmap -layout "us,ru"
+setxkbmap -option "grp:caps_toggle,grp_led:scroll,compose:ralt"   
+
+Или прописать в Xorg.conf
+
+Section "InputClass"
+	Identifier             "keyboard-layout"
+	MatchIsKeyboard        "on"
+	Option "XkbLayout" "us,ru"
+	Option "XkbOptions" "grp:caps_toggle,grp_led:scroll"
+EndSectionSection "InputClass"
+	Identifier             "keyboard-layout"
+	MatchIsKeyboard        "on"
+	Option "XkbLayout" "us,ru"
+	Option "XkbOptions" "grp:caps_toggle,grp_led:scroll"
+EndSection
+_____________________________
+
+_____________________________Section "InputClass"
+	Identifier             "keyboard-layout"
+	MatchIsKeyboard        "on"
+	Option "XkbLayout" "us,ru"
+	Option "XkbOptions" "grp:caps_toggle,grp_led:scroll"
+EndSection
+_____________________________
+
+
+feh --bg-scale /path/to/image.file - установить обои
+"sh ~/.fehbg &" - прописать команду в ~/.xinitrc - прописать обои в автозагрузку
+
+___________________________________________________
+
+exec conky - прописать в автозагрузку
+(sleep 3; conky -q) & sh ~/.fehbg & - первые строчки
+
+
+Запуск в определенном воркспейсе
+assign [class=«skype»] имя_воркспэйса
+i3-save-tree --workspace 10
+
+

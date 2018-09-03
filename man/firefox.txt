@@ -1,0 +1,18 @@
+requesrequestpolicy continued tpolicy continued - позволяет контролировать перенаправление
+firebug - позволяет посмотреть время отклика веб-сервера
+vimfx - vim для firefox
+
+
+Отключить всплывающие уведомления
+
+about:config => dom.push.enabled, dom.webnotifications.enabled => false
+
+отключить местоположение
+geo.enabled
+
+webgl.disabled - отключить ускорение
+ctrl+shift+p - запуск приватного firefox
+
+Если влом ставить pulseaudio
+apulse firefox-bin
+Из исходников все должно работать без пульса

@@ -1,0 +1,62 @@
+Запуск powershell от админа!
+
+________________
+установка для onegate
+Get-PackageProvider -Name chocolatey
+Set-PackageSource -Name chocolatey -trusted
+Get-Command -Module PackageManagement 
+find-package -name paint 
+install-package -name paint.net 
+
+Но существует проблема с апгрейдом пакетов.
+____________________
+
+
+
+
+
+Set-ExecutionPolicy Unrestricted - выключаем политику для обработки скрптов
+
+-----
+установка:
+
+iex ((New-ObjectSystem.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+
+iwr https://chocolatey.org/install.ps1 -UseBasicParsing | iex
+
+@powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((New-ObjectSystem.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
+-----
+
+choco upgrade chocolatey -pre - обновление программы
+choco install notepadplusplus googlechrome -y 7zip - установка
+cup all - обновить все пакеты
+choco list -lo - установленные пакеты
+сhoco version packageName - версии пакета
+
+
+
+
+    -? справка
+    list - lists remote or local packages
+    search - searches remote or local packages (alias for list)
+    info - retrieves package information. Shorthand for choco search pkgname --exact --verbose
+    install - installs packages from various sources
+    pin - suppress upgrades for a package
+    outdated - retrieves packages that are outdated. Similar to upgrade all --noop
+    upgrade - upgrades packages from various sources
+    uninstall - uninstalls a package
+    pack - packages up a nuspec to a compiled nupkg
+    push - pushes a compiled nupkg
+    new - generates files necessary for a chocolatey package from a template
+    source - view and configure default sources
+    sources - view and configure default sources (alias for source)
+    config - Retrieve and configure config file settings
+    feature - view and configure choco features
+    features - view and configure choco features (alias for feature)
+    setapikey - retrieves or saves an apikey for a particular source (alias for apikey)
+    apikey - retrieves or saves an apikey for a particular source
+    unpackself - have chocolatey set it self up
+    version - [DEPRECATED] will be removed in v1 - use `choco outdated` or cup <pkg|all> -whatif instead
+    update - [DEPRECATED] RESERVED for future use (you are looking for upgrade, these are not the droids you are looking for)
+    download - downloads packages - optionally downloading and internalizing all remote resources (recompiling)
+

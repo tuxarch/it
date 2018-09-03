@@ -1,0 +1,12 @@
+правим .i2p/clients.config
+clientApp.0.args=7657 0.0.0.0 ./webapps/
+Чем даем доступ к веб-админке
+
+/home/i2p/.i2p/i2ptunnel.config
+
+tunnel.0.interface=0.0.0.0
+tunnel.0.listenPort=4444
+правим для получения прокси доступа
+
+i2prouter restart - запуск
+

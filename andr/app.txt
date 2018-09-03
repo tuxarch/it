@@ -1,0 +1,42 @@
+titanium backup
+запись звоноков call recorder
+greenify - работа с процессами
+link2sd - перенос данных на флешку
+tasker - действия по событиям
+macrodroid - действия по событиям
+drivedroid - сделать из телефона загрузч, флешку
+solid explorer - файловый менеджер
+root explorer - файловый менеджер
+adclear - блокировка рекламы
+autostarts - автозапуск приложении
+ice box - заморозить приложение
+adaway - лучшая блокировка рекламы
+f-droid - аналог гугл-плей
+gapps - установить службы гугл
+mxplayer - передовый плеер
+root call sms manager - блокировка звонков, смс
+call recorder - запись звонков
+total recal - программа для записи звоноков (root, неплохо)
+fbreader
+uc Browser - хороший браузер
+system tweaker - стоит обратить внимание на этот твикер на планшетике
+allsync - клиент для синхронизации по webdav (юзал ок, но работаю через
+проводник)
+kate mobile - клиент для vk
+k-9 mail - почтовый клиент с поддержкой pgp
+andrOpen Office - офис для андройда
+truecaller - показывает кому принадлежат номера телефонов
+
+### Video 
+Torrent stream controller - просмотр потокового видео (около 1400 каналов)
+
+bikecomputer pro - замена стравы
+yalp store - замена гугл маркет
+mooonreader+ - хорошая читалка
+solid explorer - замена проводнику
+davdroid - замена синхронизации
+gc hdr+  - замена камеры
+wakelock detector - контроль за батарей
+QuickPic gallery - галерея
+CPL (Customized Pixel Launcher) - лаунчер под замену
+

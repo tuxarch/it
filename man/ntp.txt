@@ -1,0 +1,64 @@
+Отставание на милисекунды при установке времени, работа с учетом задержек.
+123 UDP - порт
+
+
+NTPDATE_____клиент
+
+Простая синхронизация
+ntpdate -bs ntp.ubuntu.com
+
+Через Crontab
+0 * * * * /usr/sbin/ntpdate [серверы NTP]
+_____________
+
+NTP__сервер
+
+По умолчанию должен быть доступен для всех!!!!!!
+
+Запретить отдавать время всем клиентам
+restrict default ignore 
+
+
+Пишем в /etc/ntp.conf
+#Список серверов для синхронизации времени
+server 0.ru.pool.ntp.org iburst prefer #Этот сервер будет основным для
+синхронизации
+server 1.ru.pool.ntp.org iburst
+server 2.ru.pool.ntp.org iburst
+server 3.ru.pool.ntp.org iburst
+ 
+#Отключим мониторинг
+disable monitor
+  
+#Файл смещения
+driftfile /var/db/ntpd.drift
+#Файл логов NTP сервера
+logfile /var/log/ntpd.log
+   
+#Разрешим изменять время нашего сервера через локальный интерфейс
+restrict 127.0.0.1
+    
+#Разрешим изменение времени с выбранных нами серверов
+restrict 0.ru.pool.ntp.org noquery notrap
+restrict 1.ru.pool.ntp.org noquery notrap
+restrict 2.ru.pool.ntp.org noquery notrap
+restrict 3.ru.pool.ntp.org noquery notrap
+     
+#Наконец разрешим доступ к серверу времени только из нашей локальной сети
+restrict 192.168.0.0 mask 255.255.255.0 nomodify notrap nopeer
+      
+#Если необходимо, то откроем доступ отовсюду. (Это так же даст доступ к
+вашему NTP серверу из сети интернет, если сервер к нему подключен и к
+нему открыт доступ)
+#restrict 0.0.0.0 mask 0.0.0.0 nomodify notrap nopeer
+-------------------------
+
+ntpq -c peers - + указывает сервер с которым синхронизировались
+
+ntpdate -q localhost - позволяет синхронизировать время с сервером
+ntpdate server - простая синхронизация
+
+net time \\IP_АДРЕС_СЕРВЕРА_NTP /set /yes  - на винде синхронизация
+а также через гуи простой интерфейс настроек
+
+ntpclient -h 1.ru.pool.ntp.org -s - синхронизация времени

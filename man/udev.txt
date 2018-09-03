@@ -1,0 +1,8 @@
+﻿udevadm monitor --property --kernel --udev  выводит на экран события при подключении устройств
+
+
+Автомонтирование через правило /etc/udev/rules.d/10-automount.rules c созданием каталога:
+SUBSYSTEM=="block", KERNEL=="sd[c-z][0-9]", ACTION=="add", RUN+="/bin/mkdir -p /mnt/flash-%k"
+SUBSYSTEM=="block", KERNEL=="sd[c-z][0-9]", ACTION=="add", RUN+="/bin/mount -O uid=1000 /dev/%k /mnt/flash-%k"
+SUBSYSTEM=="block", KERNEL=="sd[c-z][0-9]", ACTION=="remove", RUN+="/bin/umount /mnt/flash-%k"
+SUBSYSTEM=="block", KERNEL=="sd[c-z][0-9]", ACTION=="remove", RUN+="/bin/rm -r /mnt/flash-%k"

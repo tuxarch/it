@@ -1,0 +1,147 @@
+#### Repeater или берем интернет из Wi-Fi сети кафе
+
+
+Алгоритм действий после установки прошивки такой (мой роутер изъясняется на
+английском поэтому и инструкция на нем).
+1\. Сделайте _30/30/30_
+2\. Подключите к роутеру кабель (можно без провода, для чего есть открытая
+беспроводная сеть под названием dd-wrt). Зайдите на него набрав в браузере
+192.168.1.1. Вас попросят сменить логин и пароль — сделайте это.
+Во вкладке _Wireless -> Basic Settings_:
+— Wireless mode: выставите режим «Repeater»
+— Wireless Network mode: установите такую же как на CafeAP. Хотя возможно и не
+обязательно я оставил смешанный режим (mixed) и все прекрасно работает
+— Wireless Network Name (SSID): SSID сети к которой мы подключаемся (в моем
+случае это «CafeAP»)
+Сохраните нажав _Save_.
+Добавьте виртуальный адаптер нажав кнопочку _Add_
+— Введите имя отличное от сети к которой подключаемся (в моем случае HomeAP)
+_Save_
+(Советуют применять изменения, нажатием Apply Settings, после заполнения
+каждой страницы, а не после того как вы заполнили все).
+3\. _Wireless -> Wireless Security:_
+_Physical Interface wl0:_
+Здесь вам надо будет ввести настройки защиты сети. Если вы подключаетесь к
+открытой сети кафе ничего менять не нужно. Если к зашифрованной сети, то вам
+нужно будет выбрать алгоритм шифрования, который она использует, и ввести
+пароль
+_Save_
+_Virtual Interface wl0.1: _
+А это ваша сеть (HomeAP). Я выбрал WPA2 Personal, tkip + aes и ввел пароль
+Примечание: В инструкции пишут, что если используется шифрование есть на обеих
+сети, и на обеих разное, то может не работать. Попробуйте в таком случае
+настройки шифрования сделать одинаковыми.
+_Save_
+4\. Вкладка _Setup -> Basic Setup: _
+_Network Setup: _
+Здесь нужно указать настройки подсети нашего роутера.
+Например: если подсеть точки доступа, к которой мы подключаемся (CafeAP),
+имеет вид 192.168.1.x, то адрес роутера должен быть 192.168.2.1 (я поставил
+192.168.77.1)
+_Save_
+5\. Вкладка _Security:_
+Снимите все галочки в секции «Block WAN Request» (исключая Filter Multicast),
+а затем выключите SPI firewall (Я параноик — я не выключал. Все вроде
+работает.)
+_Save_
+6\. Вкладка _Administration: _
+Измените то что посчитаете нужным. Я например сделал, чтобы страница
+статистики неавторизированным пользователям не показывалась (Enable info site
+меняем на disable)
+Нажимаем _Apply Settings_
+Затем _Reboot Router_
+
+Теперь если все указано правильно, то роутер обретет WAN IP (см. справа в
+углу; он должен быть отличным от 0.0.0.0), а вы — доступ в интернет.
+
+Если вам захочется подключиться к другой сети, то можно зайти в вкладку Status
+-> Wireless. В самом низу нужно найти кнопку Site Survey. Откроется окошко
+в котором можно увидеть список сетей. Кнопка Refresh – обновит список.
+Выбираете понравившуюся и нажимаете Join. Роутер скажет, что он успешно
+подключился к выбранной сети и перенесет нас на вкладку Wireless. Вам
+останется поменять настройки как вы это делали в пунктах 2-3, нажать Apply
+Settings и вы подключены к другой сети.
+
+
+#### Repeater Bridge или подключиться к сети друга
+
+
+Инструкция c Repeater подойдет, если мы подключаемся к недоверенным сетям. А
+если мы хотим подключиться, например, к сети друга (FriendAP), то нужно
+использовать режим Repeater Bridge
+
+При этом мы будем иметь полный доступ к ресурсам сети друга (включая
+принтеры), а он к ресурсам нашей.
+Для этого нам нужно выполнить следующие действий
+1\. Восстановите _Factory Defaults_ (Administration -> Factory Defaults) на
+вашем роутере
+2\. Сделайте роутеру _30-30-30_
+3\. _Подключитесь к роутеру_ по проводной или беспроводной сети и зайдите на
+него.
+Вкладка _Wireless -> Basic Settings tab _
+_Physical Interface Section_
+— Wireless Mode: Repeater Bridge
+— Wireless Network Mode: оставьте mixed или установите как у FriendAP-роутера
+— Wireless Network Name(SSID): такой же как сеть друга — FriendAP
+— Wireless SSID Broadcast: Enable
+— Network Configuration: Bridged
+_Save _
+_Virtual Interfaces Section_
+— Add
+— Wireless Network Name(SSID): SSID отличный от FriendAP (HomeAP)
+— Wireless SSID Broadcast: если выставите Disable то сеть будет скрытая
+— AP Isolation: Disable
+— Network Configuration: Bridged
+_Save _
+4\. Вкладка _Wireless -> Wireless Security tab_
+_Physical Interface Section _
+— Security Mode: Такой же как у FriendAP (говорят, что DD-WRT работает в
+подобном режиме, только если на FriendAP wep или WPA2AES)
+— WPA Algorithms: такой же как у FriendAP
+— WPA Shared Key: так же как и FriendAP
+— Key Renewal Interval (in seconds): оставьте как есть
+_Virtual Interfaces Section_
+— Security Mode: лучше всего WPA2
+— WPA Algorithms: я поставил tkip + aes
+— WPA Shared Key: выдумайте пароль
+— Key Renewal Interval (in seconds): оставьте как есть
+_Save _
+5\. Вкладка _Setup -> Basic Setup tab_
+— Connection Type: Disabled
+— Поменяйте галочку STP на Disabled (Если оставить Enabled это может создать
+проблемы с соединением)
+— IP Address: 192.168.1.2 (В случае если FriendAP-роутер имеет IP 192.168.1.1)
+— Mask: 255.255.255.0 (В случае если такая маска сети у FriendAP)
+— Gateway: 192.168.1.1 (В случае если FriendAP-роутер имеет IP 192.168.1.1)
+— DHCP Server: Disable
+— Local DNS: 192.168.1.1 (В случае если FriendAP-роутер имеет IP 192.168.1.1)
+— Assign WAN Port to Switch: Если хотите использовать WAN-порт как обычный LAN
+— ставьте галочку
+_Save _
+— Если применили изменения, зайдите снова на роутер по новому адресу
+[192.168.1.2](http://192.168.1.2)
+6\. _Setup -> Advanced Routing tab _
+— Operating mode поменяйте на «Router»
+_Save _
+7\. _Services _
+— Отключите сервис Dnsmasq
+_Save _
+8\. _Security -> Firewall tab_
+— Снимите везде галочки кроме Filter Multicast
+— Отключите SPI firewall
+_Примените изменения и перезагрузите роутер_ (Administration -> Reboot
+router)
+
+После этих действий вы должны иметь доступ к сети FriendAP так, как будто вы
+подключены к ней напрямую.
+
+
+#### Ссылки:
+
+
+[wl500g.info](http://wl500g.info/)
+[Перепрошивка_WL-500W_на_DD-WRT_в_картинках](http://www.dd-
+wrt.com/wiki/index.php/Перепрошивка_WL-500W_на_DD-WRT_в_картинках!_:\))
+[Repeater](http://www.dd-wrt.com/wiki/index.php/Repeater)
+[Repeater Bridge](http://www.dd-wrt.com/wiki/index.php/Repeater_Bridge)
+

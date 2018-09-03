@@ -1,0 +1,2 @@
+html2text https://link.ru/ utf8 --escape-all --ignore-images
+--ignore-links > file.txt - более-менее чистый текст

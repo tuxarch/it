@@ -1,0 +1,65 @@
+Заново конфигурировать ключи аутентификации можно:
+
+/usr/bin/ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key -N "" 
+
+Ключи хранятся в:
+	~/.ssh/config
+	/etc/ssh/ssh_config
+
+Генерируем ключ для беспарольного подключения:
+	ssh-keygen -t rsa 
+
+Копируем ключ на сервер:
+	 scp /home/nevernew/.ssh/id_rsa.pub orca@192.168.1.242:~/.ssh/authorized_keys
+	 ssh-copy-id user@host - копируем ключ на хост
+
+чтобы не вводить пароль:
+	sshpass -p "password" scp -r user@example.com:/some /home
+Также ключ можно проверить локально:
+
+	mv ~/.ssh/id_rsa.pub ~/.ssh/authorized_keys
+	ssh localhost
+
+______________________________________________________________
+Включить root доступ:
+
+PermitRootLogin yes
+___________________________________
+
+
+Задействовать поддержку графики
+
+	На клиенте необходимо включить в /etc/ssh/ssh_config
+		    ForwardAgent yes
+		    ForwardX11 yes
+		    ForwardX11trusted yes
+	На сервере /etc/ssh/sshd_config
+		
+		X11Forwarding yes
+			X11DisplayOffset 10
+			X11UseLocalhost yes
+
+Добавляем клиент в xhost +me (xhost +)
+_____________________________________________________
+
+sshfs 
+
+Смонтировать
+sshfs user@remotehost:/path/to/directory /local/path
+
+Размонтировать
+sudo umount -u /local/path
+
+или для более ранних версий
+
+fusermount -u /local/path
+____________________________________________________________________
+
+Включить сжатие трафика
+ /etc/ssh/ssh_config
+Compression yes
+CompressionLevel 9
+_______
+
+ssh -D 8080 user@server - пробрасываем порт
+Затем в браузере проиписываем порт

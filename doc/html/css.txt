@@ -1,0 +1,191 @@
+Приоритетность применения стилей
+
+
+значении атрибута style самые приоритетные,
+<li style='background-color: white;'>1</li>
+селектор с id,
+селектор с классом,
+селектор с именем тега.
+_____________
+
+.footer .menu a { ...  } - вложенность селекторов
+.first + li{a} - позволяет применять к следующему селектору только
+при наличии последовательности
+.places ul li > span - достучаться до тега, понятия дочерних тэгов
+input[checked] - выбор атрибутов
+p.class span - стучимся к спану через классифичированный абзац/a
+background: inherit - значение родительского класса
+
+div.to-rudolf - усиление приоритетности класса
+.class .podclass - более приоритетней
+   !important - позволяет переопределить даже style тэг
+   
+
+li:first-child - псевдокласс
+  :first-child
+  :last-child - последнему элементу присваивается значение
+  :nth-child(2n) - выбрать все четные элементы
+  :hover - выбрать пользовательский элемент
+
+tr:hover em {
+      display: inline;
+
+} - отобразить элемент при наведении на строку
+
+ 
+
+   :link выбирает ещё не посещённые ссылки.
+   :visited выбирает посещённые ссылки.
+   :active выбирает активные ссылки (кнопка мыши зажата на ссылке).
+   :focus - выбирать элемент в фокусе
+
+
+
+
+Между равными селекторами правила определяются расположением 
+в коде
+
+
+
+
+p {
+  /* комментарий */
+}
+
+text-decoration:underline; - подчеркнуть текст
+               underline — подчеркивание;
+               line-through — зачеркивание;
+	       overline — черта сверху;
+	       none — убирает вышеперечисленные эффекты.
+
+text-transform. позволяет поменять регистр
+   lowercase — все строчные;
+   uppercase — все прописные;
+   capitalize — каждое слово начинается с прописной;
+   none — отменяет изменение регистра.
+
+white-space, значения которого:
+    nowrap — отображает весь текст одной строкой без переносов;
+    pre — сохраняет пробелы и переносы как в исходном коде <pre>;
+    pre-wrap — pre, но добавляет автоматические переносы
+    normal — режим по умолчанию.
+
+text-align выравнивание текста
+    left — выравнивание по левому краю;
+    right — по правому краю;
+    center — по центру;
+    justify — по ширине.
+ 
+vertical-align -выравнивание
+    top — выравнивание по верхнему краю строки;
+    middle — по середине;
+    bottom — по нижнему краю;
+    baseline — по базовой линии (значение по умолчанию).
+    super - надстрочный шрифт
+    sub - подстрочный шрифт 
+line-height - межстрочный интервал
+
+
+background-image: url("адрес-картинки"); - вставить картинку-на фон
+
+background-repeat. повтор изображения. У свойства 4 значения:
+    repeat — повторять во всех направлениях. Это значение по умолчанию.
+    repeat-x — повторять только по горизонтали.
+    repeat-y — повторять только по вертикали.
+    no-repeat — не повторять.
+
+background-position управляет расположением фонового изображения
+
+background-attachment зафиксировать фон
+	    scroll — фон прокручивается вместе с содержимым.
+	    fixed — фон не прокручивается, зафиксирован на одном месте.
+
+background: [bc] [bi] [br] [bp] [ba]; - yниверсальная форма
+/* Обозначения:
+[bc] — background-color
+[bi] — background-image
+[br] — background-repeat
+[bp] — background-position
+[ba] — background-attachment
+*/
+
+
+font-weight:bold; - выделить текст жирным
+font-family: "PT Sans", "Arial", serif - задать шрифт
+font-style: italic; - задать курсив
+font-size: 12px - размер шрифта
+text-align: center; - выравнивание по центру
+cursor:pointer; - вид курсора при наведении
+
+margin задает внешние отступы элемента
+margin: 5px 10px 15px 20px;
+margin-left, margin-right, margin-top, margin-bottom
+
+
+padding - внутренние отступы
+padding: 5px 10px 15px 20px; - комбинируем
+padding-left, padding-right, padding-top, padding-bottom.
+
+min-height - минимальная высота
+width:30%  задаем ширину
+position: absolute; - позиционирование текста
+left:
+right: - позиционирование текста
+
+background: inherit - значение родительского класса
+
+<div></div>
+float: left
+float: right
+clear: both; - позволяет создавать сетку для форматирования
+
+
+background-color: #dff0d8; - цвет фона
+color: #468847; - цвет шрифта
+
+
+border: 30px solid #d6e9c6; - создает рамку
+
+border-width: 5px;
+border-style: solid;
+border-color: red;
+border-radius: 5px; - позволяет закруглить края
+ solid — сплошная;
+ dashed — пунктирная;
+ dotted — точками.
+
+border-collapse: collapse; - позволяет удалять утолщения в таблице
+
+
+box-shadow: 10px 3px 4px #cccccc; - позволяет задать тень для элемента
+
+
+outline: 10px solid rgba(0, 0, 0, 0.1); - позволяет задать границы текста
+
+
+для цетрования блока
+
+margin-left: auto;
+margin-right: auto;
+
+
+
+
+box-sizing - выравнивнивание блока из css3
+content-box — значение по умолчанию
+border-box — изменяет режим расчета ширины элемента на описанный выше
+
+
+display - сделать абзацы и заголовки строчными, а спаны и стронги блочными элементами.
+
+display:block обозначает блочный элемент, 
+display:inline — строчный.
+display:inline-block. - блочно-строчный элемент
+display:table задает элементу тип таблица
+
+<table> — display:table;
+<tr> — display:table-row; - строку
+<td> — display:table-cell; - поле
+display: none - позволяет скрыть элемент
+visibility:hidden «прячет» элемент — он становится невидимым, но занимает место на странице.
+

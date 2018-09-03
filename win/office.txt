@@ -1,0 +1,12 @@
+Необходимо узнать разрядность ОС и офиса
+
+Если используется Windows x64 и Office 32 бит (самый распространённый случай): CD %SystemDrive%\Program Files (x86)\Microsoft Office\Office16
+Windows x86 и Office 32 бит: CD %SystemDrive%\Program Files\Microsoft Office\Office16
+Windows x64 и Office 64 бит: CD %SystemDrive%\Program Files\Microsoft Office\Office16
+
+Следующей командой проверим статус активации Office:
+
+cscript ospp.vbs /dstatus
+
+Интересуют поля status, KMS machine registry, Remaining grace - время жизни
+лицензии

@@ -1,0 +1,37 @@
+ifconfig - должен отображать доступные сетевые адаптеры
+
+ip link set wlp4s0 up - поднять интерфейс
+
+iw dev wlp4s0 scan | grep -i ssid - сканировать сеть
+
+wpa_passphrase ваш_ssid ваш_пароль - генерируем ключ для подключения 
+/etc/wpa_supplicant/wpa_supplicant.conf - хранит ключи подключения сюда нужно
+отправить генключ.
+
+wpa_supplicant -B -D wext -i wlp4s0 -c /etc/wpa_supplicant/wpa_supplicant.conf
+- подключаемся
+
+dhcpcd wlp7s0 - поднять dhcp.
+
+
+iw dev wlp4s0 connect ваш_essid key 0:ваш_ключ - подключение к wep
+
+_________________________
+
+Могут возникнуть проблемы и придется ставить пакет с прошивками
+sys-kernel/linux-firmware
+Также устройство может отображатся только в iwconfig
+
+Для простой установки соединения можно использовать connman
+
+connmanctl
+enable wifi
+scan wifi
+services
+agent on
+connect wifi_6c626d18e23c
+и вводим пароль.
+После перезагрузки все цепанулось на автомате.
+____________________
+
+

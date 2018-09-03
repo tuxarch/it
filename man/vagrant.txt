@@ -1,0 +1,44 @@
+~/.vagrant - директория где хранятся образы
+
+создаем папку/все делатеся через папку
+vagrant init инициализируем образ
+
+vagrant box list - список установленных машин
+	box remove
+
+vagrant up 
+vagrant ssh
+
+vagrant global-status - посмотреть список запущенный машин
+
+vagrant halt 33 - выключить машину
+vagrant destroy - выключить и уничтожить
+-----image----
+ubuntu/trusty64 - ubuntu 3.13
+
+
+------vagrant-libvirt
+
+для работы с kvm ставим плагин 
+vagrant plugin install vagrant-libvirt
+
+export VAGRANT_DEFAULT_PROVIDER=libvirt
+
+
+Меняет пул
+.vagrant.d/Vagrantfile
+
+Vagrant.configure("2") do |config|
+  config.vm.provider :libvirt do |libvirt|
+    libvirt.storage_pool_name = "default"
+  end
+end
+
+Plugins
+
+vagrant-scp - ставим для того чтобы вытащить файлы
+
+
+Подключиться с помощью ssh
+ssh vagrant@127.0.0.1 -p 2222 -i /Users/lorin/dev/ansiblebook/ch01/
+playbooks/.vagrant/machines/default/virtualbox/private_key

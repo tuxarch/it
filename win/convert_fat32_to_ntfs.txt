@@ -1,0 +1,2 @@
+convert буква_диска: /fs:ntfs (win)
+

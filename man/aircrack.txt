@@ -1,0 +1,27 @@
+ip link show интерфейс - посмотреть мак-адреса
+ip link set dev _____ down/up
+ip link set dev интерфейс address XX:XX:XX:XX:XX:XX - сменить адрес
+_________________________________
+
+Останавливаем wpa_suplication (если есть привязка к одному каналу)
+/etc/init.d/net.wlp7s0
+
+затем поднимаем интерфейс 
+airmon-ng start wlp7s0
+
+airodump-ng - слушаем эфир
+
+Подключаем сбор дампа
+airodump-ng -c (channel) -w (file name) --bssid (мак адрес) mon0
+
+aireplay-ng -1 0 -a (bssid) -h 00:11:22:33:44:55 -e (essid) (wlp0)
+проходим аутентификацию и ждем второго association successful. Программа
+должна отработать.
+Не нужно выбирать mon интерфейс!!!!!
+
+billy - утилита под замену reavera
+
+
+
+
+

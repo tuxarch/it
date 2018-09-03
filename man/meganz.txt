@@ -1,0 +1,9 @@
+https://github.com/megous/megatools
+
+.megarc - файл с конфигом и паролями
+
+--reload - ключ для перезагрузки кэша
+
+megarm /Trash - удалить файлы из корзины
+
+Используем man megatools

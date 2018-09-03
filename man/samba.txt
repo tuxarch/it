@@ -1,0 +1,90 @@
+smbclient //10.5.6.141/data -U user - удалось так подключиться к папке
+smbclient //10.5.6.141/data без логина и пароля
+_________________
+Расшарить общий доступ:
+
+Можно использовать учетку гостя с пустым паролем
+Или ввести несуществующую учетку для вин 10 прокатило
+
+
+Зайти в центро управления сетями и общим доступом и отключить парольную защиту.
+А также дать доступ всем на чтение и записи и тп.
+
+Смотреть в реестре, а также что-то есть в свойствах проводника:
+Перейдите HKEY_CURRENT_USER → Software → Microsoft → Windows → CurrentVersion
+→ Policies → Explorer.
+Откройте пункт «NoFolderOptions». В поле «Значение» должна стоять 1. Если
+указано значение 0, измените его, или удалите параметр.
+
+Перейдите HKEY_CURRENT_USER\Software\Policies\Microsoft\Internet
+Explorer\Restrictions.
+Откройте пункт «NoBrowserOptions».
+Повторите те же действия, что и со значением «NoFolderOptions».
+
+
+    «NoFolderOptions» в ветке HKEY_LOCAL_MACHINE → SOFTWARE → Microsoft →
+    Windows → CurrentVersion → Policies → Explorer;
+        «NoBrowserOptions» в ветке HKEY_LOCAL_MACHINE → SOFTWARE → Policies →
+	Microsoft → Internet Explorer → Restrictions.
+
+
+________________________________
+
+/etc/samba/smb.conf - основной конфиг
+
+
+smbstatus - смотрим статус пользователей
+smbpasswd -a user - создаем учетку
+smbpasswd -e user - включаем учетку
+
+__________________
+Простой конфиг принтера и шары
+
+[public]
+#публичный репо
+comment = Public Stuff
+path = /mnt
+browseable = yes
+writable = yes
+guest ok = yes
+________
+[printers]
+   comment = All Printers
+   browseable = no
+   path = /var/spool/samba
+   printable = yes
+   guest ok = no
+   read only = yes
+   create mask = 0700
+
+[print$]
+   comment = Printer Drivers
+   path = /var/lib/samba/printers
+   browseable = yes
+   read only = yes
+   guest ok = no
+___________________
+# может решить проблему с кодировками
+
+unix charset = utf8
+dos charset = cp1251
+display charset = cp1251
+
+__________________
+
+#доступ в пользовательские папки /sbin/nologin
+[home]
+comment = Home Directories
+path = /home/%u
+browseable = yes
+writable = yes
+______________________
+#приватный репо
+[private] 
+comment = Private Directory
+path = /mnt/folder
+browseable = yes
+writable = yes
+valid users = user
+
+

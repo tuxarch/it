@@ -1,0 +1,9 @@
+youtube-dl --write-srt --sub-lang en 'http://www.youtube.com/watch?v=RHy9_RQbrnQ'
+
+--write-auto-sub                 Write automatically generated subtitle file
+--list-subs                      List all available subtitles for the video
+--sub-format FORMAT              Subtitle format, accepts formats
+
+ youtube-dl -cit -a file_name - скачать ссылки в файле
+
+ 

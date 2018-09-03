@@ -1,0 +1,72 @@
+﻿ebuild - файл необходимый для сборки
+
+По умолчанию файлы ebuild находятся в /usr/portage.
+
+emerge --sync - обновляет дерево Portage
+emerge-webrsync - также обновляет Portage
+
+emerge --search - поиск пакетов
+emerge --searchdesc - поиск по тексту описания
+
+	--pretend - позволяет увидеть какие зависимости будут еще 
+		установленны
+	--fetchonly - загрузка пакета без установки
+emerge -vp alsa-lib - позволяет посмотреть если флаг документа (doc)
+
+
+/etc/portage/package.use - файл позволяющий настроить каждый пакета
+
+equery files alsa-lib | less - выводит все установленные файлы
+equery list '*' - список всех установленных пакетов
+
+emerge --unmerge - позволяет удалить пакет, но зависимые пакеты необходимые пакеты не трогает.
+
+emerge --update @world - позволяет обновить систему.
+emerge --update --deep @world - обновляет вместе с зависимостями
+emerge --update --deep --with-bdeps=y @world - обновление с зависимостями и программами компиляции.
+emerge --update --deep --with-bdeps=y --newuse @world - также подтягивает и дополнительные пакеты.
+
+После полного обновления хорошо бы сделать очистку метаданных 
+emerge --depclean
+revdep-rebuild
+
+
+	--ask - спрашивать потверждение
+	--deep 
+
+
+
+Portage позволяет устанавливает разные версии одного пакет вместе,
+для этого он использует слота.
+
+
+
+
+
+emerge --info - показывает используемы параметры USE
+/usr/portage/profiles/use.desc посмотреть возможные USE флаги
+
+Просмотреть все возможные значения ключей можно:
+	
+	/usr/portage/profiles/use.desc
+
+
+
+etc-update - исправить и обновить конфиг файлы
+
+____________________________
+
+gentoolkit утилитка для управления пакетами
+	eclean packages
+	eclean distfiles
+	eclean-dist -d - оставляет последню версию пакета
+	redpep-rebuild -p
+equery d package - покажет какие пакеты зависят от этого пакета
+
+	
+qlist -IUv - список всех установленных пакетов
+
+_____________________________
+
+gentoo binary packages 
+http://packages.gentooexperimental.org/packages/amd64-stable/

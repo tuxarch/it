@@ -1,0 +1,32 @@
+ifdown ifup eth0  - быстрая работа с интерфейсами(ubuntu)
+
+route add default gw 10.5.5.2 - шлюз по умолчанию
+route add -net 192.168.0.0/16 gw 10.0.0.1 - прописать маршрут
+route add -net 172.17.0.0/16 gw 10.100.0.5
+
+routes_wlp7s0="17.17.0.0/24 via 10.5.5.2" - добавить маршрутизацию по
+умолчанию.
+
+Боундинг - объединение интерфейсов slaves_bond0="eth0 eth1 eth2" - /etc/conf.d/net
+позволяет объединить физические интерфейсы в один
+
+/etc/services - файл с портами программ
+_______________
+ubuntu настройка 
+/etc/network/interfaces
+
+iface eth0 inet static 
+address 192.168.0.1 
+netmask 255.255.255.0 
+gateway 192.168.0.254
+dns-nameservers 192.168.0.254 8.8.8.8
+auto eth0 
+
+dhclient ent0 - запуск dhcp
+ifup/ifdown ent0 - поднять и опустить адаптер
+__________________-
+
+centos
+ip route add  17.17.0.0/24 via 10.5.5.2 - добавить маршрут
+
+netstat -l - просмотр открытых портов

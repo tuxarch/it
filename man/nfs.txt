@@ -1,0 +1,15 @@
+идем в ядро и правим network fs
+клиент-сервер ключаем соотвественно и версию
+
+nfs-utils
+
+/etc/exports - правим
+/export  192.168.0.0/24(rw,sync,no_subtree_check,crossmnt,fsid=0)
+
+exportfs -rv - перичитать конфиг
+
+
+Запускаем службы nfs nfsclient
+
+mount 192.168.0.1:/home /home  - монтируем
+

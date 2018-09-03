@@ -1,0 +1,13 @@
+Подсветка при загрузке
+/etc/udev/rules.d/81-backlight.rulse
+SUBSYSTEM=="backlight", ACTION=="add", KERNEL=="acpi_video0", ATTR{brightness}="6"
+udevadm control --reload-rules
+
+Отключить systemd
+systemctl mask systemd-backlight*
+Поменять режим подсветки
+xbacklight -set 80
+/sys/class/backlight/acpi_video0/brightness <<< 7 
+
+max_bringtness - содержит max значение
+

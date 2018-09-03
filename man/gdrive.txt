@@ -1,0 +1,10 @@
+https://github.com/prasmussen/gdrive
+
+about - подключить диск
+list 
+download file.txt {id}
+mkdir
+upload - загрузить
+delete
+просмотр содержимого папки
+gdrive list --query "'0BzxOSE_SU9zSbVh4YmllcUJMeGM' in parents" 

@@ -1,0 +1,4 @@
+Добавить пользователя 
+net user "user" "password" /add
+Добавить в группу
+net localgroup Администраторы имя_пользователя /add

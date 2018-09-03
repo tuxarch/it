@@ -1,0 +1,3 @@
+libreoffice --view file.doc - режим чтения документа
+ctrl+shift+j - полный экран
+

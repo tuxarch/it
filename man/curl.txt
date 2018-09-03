@@ -1,0 +1,10 @@
+curl ifconfig.co - внешний ip
+curl -4 wttr.in/Moscow - прогноз погоды 
+
+--upload-file file.txt https://transfer.sh/file.txt - загрузить на сервер
+curl -O https://transfer.sh/Rf5pG/fadsf.dat - скачать файл
+
+cheat.sh
+curl cheat.sh/vagrant
+curl cht.sh/go/http
+

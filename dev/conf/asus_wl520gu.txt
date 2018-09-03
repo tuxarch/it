@@ -1,0 +1,37 @@
+Прошивка для asus wl-520gu
+
+прошивка с поддержкой usb-модема
+WL500gpv2-1.9.2.7-rtn-r4001M
+
+Для заливки жмем черный ресет выключаем, затем включаем и ждем когда индикатор
+замегает.
+tftp -i -v 192.169.1.1. put friware.trx
+ip-адрес будет последним в прошивке, чтобы достучаться до него делаем статику.
+_____________________________
+
+Изменение конфигурации wl5000gvp прошивки и включение cron:
+
+
+итак заходим в телнет
+
+вводим команды
+
+mkdir -p /var/spool/cron/crontabs
+
+crontab -e
+# редактируем файл /var/spool/cron/crontabs/admin  к примеру добавим 00 1 * * * reboot
+
+echo "/var/spool/cron/crontabs/admin" >> /usr/local/.files
+
+mkdir -p /usr/local/sbin
+
+echo "#!/bin/sh" > /usr/local/sbin/post-boot
+echo "/usr/sbin/crond" >> /usr/local/sbin/post-boot
+
+chmod +x /usr/local/sbin/post-boot
+
+flashfs save
+flashfs commit
+reboot;
+
+Вот и все теперь можно выполнять задания cron  =-))) 

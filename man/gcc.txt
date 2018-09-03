@@ -1,0 +1,10 @@
+gcc-config -l - список компиляторов
+gcc-config 2 - выбираем версию
+
+env-update && source /etc/profile - обновляем окружение
+
+emerge --ask --oneshot sys-devel/libtool
+revdep-rebuild --library 'libstdc++\.so\.5'
+
+emerge --ask --depclean =sys-devel/gcc-4.4.5 - удаляем пакет
+

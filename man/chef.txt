@@ -1,0 +1,166 @@
+Система состоит из ноды (где исполняются рецепты)
+		сервера (который хранит конфигурацию и куда обращаются)
+		рабочей станции (где пишутся конфиги)
+___________________________________________
+Сервер 
+ставится с помощью пакета с оффсайта
+/etc/hosts server.com
+chef-server-ctl reconfigure - пересобираем chef
+chef-server-ctl test 
+
+
+--------------------
+docker --   base/chef-server запускаем скрипт /usr/local/bin/run.sh
+Для докера нужно добавить
+--privileged - флаг
+set -x
+sysctl -w kernel.shmmax=17179869184 # for postgres
+/opt/chef-server/embedded/bin/runsvdir-start &
+tail -F /opt/chef-server/embedded/service/*/log/current
+
+Чтобы не возникало проблем с памятью
+--------------------
+Идем на 443 порт и генерируем сертификаты
+пароль по-умолчанию в углу страницы:
+
+	admin.pem - при инициализации или создания юзера
+	chef-validator.pem - во вкладке clients
+
+_____________________________________
+Рабочая станция:
+ставим chef
+
+knife configure -i
+
+пример knife.rb:
+---------
+log_level                :info
+log_location             STDOUT
+node_name                'user1'
+client_key               '/root/.chef/user1.pem'
+validation_client_name   'chef-validator'
+validation_key           '/root/.chef/chef-validator.pem'
+chef_server_url          'https://b4eec4f5fad6:443'
+syntax_check_cache_path  '/root/.chef/syntax_check_cache'
+cookbook_path            ['/root/chef-repo/cookbooks']
+---------
+knife client list
+knife user list - проверяем установку
+
+
+Писать видимо нужно руками и вконце нужно ввести пароль из 6 символов.
+Ошибок быть не должно
+
+Не мешало бы и заменить сертификаты nginx
+ 	/var/opt/opscode/nginx/ca/SERVER_HOSTNAME.crt
+Или добавить его на раб.машину
+	/root/.chef/trusted_certs
+
+
+knife node edit test.example.ru - правим кофигурацию хоста
+________________________________
+Нода
+ставим chef
+chef-client -v
+
+правим /etc/chef/client.rb
+log_level          :info
+log_location       STDOUT
+chef_server_url "https://b4eec4f5fad6/"
+
+Копируем сертификат в /etc/chef/chef-validator.pem 
+
+Инициализируем машину на сервере
+chef-client -S https://b4eec4f5fad6 -K /etc/chef/chef-validator.pem 
+
+knife bootstrap node.com - позволяет автоматизировать добавления ноды
+выполняется с рабочей машины. Проверить пароль, ssh, hosts-имя
+Для установки достаточно:задать пароль ssh
+			прописать параметры в /etc/hosts
+knife bootstrap test.example.ru --sudo -x admin -P Password
+
+_________________________________
+Chef-solo
+Служит для работы на локальных хостах
+_____________
+
+
+Кукбук cookbook
+
+knife cookbook create test-cookbook - создать кукбук
+/chef-repo/cookbooks/test-cookbook/recipes/default.rb - файл с конфигом
+Заходим /chef-repo
+knife upload cookbooks - загружаем на сервер кукбук
+knife upload cookbooks test-cookbook загружаем рецепт
+knife node list - смотрим список нод
+knife node run_list add chef-node1.com test-cookbook - применяем кукбук к ноду
+knife cookbook upload -a - добавить все рецепты на сервер
+
+knife ssh name:chef-node1.com "chef-client" -P sad1 -x root - запуск с
+раб.станции
+
+Для приминение запускаем chef-client (НА НОДЕ!!!)
+
+knife <element> show,delete,edit & etc..
+knife ssh - позволяет работать с группой хостов
+knife role/environment - создание ролей и сред
+
+knife cookbook site install getting-started - скачать рецепты с сайта
+
+------
+Простая установка
+
+%w{mc nano git}.each do |packages|
+        package packages do
+	        action  :install
+		        end
+			end
+-----
+
+Для редактирования файла удобно добавить line
+
+knife cookbook site install line
+Подключить пакет в 
+default.rb -- include_recipe 'line'
+metadata.rb -- depends "line"
+
+
+delete_lines "remove hash-comments from /some/file" do
+  path "/etc/ssh/sshd_config"
+  pattern "^#.*"
+end
+
+replace_or_add "spread the love" do
+    path "/etc/ssh/ssh_config"
+    pattern "HashKnownHosts yes"
+    line "HashKnownHosts no"
+end
+
+------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

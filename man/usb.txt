@@ -1,0 +1,5 @@
+команды для востановления секторов
+
+
+sudo dd if=/dev/zero of=/dev/sda
+ddrescue /dev/zero /dev/sda -f -D

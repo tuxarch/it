@@ -1,0 +1,8 @@
+unrar e archive.rar file.exe - извлечь один файл из архива
+tar czvf file.tar.gz file1 flie2 - создать gzip тарбол архив
+
+tar cfJ <archive.tar.xz> <files> - xz archive
+
+## zip
+zip -r zipfile.zip directory
+

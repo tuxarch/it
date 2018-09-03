@@ -1,0 +1,5 @@
+Cуществует два файла настроек
+	/etc/conf.d/dhcp
+	/etc/dhcp/dhcp.conf
+
+

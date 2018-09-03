@@ -1,0 +1,9 @@
+rsync-e ssh -avz --delete-after --force rsync@unixbox:/etc /var/backup/ -
+позволяет скопировать содержимое на сервер
+--remove-source-files - удалить файлы после бекапа.
+
+____
+mybackup	
+gpg --output backup.tar.xz -d backup-20180321-orca@archlinux.tar.xz.asc && \
+tar xvf backup.tar.xz
+

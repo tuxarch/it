@@ -1,0 +1,27 @@
+Раскладка в Х11
+
+setxkbmap -layout "us,ru"
+setxkbmap -option "grp:caps_toggle,grp_led:scroll,compose:ralt"   
+
+Или прописать в Xorg.conf
+
+Section "InputClass"
+	Identifier             "keyboard-layout"
+	MatchIsKeyboard        "on"
+	Option "XkbLayout" "us,ru"
+	Option "XkbOptions" "grp:alt_shift_toggle,grp_led:scroll"
+EndSection
+
+
+___________
+xset - позволяет управлять конфигом иксов
+
+xset -dpms # отключить dpms
+xset +dpms # включить dpms
+xset s off # отключает автоматическое выключение экрана 
+xset s 300 # включает выключение экрана через 5 минут 
+xset dpms 100 200 300 # устанавливает время режима ожидания, спящего режима и отключения монитора (0 - значит отключено)
+xset dpms force standby # немедленно устанавливает экран или экраны в режим ожидания
+xset dpms force suspend # в режим сна
+xset dpms force off # выключает экран
+xset -q # посмотреть параметры

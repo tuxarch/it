@@ -1,0 +1,21 @@
+Протокол web-камеры на порту 553
+
+Для камер RVi:
+rtsp://admin:admin@192.168.1.108:554/cam/realmonitor?channel=1&subtype=0  -
+первый поток
+rtsp://admin:admin@192.168.1.108:554/cam/realmonitor?channel=1&subtype=1  -
+второй поток
+Для камер Hikvision: 	rtsp://admin:12345@192.0.0.64:554/
+rtsp://admin:12345@192.0.0.64:554/h264/ch01/main/av_stream - основной поток
+rtsp://admin:12345@192.0.0.64:554/h264/ch01/sub/av_stream - второй поток
+rtsp://admin:12345@192.0.0.64:1024/mjpeg/ch1/sub/av_stream
+rtsp://admin:12345@192.0.0.64:1024/Streaming/Channels/102
+Для камер Beward: 	rtsp://admin:admin@192.168.0.120:554/live/h264
+Для камер TVT: 	rtsp://admin:123456@IPADDRESS:554/profile1
+Для камер Dahua: 	rtsp://admin:admin@
+IPADDRESS:554/cam/realmonitor?channel=1&subtype=1
+Для камер Novus: 	rtsp://admin:admin@IPADDRESS:PORT /h264
+rtsp://admin:admin@ IPADDRESS:554/cam/realmonitor?channel=1&subtype=1
+Для камер Microdigital: 	rtsp://root:root@ IPADDRESS:554/cam0_0
+Для камер Partizan:
+rtsp://IPADDRESS:554/user=admin&password=&channel=1&stream=0.sdp

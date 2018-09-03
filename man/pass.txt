@@ -1,0 +1,25 @@
+Сначала нужно создать и поставить gpg ключ
+
+init {id-key} - создать хранилище для пользователя
+insert google/username - создаем учетку и задае пароль
+generate -n -c google/username 16 - создаем учетку и генерим пароль и копируем
+ls google - просмотр
+-c username - скопировать пароль в буфер
+-n упрощенный пароль
+rm - удалить
+rm -rf - удаление с рекурсией и форсом
+edit - редактирование
+
+git 
+
+cd /$USER/.password-store - переходим в каталог
+pass git init - инициализируем
+pass git remote add origin git-repo-address.com:repo-name - подключаем сервер
+pass git push -u --all - пушим все на сервер
+pass git push 
+pass git pull
+
+
+gpg --edit-key <key> 
+trust - делаем ключ доверенным
+

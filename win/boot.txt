@@ -1,0 +1,4 @@
+diskpart - входим в консоль дискутил
+list volume - список 
+
+bcdboot c:\windows  - прописываем загрузчик

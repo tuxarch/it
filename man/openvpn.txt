@@ -1,0 +1,16 @@
+После всей этой канифоли с ключами и параметрами нужно знать:
+
+	- Для пинга между клиентами нужно добавать в конфиг
+		client to client
+	- включить форвардинг 
+		 echo 1 > /proc/sys/net/ipv4/ip_forward
+		 отредактировать /etc/systctl.conf
+	- включить nat
+		iptables -A FORWARD -s 10.100.0.0/24 -j ACCEPT
+		sudo iptables -A FORWARD -m state --state RELATED,ESTABLISHED
+		-j ACCEPT
+		sudo iptables -t nat -A POSTROUTING -s 10.100.0.0/24 -o enp3s0
+		-j MASQUERADE
+	Сохранить настройки /etc/init.d/iptables save
+	/var/lib/iptables/rules-save - файл с конфигом
+

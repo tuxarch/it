@@ -1,0 +1,115 @@
+$PSVersionTable - узнать версию
+get-alias - получить список алис
+
+Get-Help - получить справку по чему-то
+get-command -noun *ipadres* - поиск команды по имени
+	    -verb - тип действия
+	    -module - поиск по модулям
+
+Set-Alias - Создать новый алиас
+Update-help - обновить справку
+______________________
+Управление
+rename-computer - переименовать
+restart-computer - перезагрузка
+(wait,delay,timeout- для удаленного хоста)
+shutdown /h /t 1000 - выключение
+	 /a - отмена
+			
+stop-computer - выключить/суспенд
+
+
+____________________
+Удаленное подключение
+
+Enable-PSRemoting - запускаем сервер и открываем 5985 порт
+Можно настроить групповые политики для этого
+
+whoami - имя пользователя и хоста для подключения
+
+Enter-PSSession -ComputerName ip-adress -Credential domain\admin - подключение
+к машине
+
+Set-Item WSMan:\localhost\Client\TrustedHosts * - разрешаем своей машине
+ходить на все сервера
+
+Также можно использовать wmi и Invoke-Command
+
+New-PSSession -ComputerName remotehost33 -Credential domain\admin - 
+cоздаем сессию из нескольких пк и управляем ими через Invoke-command
+______________________
+Работа с файлами и каталогами:
+
+new-item file.txt - cоздать пустой файл
+Set-content file.txt -value "My data" - переписать содержимое
+Get-content - получить содержимое
+md mkdir - создать каталог
+dir/ls - просмотр содержимого каталога
+rd - удалить каталог или файл
+rename-item file.txt -newname filenew.txt - переименовать фаил и папку
+move copy - перемещение 
+______________________________-
+Инфо:
+
+get-psdrive - информация о дисках
+get-computerinfo - инфо по По и железу
+$env:computername - имя пк
+
+______________________________
+Процессы:
+
+cmd /c ″C:\Program Files\Hello.exe″ - запуск через cmd - который также не
+работает.
+
+ps / get-process - cписок процессов
+stop-process    -name notepad - завершить процесс
+		-id - по номеру
+start-process запустить как процесс
+
+______________________________
+WMI 
+
+Get-wmiobject -search - дает список модулей
+Get-wmiobject -class win32_processor - инфо по процессору
+		-computername - для подключения других машин
+Get-WmiObject -class win32_operatingsystem -property caption
+- посмотреть версию машины
+______________________________
+Сеть
+
+Resolve-dnsName -server 8.8.8.8 -name vk.com - аналог dig
+get-netadapter - вывести список адаптеров
+ipconfig /all
+
+enable-netadapter - включить адаптер
+disable-netadapter -name eth*  выключить
+
+get-netipadress - посмотреть сетевые настройки
+		-interfacesalias eth* - конктретный интерфейс
+remove-netipadress -intrerfaseindex vi* - удалить настройки
+new-netipadress -interfaceindex 13 -adressfamyly IPv4 -ipadress 10.10.10.2
+-prefixleng 24 -DefaultGateway 172.20.0.1 - задать настройки
+
+Set-DnsClientServerAddress -ServerAddresses 172.20.0.8,172.20.0.9
+-interfacealias eth* - прописать днс
+
+Set-NetIPInterface -Dhcp Enabled -interfacealias eth* - поставить dhcp
+
+get-netroute - таблица маршрутизации
+
+test-connection - ping
+
+New-NetRoute –DestinationPrefix "10.0.0.0/24" –InterfaceIndex 12 –NextHop
+192.168.0.1 - задать маршрут
+
+remove-netroute -destinationPrefix 10.0.9.9/24 - удалить маршрут
+
+__________________________________
+Фильтры и фишки:
+
+sort-object - позволяет сортировать вывод (grep)
+start-transcript - позволяет сохронять введенные команды в файл
+powershell_ise - среда для разработки
+
+(curl, wget) Invoke-WebRequest -OutFile file.exe http://superuser.com/file.exe
+

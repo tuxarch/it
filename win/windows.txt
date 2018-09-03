@@ -1,0 +1,49 @@
+реестр образуют файлы
+sam
+default
+security
+software 
+system
+/windows/system32/config
+
+Резервное копирование (это копирование реестра)
+C:/system volume information/
+
+\windows\repair в старых винд лежат файлы реестра
+_____________________________
+
+fixmbr - позволяет восстановить загрузочную запись
+
+
+error loading operation system (LPI)
+
+fixboot 
+bootrec /fixboot
+
+
+NTLDR ctrl+alt+del ошибка
+NTLDR, NTDETECT, BOOT.INI
+
+map - аналогична lsblk
+copy e:\i386\ntldr c:\
+
+
+сбой ntdetect постоянная перезагрузка оС
+копируем его с установочного диска
+
+ntoskrnl.exe - ядро
+проверить путь в boot,ini bcd (bcdedit)
+partation - указать цифру раздела
+bootcfg /add - изменить boot.ini
+___________________________
+
+автозапуск приложений из
+taskschd.msc - планировщик заданий
+
+Реестр:
+HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run
+б) Для всех пользователей открываем ветку:
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+
+При этом не забываем отключить контроль запуска приложений
+______________________________

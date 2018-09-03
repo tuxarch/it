@@ -1,0 +1,20 @@
+gem install t - ставим
+t authorize - авторизуемся
+t accounts - смотрим подключенные аккануты
+t set active sferik UDfNTpOz5ZDG4a6w7dIWj - переключаем аккаунты
+
+t whois @sferik - инфо пользователя
+t follow @sferik @gem - следовать за юзером
+t search all "query" - поиск по слову
+t stream timeline - cмотреть поток
+t leaders -l  - просмотреть читаемое
+t timeline cnn - читать последние 20 твитов
+
+
++++++++
+токины:
+8891811
+D6xgX5lWIpUHM4cf9dyDcK6Eh
+0Dv2BZUcNzEGghkVssP8N16xn2xk6nYvUnWkWWPnJLsiLh9K4B
+https://dev.twitter.com/oauth/tools/signature-generator/12862650
+++++++

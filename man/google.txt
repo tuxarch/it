@@ -1,0 +1,10 @@
+-- не включать результат
+site - поиск на определенном сайте
+cache - загрузить сайт из хеша гугла
+define - искать сразу определение
+filetype - задать формат файла для поиска
+
+ext:pwd (administrators | users | lamers | service)
+inurl:"[FFFTP]" ext:ini - поиск в файле
+inurl:"img/main.cgi?next_file"
+

@@ -1,0 +1,2 @@
+cc file.c - компиляция
+gcc file.c -o hello - линковка

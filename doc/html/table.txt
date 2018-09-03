@@ -1,0 +1,25 @@
+<table></table> - создать таблицу
+<tr></tr> - создание строки
+<th></th> - задать шапку
+<td></td> - cоздание ячейки
+<caption></caption> - задать заголовок
+<td rowspan='3' colspan='3'></td> - объединяем столбцы и строки
+
+
+---css
+ border-collapse: collapse; - уберает границы ячеек в таблице
+ border-bottom: 2px solid black; - задаем нижнюю границу
+ caption-side: bottom; - переносим заголовок в низ
+ 
+ text-align (left, center и right) - выравнивание текста по горизонтали
+ vertical-align (top, middle и bottom) - выравнивание по вертикали
+
+
+
+ background-color — задаёт цвет фона ячейки
+ color — цвет текста
+ border-color — цвет рамок
+
+ width: 100px; - размеры таблицы
+ height: 100px;
+

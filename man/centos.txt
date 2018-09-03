@@ -1,0 +1,16 @@
+http://vault.centos.org/7.2.1511/os/Source/SPackages/
+отсюда можно скачать билды для сборки пакетов
+
+Подключить rpmforge резозиторий для всякой херни
+rpm -Uhv /p/a/c/k/
+
+Подключить epel 
+yum -y install epel-release
+yum repolist
+
+alternatives --config mta
+
+__________
+yumdownloader - позволяет просто загрузить пакет
+rpm2cpio - позволяет создать архив из пакета
+

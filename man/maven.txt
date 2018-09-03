@@ -1,0 +1,43 @@
+javac Class.java - скомпилить код
+java Class.class - простой запуск
+
+_______________________________
+
+mvn exec:java -Dexec.mainClass="com.app.HelloWorld"
+mvn compile
+
+основной файл конфигурации mvn pom.xml
+
+-Dexec.mainClass="com.app.HelloWorld"
+ 1 mvn exec:java -Dexec.mainClass="com.app.HelloWorld"
+
+_________________________________
+
+запуск 
+
+java -jar execfile.jar
+
+Нужно создать манифест внутри архива с main методом
+чистим проект, собираем, создаем архив
+
+   <build>
+        <plugins>
+            <plugin>
+                <!-- Build an executable JAR -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>Test</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+

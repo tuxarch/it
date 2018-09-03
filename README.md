@@ -1,2 +1,1 @@
-# it
-## personal notebook base 
+## notebook base 

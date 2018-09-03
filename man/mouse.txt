@@ -1,0 +1,3 @@
+gpm
+
+/etc/init.d/gpm start 

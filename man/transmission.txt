@@ -1,0 +1,5 @@
+transmission-daemon --logfile .torrent.log
+
+.config/transmission-daemon/settings.json - конфиг файл
+
+http-proxy - также работает (используем dht)

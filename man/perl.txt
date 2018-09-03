@@ -1,0 +1,2 @@
+emerge --with-bdeps=y --backtrack=1000 --nodeps perl - разрешить зависимость
+ perl-cleaner --reallyall

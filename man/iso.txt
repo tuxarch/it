@@ -1,0 +1,1 @@
+ mkisofs -o crack.iso /path/dir

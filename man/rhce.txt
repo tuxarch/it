@@ -1,0 +1,25 @@
+Red Hat Enterprise Linux Advanced Server - фул и бест сервер
+(бд нагруженные сервера)
+
+Red Hat Enterprise Linux Entry Server - для средних серверов
+(корпоротивный веб и службы)
+
+Red Hat Enterprise Linux Workstation - десктоп клиент для машин
+
+Red Hat Enterprise Linux Desktop - для создания клиенстких систем
+
+
+http://ftp.scientificlinux.org/linux/scientific/ - зеркало с пакетами
+https://mirror.yandex.ru/scientificlinux/
+
+----
+
+[scientific]
+name= Centos $releasever - $basearch
+#baseurl=http://mirror.yandex.ru/centos/7/os/x86_64/
+baseurl=http://mirror.yandex.ru/scientificlinux/7.2/x86_64/os/
+#gpgkey=http://mirror.yandex.ru/centos/7/os/x86_64/RPM-GPG-KEY-CentOS-7
+gpgkey=http://mirror.yandex.ru/scientificlinux/7.2/x86_64/os/RPM-GPG-KEY-sl
+gpgcheck=1
+enabled=1
+-----

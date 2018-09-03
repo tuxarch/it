@@ -1,0 +1,41 @@
+Хорошая инструкция на офсайте
+Настроить selinux
+setenforce 0 - отключить до перезагрузки
+
+
+tail -f /var/log/audit/audit.log |grep -i avc
+getsebool -a | grep zabbix возвращает off
+setsebool -P httpd_can_network_connect on - отключить
+getsebool httpd_can_network_connect - проверяем on
+________________________________________
+
+Поднять агент на 10050 порту
+Сервер главный крутиться на 10051
+
+_________________________________
+
+Отправка уведомлений
+
+ssmtp - поднять 
+{ALERT.SENDTO}, {ALERT.SUBJECT} и {ALERT.MESSAGE} - значения
+
+пишем скрипт mail.sh
+
+#!/bin/bash
+export smtpemailfrom=chetnuy@gmail.com
+echo "To: $1" > /tmp/mymailinput
+echo "Subject: $2" >> /tmp/mymailinput
+echo "Content-Type: text/plain; charset="utf-8"" >> /tmp/mymailinput
+echo "From: \"Zabbix Zeroxzed\"<$smtpemailfrom>" >> /tmp/mymailinput
+echo "" >> /tmp/mymailinput
+echo "$3" >> /tmp/mymailinput
+/usr/sbin/ssmtp $1 -F $smtpemailfrom < /tmp/mymailinput
+_______________________________________
+
+Установка агента на винду 
+
+zabbix_agentd.exe --install
+zabbix_agentd.exe /--config <ваш_файл_конфигурации> /--install
+по дефолту конфиг лежит в c:\zabbix_agentd.conf
+ecли что лезим в реестр
+

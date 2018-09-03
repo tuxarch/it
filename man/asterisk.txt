@@ -1,0 +1,175 @@
+АТС или же PBX
+Софтфон - программа
+SIP - Session Initiation Protocol — протокол установления сеанса
+
+сборки elastix, freepbx
+
+Клиенты
+linphone, x-lite
+PhonerLite
+
+asterisk -r - доступ к консоли
+табуляция прекрассно отображает доступное меню
+	core reload
+	sip show user - учетки
+	sip show peers - активные учетки
+	sip show registry - посмотреть транк
+
+Сначала читается sip.conf а затем идем в extentions
+	moh show - инфо по музыке
+
+
+Настройка переадресации
+	# - простая
+	*2 - с секретарем
+
+Защита:
+меняем стандартные порты
+номера sip-клиентов
+пароли sip-клиентов
+отказ сервера совершать международ звонки
+запретить внешнюю сеть для sip
+защита от сканера портов
+договор с провайдером
+отброс doss-пакетов
+
+Функции:
+внутренние звонки
+исходящии звонки
+русское меню
+запись разговора
+голосовая почта
+	с прослушиванием по паролю
+парковка - кладем трубку и берем на другом телефоне
+переадресация
+	с секретарем или без
+перехват - жмем решотку и берем себе вызов
+конференция
+	с лидером и без
+ожидание на линии
+логирование в бд
+веб-интерфейс
+спец номера и индивидуальная логика обработки звонков
+
+
+________________________
+Промер extentions
+[incoming]
+
+exten => _X.,1,Goto(menu,s,1)
+[outcoling]
+exten => _1001,1,Answer()
+exten => _1001,n,Dial(SIP/1001,10,t&m)
+exten => _1001,n,FollowMe(1001)
+;exten => 800,1,AddQueueMember()
+
+exten =>
+_X.,1,Set(fname=${STRFTIME(${EPOCH},,%Y%m%d%H%M)}-${CALLERID(number)}-${EXTEN})
+exten => _X.,2,MixMonitor(/records/${fname}.wav,b)
+exten => _XXXXXXXXXXX,3,Dial(SIP/zadarma/${EXTEN})
+exten => _XXXX,3,Dial(SIP/${EXTEN},,t&m,)
+exten => 7777,3,Goto(menu,s,1,t&m)
+exten => 700,1,VoiceMailMain()
+exten => 100,1,ConfBridge(1234,darkmaycalbridge,generaluser,menu)
+exten => 200,1,ConfBridge(1234,darkmaycalbridge,adminuser,admin_menu)
+;exten => 900,1,Park()
+;exten => _9XX,1,ParkedCall(${EXTEN})
+;exten => _XXX,hint,park:${EXTEN}@parkedcalls
+include => parkedcalls
+[menu]
+exten =>
+s,1,Set(fname=${STRFTIME(${EPOCH},,%Y%m%d%H%M)}-${CALLERID(number)}-${EXTEN})
+exten => s,2,MixMonitor(/records/${fname}.wav)
+exten => s,3,Background(/usr/share/asterisk/sounds/voicemenu)
+;exten => 1,1,Dial(SIP/1001,10,m&t)
+;exten => 1,2,Voicemail(1001@default)
+;exten => 1,2,Goto(autoanswer,s,1)
+exten => 1,1,Answer()
+exten => 1,2,Dial(SIP/1001,10,m&t)
+exten => 1,3,FollowMe(1001)
+exten => 1,4,Voicemail(1001@default)
+
+exten => 2,1,Dial(SIP/1002,30,m&t)
+exten => 2,2,Goto(autoanswer,s,1)
+exten => s,4,Wait(5)
+exten => s,5,Dial(SIP/1001&SIP/1002,30,t&m)
+;exten => s,5,Queue(operators,,,,100)
+exten => s,6,Goto(autoanswer,s,1)
+
+[autoanswer]
+exten => s,1,Background(/usr/share/asterisk/sounds/busy)
+exten =>
+s,2,Set(fname=${STRFTIME(${EPOCH},,%Y%m%d%H%M)}-${CALLERID(number)}-${EXTEN})
+exten => s,3,Record(/records/voicemail/${fname}.wav,0,15,X)
+exten => s,4,Hangup
+
+
+_____________________
+
+sip.conf
+[general]
+register => 550174:Mbn9v7s9tD@sip.zadarma.com/00000
+[zadarma]
+type=friend
+username=550174
+secret=Mbn9v7s9tD
+fromuser=550174
+fromdomain=sip.zadarma.com
+host=sip.zadarma.com
+;nat=yes
+nat=force_rport
+insecure=invite
+context=incoming
+canreinvite=no
+
+
+[1001]
+type=friend
+regexten=1001
+secret=1234
+context=outcoling
+host=dynamic
+callerid="1001" <1001>
+disallow=all
+allow=alaw
+allow=ulaw
+language=ru
+callgroup=2
+pickupgroup=2
+qualify=yes
+canreinvite=yes
+call-limit=4
+;nat=yes
+nat=force_rport,comedia
+[1002]
+type=friend
+host=dynamic
+callgroup=2
+pickupgroup=2
+insecure=invite
+username=1002
+secret=1234
+context=outcoling
+disallow=all
+allow=alaw
+
+[6666]
+type=friend
+host=dynamic
+insecure=invite
+username=6666
+secret=1234
+context=outcoling
+disallow=all
+allow=alaw
+
+
+[7777]
+type=friend
+host=dynamic
+insecure=invite
+username=7777
+secret=1234
+context=outcoling
+disallow=all
+allow=alaw

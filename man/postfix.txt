@@ -1,0 +1,179 @@
+dpkg-reconfigure - перегрузить настройки
+
+mxtoolbox.com - протестировать почтовый сервис.
+
+postmap -q nevernew.tk mysql:/etc/postfix/mysql-virtual-mailbox-domains.cf -
+позволяет проверить скул запросы
+
+_________________________________
+postfix to gmail relay
+
+sudo apt-get install postfix mailutils libsasl2-2 ca-certificates
+libsasl2-modules
+
+main.cf
+relayhost = [smtp.gmail.com]:587
+smtp_sasl_auth_enable = yes
+smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+smtp_sasl_security_options = noanonymous
+smtp_tls_CAfile = /etc/postfix/cacert.pem
+smtp_use_tls = yes
+
+vim /etc/postfix/sasl_passwd
+[smtp.gmail.com]:587    USERNAME@gmail.com:PASSWORD
+
+chmod 400 /etc/postfix/sasl_passwd
+postmap /etc/postfix/sasl_passwd
+
+cat /etc/ssl/certs/Thawte_Premium_Server_CA.pem | sudo tee -a
+/etc/postfix/cacert.pem
+____________________________________
+myorigin = $myhostname
+myhostname = home
+inet_interfaces = all
+inet_protocols = ipv4
+mydestination = $myhostname localhost.$mydomain localhost
+mynetworks_style = host
+mynetworks = 127.0.0.1
+home_mailbox = Mail/
+smtpd_banner = $myhostname ESMTP $mail_name
+append_dot_mydomain = no
+____________________________________
+
+Настраиваем логи в докере через rsyslog
+/var/log/mail.log
+
+Отправляем письмо через 
+echo foo | /usr/sbin/sendmail -f admin admin
+echo "???????????2222" | mail admin
+
+_______________________
+
+через telnet servixe.tk 25
+
+telnet mail.example.com 25
+Trying 172.16.0.1...
+Connected to mail.example.com.
+Escape character is '^]'.
+220 mail.example.com ESMTP Postfix - 220 поддтверждение имени хоста
+HELO client.example.com - рукопожатие
+250 mail.example.com - подтверждение отправителя
+MAIL FROM: <test@client.example.com> 
+250 Ok - подтверждение отправителя
+RCPT TO: <root@example.com>
+250 Ok
+DATA
+354 End data with <CR><LF>.<CR><LF>
+Test mail from a telnet session.
+. (просто поставил точку)
+250 Ok: queued as 69F1A7247
+QUIT
+221 Bye
+_________________
+
+Почта должна лежать в 
+/var/mail/admin - по умолчанию
+
+_____________
+
+Перенаправление создаем файл с алиасами
+вида root: -- to admin
+Создаем хеш.
+И перегружаем хэш
+postalias hash:/etc/postfix/aliases
+___________
+mynetworks_style - групповые настройки на ретрансляцию (host,class,subnet)
+mynetworks - кастомные настройки на ретрансляцию
+
+__________________________________
+PTR - запись нужна. Регистрируется у провайдера.
+dig -x ip/name/ip - можно проверить ее наличие
+___________________________________
+
+openssl s_client -connect imap.example.com:993 - защищенное соединение
+
+client: a1 LOGIN MyUsername MyPassword
+server: a1 OK Logged in.
+client: a2 LIST "" "*"
+server: * LIST (\HasNoChildren) "." "INBOX"
+server: a2 OK List completed.
+client: a3 EXAMINE INBOX
+server: * FLAGS (\Answered \Flagged \Deleted \Seen \Draft)
+server: * OK [PERMANENTFLAGS ()] Read-only mailbox.
+server: * 1 EXISTS
+server: * 1 RECENT
+server: * OK [UNSEEN 1] First unseen.
+server: * OK [UIDVALIDITY 1257842737] UIDs valid
+server: * OK [UIDNEXT 2] Predicted next UID
+server: a3 OK [READ-ONLY] Select completed.
+client: a4 FETCH 1 BODY[]
+server: * 1 FETCH (BODY[] {405}
+server: Return-Path: sender@example.com
+server: Received: from client.example.com ([192.0.2.1])
+server:         by mx1.example.com with ESMTP
+server:         id <20040120203404.CCCC18555.mx1.example.com@client.example.com>
+server:         for <recipient@example.com>; Tue, 20 Jan 2004 22:34:24 +0200
+server: From: sender@example.com
+server: Subject: Test message
+server: To: recipient@example.com
+server: Message-Id: <20040120203404.CCCC18555.mx1.example.com@client.example.com>
+server: 
+server: This is a test message.
+server: )
+server: a4 OK Fetch completed.
+client: a5 LOGOUT
+________________
+gmail.com imap
+-crlf - обязательно нужен данный ключ
+
+
+
+______________
+
+
+Порты 
+25 smtp - простая аутентификация
+993 imaps - защищенный imap
+465 smtps - не забудь аутентификацию (!!!!!!)
+143 imap - простой протокол
+
+
+__________________________________
+
+работа с pop3
+
++OK Dovecot ready.
+user admin@nevernew.tk - логинимся
++OK
+pass sad1 - логинимся
++OK Logged in.
+stat - собираем статистику
++OK 8 5715
+list - просматриваем сообщения
++OK 8 messages:
+1 489
+2 1447
+3 699
+4 489
+5 482
+6 702
+7 703
+8 704
+.
+top 2 3 - вывести второе сообщение полное
+dele 2 - удалить сообщение
+quit - закрыть сеанс
+___________________________________________
+
+imap openssl
+
+openssl s_client -crlf -connect imapserver.example.com:993
+. capability - просмотр статуса подключения
+A login imapuser meingeheimespasswort - логинимся
+A OK User logged in
+A status INBOX (messages) - смотрим письма
+A select INBOX - содержимое 
+. fetch 1 rfc822.text  	-читаем хэдер и содержимое
+. fetch 1 rfc822.header
+. store 1:20 flags \Deleted - удаляем
+. expunge - удалить

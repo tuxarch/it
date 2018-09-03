@@ -1,0 +1,43 @@
+Работа с конфигом через консоль
+uci 	show
+	commit
+reload_config - применить настройки
+
+all packages:
+
+tinc - легковесный vpn
+bird - работа с маршрутизации
+freifunk - построить распределенные mesh-сети
+gdbserver - позволяет делать отладку на прошивках
+gnokii - управление телефоном
+kamailio - sip proxy 
+imbench -бенчмарк для микроконтроллеров
+mtd - работа с прошивкой и флэш памятью
+olsrd - технология mesh
+openser - он же камаилио
+strongswan - vpn реализация
+twisted - python сетевой движок
+valgrind - отладочный инструмент
+yate - телефония
+znc - баунсер для irc
+
+lede 
+17.01.3 default packages wl-520gu:
+base-files busybox dnsmasq dropbear firewall fstools ip6tables
+iptables kernel kmod-b43 kmod-gpio-button-hotplug kmod-leds-gpio
+kmod-ledtrig-default-on kmod-ledtrig-netdev kmod-ledtrig-timer
+kmod-usb-ohci kmod-usb2 libc libgcc logd mtd netifd nvram odhcp6c odhcpd opkg
+otrx ppp ppp-mod-pppoe swconfig uci uclient-fetch wpad-mini
+
+Что нужно?
+ssh
+wifi
+dhcp/dns
+
+ddns
+openvp
+usb/usb-modem
+dropbear 
+пробрасываем ключ
+
+ssh root@192.168.1.1 "tee -a /etc/dropbear/authorized_keys" < ~/.ssh/id_rsa.pub

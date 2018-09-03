@@ -1,0 +1,40 @@
+sqlite base.db
+
+CREATE temp TABLE tab1 (pole1 INTEGER, pole2 TEXT); - создаем временную
+таблицу она удаляется 
+
+SELECT sqlite_version() - показывает текущую версию sqlite
+
+.tables - выводит существующие таблицы в бд
+
+PRAGMA table_info(table_name) - позволяет получить список полей таблицы
+
+DROP TABLES tab1 - удалить таблицу
+
+INSERT INTO tab1 VALUES (10,20) - добавить строку в таблицу
+
+SELECT * FROM tab1 - вывести содержимое таблицы
+
+SELECT p1, typeof(p1) FROM tab1; - позволяет получить тип поля
+
+SELECT CAST (p1 AS TEXT) FROM tab1 - позволяет изменить тип поля
+
+DELETE FROM tab1 WHERE p1=10 - позволяет удалить запись
+
+SELECT ROWID, OID, _ROWID_ FROM tab1 - позволяет получить уникальные поля
+
+update rubr set name_rubr='flowers' where id_rubr=1; - позволяет изменить
+значение в таблице
+
+alter table site add column iq INTEGER DEFAULT 0; - добавить столбец имеющий значение по умолчанию
+
+alter table ssite rename to site - переименовать таблицу
+
+select max (id_user) from site; - вывести наибольший элемент
+
+create temp table tmp_rubr as select * from rubr; - создаем временную копию
+таблицы
+
+БД - представляет из себя файл и удаляется вместе с файлом
+
+

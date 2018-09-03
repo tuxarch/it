@@ -1,0 +1,8 @@
+archlinux
+/usr/share/fonts - папка со шрифтами
+FONT='ter-v16n'
+
+pacman -S terminus-font
+FONT="ter-v16n"
+
+

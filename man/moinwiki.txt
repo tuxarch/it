@@ -1,0 +1,87 @@
+
+Ставить также можно через исходники
+
+для работы с apache необходимо пилить модуль
+
+mod_wsgi.so:
+
+LoadModule wsgi_module modules/mod_wsgi.so 
+____________________________________
+Настраиваем apache.conf и vhost.conf.d
+GIScriptAlias /   /usr/local/share/moin/moin.wsgi
+
+# create some wsgi daemons - use these parameters for a simple setup
+WSGIDaemonProcess moin user=www-data group=www-data processes=5 threads=10
+maximum-requests=1000 umask=0007
+
+# use the daemons we defined above to process requests!
+WSGIProcessGroup moin
+--
+<Directory /home/*/public_html>
+    AllowOverride All
+    Options MultiViews -Indexes Includes FollowSymLinks
+	    <IfModule mod_access.c>
+	          Order allow,deny
+	          Allow from all
+	    </IfModule>
+</Directory> 
+____________________
+Даем права:
+cd /usr/local/share
+sudo chown -R www-data:www-data moin (apache:apache)
+sudo chmod -R ug+rwx moin
+sudo chmod -R o-rwx moin
+________________________
+
+python test.wsgi - проверить работоспособность 
+
+
+Настройка веб-морды
+
+rise/LanguageSetup?action=language_setup - здесь выбираем язык и ребут
+
+wikiconfig.py 
+	page_front_page = u"FrontPage"
+	superuser = [u"WikiAdmin", ]
+
+_______________
+
+для доступа из сети нужно настроить апач
+
+<VirtualHost http://www.вашдомен.ru:80>;
+DocumentRoot "/usr/local/www/www.вашдомен.ru"
+ServerName http://www.вашдомен.ru
+
+Затем еще нужно прописать настроики в /etc/hosts
+
+127.0.0.1 http://sitename.uo
+
+_________________________________
+
+Дернутые конфиги
+
+файл moin.wsgi
+
+sys.path.insert(0, '/usr/local/www')
+from MoinMoin import log
+log.load_config('/usr/local/share/moin/config/logging/logfile')
+
+
+файл wikiconfig.py
+
+sitename = u'MyWiki'
+page_front_page = u"FrontPage"
+interwikiname = 'MyWiki'
+data_dir = '/usr/local/www/wiki/data/'
+data_underlay_dir = '/usr/local/www/wiki/underlay/'
+superuser = [u"dvg", ]
+acl_rights_before = u"dvg:read,write,delete,revert,admin"
+acl_rights_default = u"Trusted:read,write,delete,revert
+Known:read,write,delete,revert All:read"
+password_checker = None # None means "don't do any password strength checks"
+mail_sendmail = "/usr/sbin/sendmail -t -i"
+mail_from = u"Wiki Wiki <norelpy@wiki.bird.ru>"
+language_default = 'ru'
+____________________________________
+
+

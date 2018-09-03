@@ -1,0 +1,30 @@
+##################################
+source s_udp {
+udp(port(514));
+};
+#port and package
+##################################
+
+##################################
+destination d_CISCO_GW {
+file("/var/log/cisco_gw.log");
+};
+#name distination file
+##################################
+
+##################################
+filter f_CISCO_GW {
+host("192.168.5.254");
+};
+#name filter from ip
+##################################
+
+##################################
+log {
+source(s_udp);
+filter(f_CISCO_GW);
+destination(d_CISCO_GW);
+};
+##################################
+
+Добавляем это в syslog.conf
