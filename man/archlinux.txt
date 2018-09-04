@@ -3,7 +3,7 @@ mkcipio.conf HOOKS = lvm2 - нужно добавить если собирае�
 Вылятся ошибки все из-за драйвера virtio video
 dmesg -D - отключить вывод в консоль
 
-Установк yaourt
+Установка yaourt
 
 git clone https://aur.archlinux.org/package-query.git
 cd package-query
