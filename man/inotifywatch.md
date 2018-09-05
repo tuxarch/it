@@ -14,4 +14,4 @@ inotifywait -q -m -e CLOSE_WRITE --format="git commit -m 'autocommit on change' 
 
 # Отслеживаем операции с директорией
 inotifywatch /var/cache
-xx
+
