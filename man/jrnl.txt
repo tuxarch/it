@@ -3,3 +3,11 @@ with codecs.open(file_name, "r",encoding='utf-8', errors='ignore') as fdata:
 Добавляем строчку для обхода ошибки с кодировкой
 
 python-keyrings-alt - пакет в случае ошибки с криптографией
+o
+
+Для шифрования стоит использовать git-crypt
+
+# Usage: 
+jrnl < file.txt
+jrnl -n 5 -and @pineapple @lubricant
+
