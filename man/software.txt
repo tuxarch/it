@@ -116,3 +116,5 @@ kata_containers - последнее слово в контейнерах
 nftables - замена iptables
 etckeeper - git repo для конфиг файлов в etc
 palemoon - форк firefox
+containerd - управление контейнерами, часть docker
+gVisor - управление изоляцией контейнеров в docker
