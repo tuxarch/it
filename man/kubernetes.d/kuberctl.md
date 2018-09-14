@@ -16,6 +16,7 @@ enable autocomplete
 simply run container
 
 ### kubectl log&info 
+**kuberctl get nods**  
 **kuberctl get deployments**  
 **kuberctl get pods**  
 **kuberctl get events**  
