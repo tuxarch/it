@@ -11,6 +11,21 @@
 
 * etcd - распределенное хранилище конфигурации
 
+### Устанавливаемый софт
+cni - управление сетью контейнеров
+crio
+runc - запуск контейнеров
+conmon
+etcd
+traefik - балансировщик на go
+kube-apiserver
+kube-controler-manager
+kube-sheduler
+kube-proxy
+kubelet
+kubectl
+
+
 ### client tools
 
 * cfssl 
@@ -31,5 +46,7 @@ admin-key.pem, admin.pem
 worker.pem, worker-key.pem
 * kubecontroller manager
 * kube-proxy
+  
+
 
 
