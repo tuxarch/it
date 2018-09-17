@@ -246,6 +246,7 @@ Ctr+W, затем
     wget http://ftp.vim.org/vim/runtime/spell/en.ascii.spl  
   
 :set spell spelllang=ru,en       включить проверку орфографии  
+:setlocal spell spelllang=en_us,ru_ru - (it work)
 :set nospell                     выключить проверку орфографии  
 \]s                               следующее слово с ошибкой  
 \[s                               предыдущее слово с ошибкой  
@@ -313,3 +314,4 @@ ctrl-v - выделяем - x - удалить
 __________
 команды
 1,$ g/^$/ d - удалить пустые строки
+%s/ .*// - удалить все символы после первого пробела

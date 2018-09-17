@@ -70,3 +70,15 @@ _____________________________
 
 gentoo binary packages 
 http://packages.gentooexperimental.org/packages/amd64-stable/
+
+
+
+### config file
+
+/var/lib/portage/world - список всех установленных пакетов в мире. Пакеты
+удаленные не будут обновляться
+
+
+### key
+
+--oneshot - обычная установка без занесения в world-file
