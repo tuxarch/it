@@ -1,5 +1,6 @@
 docker run -t centos:latest /bin/bash - запуск терминала
 --name - меняет идентификатор контейнера
+--hostname - меняем имя хоста
 -search поиск пакетов
 pull - простое скачивание
 
