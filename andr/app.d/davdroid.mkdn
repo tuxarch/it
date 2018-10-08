@@ -1,0 +1,8 @@
+## sync contact and calendar
+
+set up "Login, URL, username"
+
+https://www.googleapis.com/carddav/v1/principals/your_email@gmail.com/lists/default
+https://www.google.com/calendar/dav/your_email@gmail.com/events
+
+username = name@gmail.com

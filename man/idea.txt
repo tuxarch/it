@@ -1,3 +1,11 @@
+crack
+
+/opt/{product}/bin/{product}64.vmoptions add:
+-javaagent:/opt/clion/bin/JetbrainsCrack.jar
+
+________________
+
+
 создать шаблон - templates
 
 //      date:             ${DATE}

@@ -39,4 +39,14 @@ gc hdr+  - замена камеры
 wakelock detector - контроль за батарей
 QuickPic gallery - галерея
 CPL (Customized Pixel Launcher) - лаунчер под замену
+monefy - учет расходов
+
+
+
+
+
+
+
+
+
 
