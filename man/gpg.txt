@@ -33,7 +33,7 @@ e - шифровать, a- ASCII.
 
 --export -a keyname > file.asc - экспортировать ключ 
 --import keyname.asc - добавить ключ в систему из файла
-gpg --export-secret-key chetnuy@gmail.com > file.key - экспортировать
+gpg --export-secret-key name@mail.com > file.key - экспортировать
 секретный ключ
 
 

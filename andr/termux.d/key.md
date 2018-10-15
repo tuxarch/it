@@ -1,4 +1,5 @@
 ### key
+Volume Up+Q → Show extra keys view | функциональные клавиши
 
 CTRL=volume down
 Ctrl+A → Move cursor to the beginning of line
@@ -28,4 +29,3 @@ Volume Up+P → Page Up
 Volume Up+N → Page Down
 Volume Up+. → Ctrl+\ (SIGQUIT)
 Volume Up+V → Show the volume control
-Volume Up+Q → Show extra keys view

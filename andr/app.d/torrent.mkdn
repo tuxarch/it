@@ -1,0 +1,6 @@
+## aria2c
+
+aria2c --dir=storage/ file.torrent
+and use http_proxy=
+
+## transmission
