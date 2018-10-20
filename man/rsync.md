@@ -15,3 +15,6 @@
 --info=progress2 - общий прогресс
 
 
+Синхронизация библиотеки
+rsync -rv --size-only /mnt/data/book/ /mnt/allsync/book/ --temp-dir=/tmp --no-owner --no-group --progress --delete
+
