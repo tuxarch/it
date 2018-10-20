@@ -7,3 +7,26 @@ chromium --proxy-server="socks://localhost:9050"
 
 SocksPort 0.0.0.0:9150 - расшарить
 
+_________________________________________
+Пробрасываем порты
+tor torsocks
+
+В /etc/tor/torrc
+HiddenServiceDir /var/lib/tor/hidden_service/
+HiddenServicePort 80 127.0.0.1:80
+HiddenServicePort 22 127.0.0.1:22
+HiddenServicePort 3003 127.0.0.1:3003
+
+Делаем бэкап /var/lib/tor/hidden_service/
+
+В автозагрузку tor
+
+torify ssh eax@g5a6wykhm2ajtwvk.onion
+mosh - UDP не поддерживается, юзаем ioiomxtx
+
+
+netcat chat:
+nc -l -p 3003
+torify telnet g5a6wykhm2ajtwvk.onion 3003
+
+
