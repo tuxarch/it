@@ -1,3 +1,23 @@
+virtualenv
+
+более удобная обертка virtualenvwrapper
+
+bashrc:
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+source /usr/bin/virtualenvwrapper.sh
+
+mkvirtualenv env-name
+workon - список проектов
+workon - заходим в окружение
+deactive
+rmvirtualenv env-name
+
+ставим пакеты через pip или спец файл
+pip freeze > requirements.txt
+pip install -r requirements.txt
+
+---------------------------------------------------------
+
 PIP
 upgrade all packages:
 pip install -U $(pip freeze | awk -F'[=]' '{print $1}')
