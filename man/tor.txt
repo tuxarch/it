@@ -22,7 +22,7 @@ HiddenServicePort 3003 127.0.0.1:3003
 В автозагрузку tor
 
 ssh:
-torify ssh eax@g5a6wykhm2ajtwvk.onion
+torify ssh ris@7oxk7vun2dskx5nf.onion
 mosh - UDP не поддерживается, юзаем ioiomxtx
 
 

@@ -1,3 +1,17 @@
+telegram-cli
+
+-vvv ключ 
+по дефолту запрашивает номер телефона
+Используем прокси torify
+
+dialog_list - получаем список диалогов
+contact_list - список контактов
+
+mgs Name message
+
+
+
+
 Man help
 
 accept_secret_chat <secret chat>	Accepts secret chat. Only useful with -E option
