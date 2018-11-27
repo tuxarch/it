@@ -1,3 +1,7 @@
+timedatactl status
+timedatactl set-ntp true
+edit /etc/systemd/timesyncd.conf
+
 настройка hwclock
 	hwclock --set --date="5/4/16 17:30:00"
 	

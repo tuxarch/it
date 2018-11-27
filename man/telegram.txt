@@ -9,6 +9,9 @@ contact_list - список контактов
 
 mgs Name message
 
+Отправить файл
+send_photo Name a.png
+
 
 
 
