@@ -1,3 +1,6 @@
+## Suspend to ram
+systemct suspend
+
 pm-utils -установить
 затем pm-suspend для перехода в гибернацию.
 
@@ -5,3 +8,26 @@ pm-utils -установить
 добавить строку suspend в 
 
 systemctl suspend 
+
+## Suspend to swapfile ------------------------
+create:
+dd if=/dev/zero of=/swapfile count=6M (3GB)
+mkswap /swapfile
+
+activate:
+swapon -a 
+
+add in fstab:
+/swapfile       none    swap    sw 0 0
+
+add grub config:
+resume=/dev/sda1 resume_offset=325345
+sudo filefrag -v /swapfile (first physical_offset)
+
+add for archlinux 
+mkinitcpio.conf HOOK 'resume' (after udev!!!) && mkinitcpio -p linux
+
+use:
+systemctl hibernate
+pm-hibernate 
+------------------------------------------------
