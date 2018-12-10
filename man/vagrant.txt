@@ -34,7 +34,20 @@ Vagrant.configure("2") do |config|
   end
 end
 
-Plugins
+Проблемы при смене образа:
+Удаляем все из пула
+
+sudo virsh list --all
+# get the machine name
+sudo virsh destroy <THE_MACHINE>
+sudo virsh undefined <THE_MACHINE>
+sudo virsh vol-list default
+# get the volume name
+sudo virsh vol-delete --pool default <THE_VOLUME>
+
+
+
+------Plugins
 
 vagrant-scp - ставим для того чтобы вытащить файлы
 
