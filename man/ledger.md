@@ -1,4 +1,5 @@
 ## namespace
+namespace
 
 * Расходы (Expenses)
 * Доходы (Income)

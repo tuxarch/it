@@ -1,10 +1,13 @@
- modprobe vboxdrv && modprobe vboxnetflt && modprobe vboxnetadp
+modprobe vboxdrv && modprobe vboxnetflt && modprobe vboxnetadp
  Нужно запустить модули
 
  sudo usermod -a -G vboxusers `whoami` && sudo reboot
 
 VirtualBox - GUI manager
-
+______________________
+Variblies
+.config/VirtualBox/VirtualBox.xml > 
+... defaultMachineFolder - каталог для образов
  _____________________
  VBoxManage
  list vms - список машин
@@ -19,7 +22,7 @@ controlvm _name_ reset - перезагрузка
 Сохранение состояния и выключение
 VBoxManage controlvm "imyaVM" savestate
 
- VBoxManage controlvm "win10" setvideomodehint 1366 768 32
+VBoxManage controlvm "win10" setvideomodehint 1366 768 32
 VBoxManage control "win10" setvideomodehint 1366 768 16
 
  ____________________________
