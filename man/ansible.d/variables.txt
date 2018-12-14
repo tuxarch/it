@@ -1,0 +1,11 @@
+Если нужно получить ip адрес из железа в переменную то в playbook :
+  host: hostname
+  tasks:
+     - debug: var=ansible_eth1.ipv4.address (по интерфейсу)
+     - debug: var=hostvars[inventory_hostname]['ansible_default_ipv4']['address']
+
+Получить ip адрес из inventory в templates:
+     {{ hostvars.hostname }} - куча значений по хосту
+     {{ hostvars.taskd.ansible_host }} - парсим ip 
+
+

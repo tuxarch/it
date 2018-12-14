@@ -1,3 +1,4 @@
+Hotkey:
 J/K switch tabs
 
 Visual mode: v (v-pick,c-cancel,P-search)
@@ -5,6 +6,10 @@ Visual mode: v (v-pick,c-cancel,P-search)
 search-engine shortcuts
 жмем o и затем gt finde me (enter)
 
-Также можно сочитать с клавишами
+Перемещение по open url (O):
+Жмем Сtrl+j,k
+
+Alter:
+Также можно сочитать с hotkey самого хрома
 ctrl+w - закрыть пустую вкладку
 

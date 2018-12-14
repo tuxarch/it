@@ -34,5 +34,16 @@ ___________________
 
 Keys
 Host key (Хост-комбинация) - по умолчанию правый ctrl
+host+p - пауза
+
+_________________________
+Загрузка с usb
+VBoxManage internalcommands createrawvmdk -filename /mnt/image/usb.vmdk -rawdisk /dev/sdb
+
+
+__________________
+Сеть 
+Сетевой мост - пробрасываем виртуалку в локальную сеть
+
 
 

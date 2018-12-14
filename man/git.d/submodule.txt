@@ -1,0 +1,18 @@
+Создание подмодуля:
+Закидываем подмодуль:
+git submodule add git://github.com/chneukirchen/rack.git
+
+Cмотрим файл .gitmodules
+
+-------
+Клонирование проекта с подмодулями
+git submodule init
+git submodule update
+
+------
+Коммит:
+Отслеживаем изменения из корня
+Коммитим из каталога подмодуля
+Обновляем коммит в проекте:
+cd ../ && git add . && commit, push
+

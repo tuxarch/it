@@ -1,0 +1,36 @@
+Удаленная работа с windows:
+openssh (less true)
+winrm
+
+
+
+___________________________________
+winrm:
+
+Simply ----
+Enable-PSRemoting - запускаем сервер и открываем 5985 порт
+Можно настроить групповые политики для этого
+
+whoami - имя пользователя и хоста для подключения
+
+На клиенте:
+Set-Item WSMan:\localhost\Client\TrustedHosts * - разрешаем своей машине
+подключения на неизвестные сервера
+
+Enter-PSSession -ComputerName ip-adress -Credential domain\admin - подключение
+к машине
+
+Также можно использовать wmi и Invoke-Command
+
+New-PSSession -ComputerName remotehost33 -Credential domain\admin - 
+cоздаем сессию из нескольких пк и управляем ими через Invoke-command
+
+
+SSL:
+
+
+
+
+
+
+

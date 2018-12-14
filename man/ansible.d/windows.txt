@@ -1,0 +1,10 @@
+requirements:
+Windows 7, powershell 3, NET 4.0, WinRM listner
+используем офскрипт для обновления shell
+
+Пользуемся документацией 
+https://docs.ansible.com/ansible/latest/user_guide/windows_setup.html
+
+Юзаем скрипт для фикса памяти winrm
+ZQ
+
