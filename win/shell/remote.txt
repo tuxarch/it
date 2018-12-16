@@ -26,6 +26,21 @@ New-PSSession -ComputerName remotehost33 -Credential domain\admin -
 cоздаем сессию из нескольких пк и управляем ими через Invoke-command
 
 
+Linux:
+https://blog.quickbreach.io/ps-remote-from-linux-to-windows/
+Юзаем образ 
+docker run -ti quickbreach/powershell-ntlm
+
+Переменная опционально -
+$creds = Get-Credential -UserName root
+Enter-PSSession -ComputerName (Target-IP) -Authentication Negotiate -Credential $creds
+Кодировка исправляем:
+Но сначала нужно выполнить любую команду, а затем - 
+Console]::outputEncoding = [System.Text.Encoding]::GetEncoding('cp866')
+ipconfig|out-null;[Console]::outputEncoding =[System.Text.Encoding]::GetEncoding('cp866')
+
+
+_____________________________________
 SSL:
 
 
