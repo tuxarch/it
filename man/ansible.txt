@@ -111,3 +111,15 @@ ansible_shell_type - (/bin/sh default)
 ansible_*_interpreter /usr/bin/ruby
 
 
+_______________________
+Используем 
+group_vars
+requirements.txt - описание ansible
+tags --limit
+vars_files: - файл с переменными
+
+pre_task: - проверка условий
+molecule, travisci
+
+ключ --check
+

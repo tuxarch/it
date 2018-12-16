@@ -1,0 +1,3 @@
+Ports 135 and 445 (TCP) need to be open
+- Admin$ and IPC$ shares enabled
+- PSEXEC

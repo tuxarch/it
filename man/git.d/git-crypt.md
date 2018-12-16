@@ -14,4 +14,5 @@ git-crypt add-gpg-user --trusted USER_ID
 #  git add . && git commit -m "message" && git push
 
 # lock & unlock
+git-crypt lock && git-crypt unlock
 

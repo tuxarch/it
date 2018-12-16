@@ -1,4 +1,4 @@
---------[ AIDA64 Business Edition ]-------------------------------------------------------------------------------------
+j--------[ AIDA64 Business Edition ]-------------------------------------------------------------------------------------
 
                                                 AIDA64 v3.20.2600/ru
                                         4.1.581-x32
@@ -25,6 +25,7 @@
      :
                                                    Mobile DualCore Intel Celeron P4600, 2000 MHz (15 x 133)
                                           MSI MegaBook CX623 (MS-168A)
+					  NVIDIA  GEforce 310m
                                     Intel Ibex Peak-M HM55, Intel Ironlake-M
                                          3888   (DDR3-1333 DDR3 SDRAM)
        BIOS                                          AMI (11/12/2010)
