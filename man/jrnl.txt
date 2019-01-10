@@ -11,3 +11,9 @@ o
 jrnl < file.txt
 jrnl -n 5 -and @pineapple @lubricant
 
+
+## Для установки на termux
+
+apt install clang libcrypt-dev python-dev openssl-dev 
+apt update && apt upgrade 
+pip install jrnl
