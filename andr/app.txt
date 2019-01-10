@@ -41,3 +41,6 @@ QuickPic gallery - галерея
 CPL (Customized Pixel Launcher) - лаунчер под замену
 monefy - учет расходов
 NewPipe - youtube-клиент
+QuickEdit - текстовый редактор
+psiphon - прокси, ssh тоннель
+http injector - vpn/proxy/ssh прокси

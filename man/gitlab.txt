@@ -1,0 +1,17 @@
+Для ubuntu cosmic запускаем установочный скрипт c dist=artful
+
+Cмотрим локали, должна быть en_US.utf8 - c другими валится
+
+install:
+wget https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh
+os=ubuntu dist=bionic script.sh
+apt install gitlab-ce
+gitlab-ctl reconfigure
+
+
+далее через systemd
+systemctl status gitlab-runsvdir
+
+
+Минимальное количество памяти 2 ГБ
+

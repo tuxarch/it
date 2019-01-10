@@ -159,3 +159,7 @@ From PowerShell, run a VBscript on a remote workstation and pass some parameters
 PS C:> $script='C:\Program Files\demo.vbs'
 PS C:> $args = "some more text"
 PS C:> PSEXEC -s \\workstation64 c:\windows\system32\cscript.exe $script $args
+=======
+Ports 135 and 445 (TCP) need to be open
+- Admin$ and IPC$ shares enabled
+- PSEXEC
