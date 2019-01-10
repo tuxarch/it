@@ -1,0 +1,31 @@
+## helm
+
+устанавливаем окружение для работы
+eval $(docker-machine env)
+eval $(minikube docker-env)
+
+helm init 
+helm search
+helm install - устанавливаем charts в кластер
+helm ls - смотрим что запущенно
+helm delete - удаляем чарт
+helm create - создаем чарт
+package - упаковать в архив 
+helm rollback - откат
+
+
+# config
+
+chart.yaml - содержит описания чарта
+templaytes - содержит манифесты
+values.yaml - содержит переменные
+requirements.yml - описывает зависимые пакеты
+
+Мощный шаблонизатор go. Поддерживает условия, циклы, функции, пайплайны
+
+Tiller - серверная часть helm. Работает с релизами
+
+Используем хуки для настроки, тесты для проверки
+
+
+
