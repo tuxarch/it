@@ -6,5 +6,26 @@ Windows 7, powershell 3, NET 4.0, WinRM listner
 https://docs.ansible.com/ansible/latest/user_guide/windows_setup.html
 
 Юзаем скрипт для фикса памяти winrm
-ZQ
+
+Ходим по паролю
+Ходим по cгенерированному сертификату
+Ходим по записям в kerberos
+
+_______________________
+
+Используем модули
+win_chocolatey
+win_package
+win_command / win_shell
+win_get_url - скачать msi к примеру
+win_updates - обновление
+win_reboot
+win_hotfix - устновка одиночных обновлений
+win_user, win_group, win_group_membership
+win_domain_user and win_domain_group
+
+win_dsc - описание желаемого состояния
+
+Под виндой нельзя запустить ansible, но можно под sub-linux
+
 

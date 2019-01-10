@@ -1,0 +1,21 @@
+Для работы ansible нужно запустить пару установочных скриптов!
+Смотри документацию.
+
+Просмотр запущенной службы:
+winrm enumerate winrm/config/Listener
+
+Конфиг службы:
+
+winrm quickconfig  
+winrm quickconfig -transport:https 
+
+Удалить службы:
+# remove all listeners
+Remove-Item -Path WSMan:\localhost\Listener\* -Recurse -Force
+
+# only remove listeners that are run over HTTPS
+Get-ChildItem -Path WSMan:\localhost\Listener | Where-Object { $_.Keys -contains "Transport=HTTPS" } | Remove-Item -Recurse -Force
+
+Создание самоподписного сертификата
+Не стоит путать https службу и использование сертификтов! 
+

@@ -36,8 +36,20 @@ $creds = Get-Credential -UserName root
 Enter-PSSession -ComputerName (Target-IP) -Authentication Negotiate -Credential $creds
 Кодировка исправляем:
 Но сначала нужно выполнить любую команду, а затем - 
-Console]::outputEncoding = [System.Text.Encoding]::GetEncoding('cp866')
+[Console]::outputEncoding = [System.Text.Encoding]::GetEncoding('cp866')
 ipconfig|out-null;[Console]::outputEncoding =[System.Text.Encoding]::GetEncoding('cp866')
+
+Python: 
+import winrm
+s = winrm.Session(‘https://windows-host:5986′,auth=(‘administrator’,’Passw0rd!’),transport=’ntlm‘)
+r = s.run_cmd(‘ipconfig’)
+print r.std_out
+
+Pypsexeс:
+pip install pypsexec
+and user script on git
+
+
 
 
 _____________________________________
