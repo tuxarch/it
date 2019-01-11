@@ -1,6 +1,11 @@
+KEYS:
+-i private-key.rsa - подключаемся с приватным ключом
+
+
 Заново конфигурировать ключи аутентификации можно:
 
 /usr/bin/ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key -N "" 
+
 
 Ключи хранятся в:
 	~/.ssh/config
