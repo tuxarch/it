@@ -23,6 +23,13 @@ simply run container
 **kuberctl config view**  
 **kubectl get services**
 
+## Exec in container
+export POD_NAME=$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')
+kubectl exec -ti $POD_NAME bash
+kubectl expose deployment/kubernetes-bootcamp --type="NodePort" --port 8080 - открываем наш порт, зачем стучимся по расшаренному порту, ip
+kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=gcr - изменить версию контейнера
+
+kubectl scale deployments/kubernetes-bootcamp --replicas=4 - увеличить количество реплик
 **kubectl expose deployment hello-node --type=LoadBalancer**  
 expose deployment 
 

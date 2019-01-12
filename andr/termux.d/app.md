@@ -57,6 +57,7 @@ inotify - подсистема отслеживающая ФС
 ired - hex editor
 iperf3 - тестирование сетевого канала
 ldns - отладка dns
+dnsutils - dig, nslookup
 pass - менеджер паролей
 pastebinit - консоль клиент
 privoxy - прокси веб
