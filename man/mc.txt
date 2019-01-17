@@ -1,0 +1,2 @@
+Ctrl+T - mark item
+Alt+Shift+= *  marked all
