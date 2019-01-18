@@ -20,6 +20,13 @@ helm rollback - откат
 helm repo index ./ --url https://name.github.io/mychart - создать index.yml
 для дальнейшей публикации чарта
 
+
+# Установка пакета
+chart repository
+local chart archive (helm install foo-0.1.1.tgz)
+Unpacked chart directory (helm install path/to/foo)
+full URL (helm install https://example.com/charts/foo-1.2.3.tgz)
+
 --wait - дождаться конца деплоя
 
 # chart project
