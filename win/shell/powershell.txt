@@ -10,13 +10,13 @@ Set-Alias - Создать новый алиас
 Update-help - обновить справку
 ______________________
 Управление
+stop-computer -Force - выключить/суспенд
 rename-computer - переименовать
 restart-computer - перезагрузка
 (wait,delay,timeout- для удаленного хоста)
 shutdown /h /t 1000 - выключение
 	 /a - отмена
 			
-stop-computer - выключить/суспенд
 
 
 ____________________
