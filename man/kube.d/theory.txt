@@ -83,4 +83,5 @@ Cloud storage
 Сеть:
 calico, weave, flannel
 
-230 стр
+Deployment - ReplicaSet - Pod
+
