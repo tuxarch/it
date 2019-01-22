@@ -1,0 +1,106 @@
+nodes - машина в кластере
+pods - группа контейнеров запускаемых совместно
+replication controllers - контолер запуска реплик на подах
+services - pods с их политикой
+volumes - директория в контейнере
+labels - key/value значения для работы с объектами
+
+
+kubulet - агент запущенный на нодах
+
+
+мастер - машина - kubulet - docker pods
+
+kube-proxy - простой балансировщик tcp udp
+
+мастер-нода - система управления
+
+kubernetes api server - доступ к ip
+scheduler - привязывает запущенные ноды к подам
+
+
+API-шлюз работающий через REST и сохраняющий состояние в etcd. kubelet
+обращается к API-серверу. Разворачивает Pods согласно описанию в YAML ил JSON.
+Контроль за ресурсами и пространством имен.
+
+
+ kerbernetes/fleet/mesos
+
+_____________________________________________
+
+
+rkt - контейнерный движок для coreos
+
+minikube start - запуск тестовой среды 
+kubectl version
+
+kubectl cluster-info - по кластеру
+kubectl get nodes - по запущенным нодам
+
+запуск деплоя и список 
+kubectl run kubernetes-bootcamp --image=docker.io/jocatalin/kubernetes-bootcamp:v1 --port=8080
+kubectl get deployments
+
+
+
+
+kubectl get - list resources
+kubectl describe - show detailed information about a resource
+kubectl logs - print the logs from a container in a pod
+kubectl exec - execute a command on a container in a pod
+
+kubectl describe pods - просмотр информации по подам
+kubectl logs $POD_NAME 
+
+kubectl exec -ti $POD_NAME bash - запустить консоль в контейнере
+kubectl get services - просмотр служб
+
+
+kubectl expose deployment/kubernetes-bootcamp --type="NodePort" --port 8080 -
+cоздать новый сервис
+kubectl describe services/kubernetes-bootcamp - просморт описания сервисов
+
+
+kubectl describe deployment - описание процесса
+
+создать метку для пода
+kubectl label pod $POD_NAME app=v1
+
+
+kubectl delete service -l run=kubernetes-bootcamp - удалить сервис
+
+
+Просмотр информации по кластерам
+kubectl cluster-info
+Доступную информацию по кластерам
+~/.kube/config
+kubectl config view 
+kubectl use-context minikube
+Переключение в контекст minikube (изменить переменные)
+eval $(minikube docker-env)
+eval $(minikube docker-env -u)
+
+
+создать деплой
+kubectl run hello-node --image=hello-node:v1 --port=8080
+
+
+expose - создает сервис который нужен для того чтобы пробросить порты наружу
+
+kubectl log <pods> посмотреть логи с пода
+
+заменить один образ контейнера на другой
+kubectl set image deployment/hello-node hello-node=hello-node:v2 
+
+
+
+
+______________
+Способы установки
+minikube
+Hard way
+kubespray - ansible - cкрипты в т.ч aws, gcp
+kubeadm - не устанавливает контейнеры и сеть
+kops - создание и управление кластером на aws, gcp
+aws, google engine 
+

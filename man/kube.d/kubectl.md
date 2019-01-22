@@ -28,6 +28,7 @@ kubectl repalce -f flask_dep.yaml - востанавливаем из файла
 **kubectl get services**
 kubectl logs pods -f - интерактивный режим вывода лога
 
+
 ## Exec in container
 export POD_NAME=$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')
 kubectl exec -ti $POD_NAME bash
@@ -40,6 +41,8 @@ expose deployment
 
 **kubectl set image deployment/hello-node hello-node=hello-node:v2**  
 update image of you Deployment
+
+apply -f file.yaml - обновить конфигурацию
 
 
 **kubectl delete service hello-node**  
