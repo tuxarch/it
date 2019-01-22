@@ -14,5 +14,35 @@
 	гибернации
 
 Две службы должны быть добавлены в автозагрузку
+________________________________________________
 
-systemd-sleep
+Просмотреть заряд аккумулятора
+acpi -i
+
+_________________________________________________
+
+Работа с частотой процессора
+
+Cтавим cpupower
+
+Смотрим доступные модули
+ls /usr/lib/modules/$(uname -r)/kernel/drivers/cpufreq/
+
+Cмотрим параметры процессора
+cpupower frequency-info
+
+Ставим кастомную частоту
+cpupower frequency-set -f 933 MHz
+
+__________________________________________________
+
+For orca@arch: max powersave 
+
+echo 0 > /sys/class/backlight/acpi_video0/brightness && \
+cpupower frequency-set -f 933 MHz && \ 
+hdparm -B 20 /dev/sda && \
+hdparm -S 20
+
+___________________________________________________
+
+
