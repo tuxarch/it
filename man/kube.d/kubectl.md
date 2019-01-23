@@ -54,3 +54,9 @@ kubectl rollout history deployment redis - история деплоймента
 kubectl rollout undo deployment/flask - откатиться на старую версию
 kubectl rollout status deployment/flask -w - история изменения
 
+Expose
+kubectl expose deployment http --external-ip="172.17.0.94" --port=8000 --target-port=80 - расшарить на ip на порту 8000
+
+Run:
+Запустить депоймент и расшарить его ip. Но в сервисах его нет, но можно найти описание через describe
+kubectl run httpexposed --image=katacoda/docker-http-server:latest --replicas=1 --port=80 --hostport=8001

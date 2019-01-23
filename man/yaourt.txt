@@ -16,3 +16,4 @@ yaoutr -G packate
 makepkg -c --skippgpcheck
 makepgk -i
 
+yaourt -Syu --aur - обновление 

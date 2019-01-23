@@ -3,6 +3,8 @@ pacman -Rs - удаление пакета с зависимостями
 pacman -Qnq - список всех офф пакетов
 pacman -Qmq - список неофициальных
 pacman -S $(pacman -Qnq) - переустановка
+pacman -Syu --noconfirm  - подтверждение
+
 
 cache: 
 /var/cache/pacman/pkg
