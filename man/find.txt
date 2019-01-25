@@ -1,0 +1,3 @@
+Поиск содержимого в файлах
+grep -rnw '/path/to/somewhere/' -e 'pattern'
+

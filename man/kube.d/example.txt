@@ -1,0 +1,4 @@
+Create deployment
+kubectl run alpine --image=alpine:latest --command -- sleep 3600
+kubectl exec -ti alpine-9b94c4778-5q2xf sh
+

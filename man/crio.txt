@@ -1,0 +1,12 @@
+Устанавливает kube с поддержкой crio
+
+kubeadm init --cri-socket=/var/run/crio/crio.sock --kubernetes-version $(kubeadm version -o short)
+
+crictl images
+crictl ps
+
+runc - легкая среда управления контейнерами
+
+ставим crictl
+ ./crictl --runtime-endpoint "unix:///var/run/crio/crio.sock" image
+

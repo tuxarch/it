@@ -1,3 +1,8 @@
+key:
+--kubernetes-version v.1.11.6
+--ignore-preflight-errors=all - игнорить все ошибки
+
+
 Установка через пакетный менеджер в ubuntu, centos
 
 Cтавим мастер:
@@ -16,3 +21,15 @@ kubeadm init - генерация токена
 cat /opt/weave-kube - посмотреть сценарий деплоймента wave сети kubeadm
 kubectl apply -f /opt/weave-kube - применить 
 
+________________________
+Установка на vagrant
+
+Ставим докер из кастома
+deb [arch=amd64] https://download.docker.com/linux/ubuntu 
+Стаавим kubectl, kubeadm
+deb https://apt.kubernetes.io/ kubernetes-xenial main
+
+kubeadm init
+
+На нодах
+kg

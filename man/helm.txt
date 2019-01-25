@@ -19,6 +19,8 @@ package - упаковать в архив
 helm rollback - откат
 helm repo index ./ --url https://name.github.io/mychart - создать index.yml
 для дальнейшей публикации чарта
+helm inspect package - информация о пакете
+
 
 
 # Установка пакета

@@ -21,4 +21,7 @@ apt-add-repository - команда ставиться из
 
 software-properties-common
 
+Посмотреть доступные версии пакета
+apt-cache policy <packageName>
+apt install package=1.2.33
 

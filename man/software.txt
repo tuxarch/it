@@ -125,3 +125,4 @@ galera - мультимастерная репликация в mysql
 heapster - логирование в kube, расшираяется graphana
 tectonic - проприаритарная надстройка над kuber
 cadvisor - сборка логов внутри контейнера в kuber
+polemarch - ansible интерфейс

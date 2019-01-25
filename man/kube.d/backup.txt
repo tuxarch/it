@@ -1,0 +1,9 @@
+Heptioo Ark
+Ставим контейнеры из гитхаба
+ставим клиет из сорцов
+
+делаем бекап
+ark backup create nginx-backup --selector app=nginx
+восстанавливаем
+ark restore create --from-backup nginx-backup
+
