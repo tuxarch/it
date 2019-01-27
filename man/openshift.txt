@@ -2,8 +2,7 @@ https://losst.ru/besplatnyj-vps-server
 основная статья
 
 
-Контейнерно ориентированная облачная технология на базе docker & kubernetes
-
-minishift:
+Completion
+source <(minishift completion bash)
 
 
