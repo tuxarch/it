@@ -22,3 +22,6 @@ IgnorePkg = package
 
 при возникновении проблем с ключами обновляем
 archlinux-keyring
+
+В случаее блокировки удалить:
+ /var/lib/pacman/db.lck
