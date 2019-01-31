@@ -1,3 +1,6 @@
+## Install 
+
+Установка скриптом:
 Для ubuntu cosmic запускаем установочный скрипт c dist=artful
 
 Cмотрим локали, должна быть en_US.utf8 - c другими валится
@@ -12,6 +15,10 @@ gitlab-ctl reconfigure
 далее через systemd
 systemctl status gitlab-runsvdir
 
-
 Минимальное количество памяти 2 ГБ
 
+## CI/CD
+
+.gitlab-ci.yml - файл описывающий сборку
+
+dpl - скрипт запуска

@@ -21,7 +21,11 @@ helm repo index ./ --url https://name.github.io/mychart - создать index.y
 для дальнейшей публикации чарта
 helm inspect package - информация о пакете
 
-
+## Flags
+-h юзаем после подкоманды
+--untar - разархивировать скаченный образ
+--wait - дождаться конца деплоя
+--debug 
 
 # Установка пакета
 chart repository
@@ -29,7 +33,6 @@ local chart archive (helm install foo-0.1.1.tgz)
 Unpacked chart directory (helm install path/to/foo)
 full URL (helm install https://example.com/charts/foo-1.2.3.tgz)
 
---wait - дождаться конца деплоя
 
 # chart project
 chart.yaml - содержит описания чарта
@@ -52,3 +55,12 @@ eval $(minikube docker-env)
 helm install -f values.yaml -f values.dev.yaml --set imageTag=tdd
 
 
+## Repo ------------------------
+# Github
+helm package .
+helm repo add .
+helm repo add github https://raw.githubusercontent.com/chetnuy/project/master/
+helm repo update
+
+## Search
+helm search github/ - поиск в репозитории
