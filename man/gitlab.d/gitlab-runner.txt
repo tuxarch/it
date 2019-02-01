@@ -1,0 +1,45 @@
+Виды установки:
+В контейнер (support docker in docker)
+docker run -d --name gitlab-runner --privileged=true  -v /mnt/data/image/gitlab/gitlab-runner:/etc/gitlab-runner    -v /var/run/docker.sock:/var/run/docker.sock    gitlab/gitlab-runner:latest
+
+Как приложение на хост gitlab-runner
+
+Как приложение на хост gitlab-runner --executor  запускающее билды в
+контейнере c поддержкой dock in dock
+
+
+1. Настройка
+В гитлаб может быть подключенно как админом, так и юзером git. Смотрим токен и
+домен для подключения на веб-интерфейсе.
+Следим за тегами, включаем поддержку untaged.
+
+
+gitlab-runner restart
+
+Проблема с resolve. Добавляем в 
+    extra_hosts = ["gitlab.example.com:172.17.0.1"]
+Проблема с docker.sock:
+    volumes = ["/var/run/docker.sock:/var/run/docker.sock", "/cache"]
+ 
+
+Минимальный рабочий конфиг:
+[[runners]]
+  name = "My Docker Runner"
+  url = "http://172.17.0.1/"
+  token = "xSDazKLXkRyMkMi2YHxk"
+  executor = "docker"
+  [runners.docker]
+    tls_verify = false
+    image = "docker:stable"
+    privileged = true
+    disable_entrypoint_overwrite = false
+    oom_kill_disable = false
+    extra_hosts = ["gitlab.example.com:172.17.0.1"]
+    disable_cache = false
+    volumes = ["/var/run/docker.sock:/var/run/docker.sock", "/cache"]
+    shm_size = 0
+  [runners.cache]
+    [runners.cache.s3]
+    [runners.cache.gcs]
+
+

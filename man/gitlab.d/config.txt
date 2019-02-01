@@ -1,0 +1,17 @@
+## config gitlab
+
+Основной конфиг
+/etc/gitlab/gitlab.rb
+После изменение запускаем
+gitlab-ctl reconfigure
+gitlab-ctl restart
+
+gitlab-ct status - просмотр статуса
+
+
+
+## config CI/CD
+
+.gitlab-ci.yml - файл описывающий сборку
+
+dpl - скрипт запуска

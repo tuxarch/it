@@ -4,6 +4,13 @@ docker run -d -p 5000:5000 --restart=always --name registry registry:2
 Качаем из docker registry
 docker pull ubuntu:16.04
 
+Добавляем тег
+docker tag ubuntu:16.04 localhost:5000/my-ubuntu
+
 Пушим и пулим из локала:
-docker push localhost:5000/my-ubuntu
 docker pull localhost:5000/my-ubuntu
+docker push localhost:5000/my-ubuntu
+
+
+Список образов получить:
+http://localhost:5000/v2/_catalog

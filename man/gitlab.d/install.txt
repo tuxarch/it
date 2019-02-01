@@ -1,0 +1,34 @@
+## Install 
+
+Установка скриптом на голую машину:
+Для ubuntu cosmic запускаем установочный скрипт c dist=artful
+
+Cмотрим локали, должна быть en_US.utf8 - c другими валится
+
+install:
+wget https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh
+os=ubuntu dist=bionic script.sh
+apt install gitlab-ce
+gitlab-ctl reconfigure
+
+
+далее через systemd
+systemctl status gitlab-runsvdir
+
+Минимальное количество памяти 2 ГБ
+
+
+Установка в контейнере:
+
+sudo docker run --detach --hostname gitlab.example.com --publish 443:443 \
+--publish 80:80  --publish 22:22  --name gitlab \
+--volume /mnt/data/image/gitlab/config:/etc/gitlab  \
+--volume /mnt/data/image/gitlab/logs:/var/log/gitlab \
+--volume /mnt/data/image/gitlab/data:/var/opt/gitlab   gitlab/gitlab-ce:latest
+
+
+## CI/CD
+
+.gitlab-ci.yml - файл описывающий сборку
+
+dpl - скрипт запуска
