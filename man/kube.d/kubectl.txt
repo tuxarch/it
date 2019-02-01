@@ -1,0 +1,79 @@
+# kubectl - cli control kubernetes cluster manager
+
+### Install and settings:
+
+curl -LO https://storage.googleapis.com/kubernetes-release/release/ \
+$(curl -s
+https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/k \
+&& sudo chmod +x ./k && sudo sudo mv ./k /usr/local/bin/k  
+
+Добавить комплит:  
+source < (k completion bash)
+
+
+###  Information and loging
+
+k cluster-info   Информация по кластеру и подключению
+k get nods  - получить список машин в кластере 
+k get deployments  
+k get pods  
+k get events  
+k config view  
+k get services
+k logs pods -f - интерактивный режим вывода лога
+
+
+### Run
+
+Запустить депоймент и расшарить его ip. Но в сервисах его нет, но можно найти описание через describe
+k run httpexposed --image=katacoda/docker-http-server:latest --replicas=1 --port=80 --hostport=8001
+
+
+## Yaml
+
+k apply -f file.yaml - приминить или обновить конфигурацию
+k delete  -f file.yaml - удалить обьекты
+k get deployments.apps redis -o yaml --export > flask_dep.yml - сохранить 
+k replace -f flask_dep.yaml - востанавливаем из файла
+
+
+### Exec in container
+
+export POD_NAME=$(k get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')
+k exec -ti $POD_NAME bash
+k expose deployment/kubernetes-bootcamp --type="NodePort" --port 8080 - открываем наш порт, зачем стучимся по расшаренному порту, ip
+k set image deployments/kubernetes-bootcamp kubernetes-bootcamp=gcr - изменить версию контейнера
+
+k scale deployments/kubernetes-bootcamp --replicas=4 - увеличить количество реплик
+k expose deployment hello-node --type=LoadBalancer  
+expose deployment 
+
+k set image deployment/hello-node hello-node=hello-node:v2  
+update image of you Deployment
+
+
+
+### Delete
+
+Удалить все ресурсы на кластере:  
+k delete daemonsets,replicasets,services,deployments,pods,rc --all  
+
+k delete service hello-node  
+k delete deployment hello-node  
+docker rmi hello-node -f  
+
+
+### Rollout
+
+k rollout history deployment redis - история деплоймента
+k rollout undo deployment/flask - откатиться на старую версию
+k rollout status deployment/flask -w - история изменения
+
+
+## Expose
+k expose deployment http --external-ip="172.17.0.94" --port=8000 --target-port=80 - расшарить на ip на порту 8000
+
+### APi
+k api-version - посмотреть возможные api 
+
+

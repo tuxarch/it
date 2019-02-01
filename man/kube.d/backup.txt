@@ -1,6 +1,6 @@
 Heptioo Ark
 Ставим контейнеры из гитхаба
-ставим клиет из сорцов
+ставим клиент из сорцов
 
 делаем бекап
 ark backup create nginx-backup --selector app=nginx
