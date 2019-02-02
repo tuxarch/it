@@ -34,7 +34,11 @@ k run httpexposed --image=katacoda/docker-http-server:latest --replicas=1 --port
 k apply -f file.yaml - приминить или обновить конфигурацию
 k delete  -f file.yaml - удалить обьекты
 k get deployments.apps redis -o yaml --export > flask_dep.yml - сохранить 
-k replace -f flask_dep.yaml - востанавливаем из файла
+k replace -f flask_dep.yaml - обновить из файла
+k kubectl create -f https://k8s.io/deployment.yaml --record - use http
+kubectl create -f <url> --edit - скачиваем и редактируем
+k diff - используем для сравнения
+
 
 
 ### Exec in container
@@ -58,12 +62,20 @@ update image of you Deployment
 Удалить все ресурсы на кластере:  
 k delete daemonsets,replicasets,services,deployments,pods,rc --all  
 
+Удалить чере API:
+kubectl proxy --port=8080
+curl -X DELETE  'localhost:8080/apis/extensions/v1beta1/namespaces/default/replicasets/frontend' \
+> -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Foreground"}' \
+> -H "Content-Type: application/json"
+
 k delete service hello-node  
 k delete deployment hello-node  
 docker rmi hello-node -f  
 
 
 ### Rollout
+
+kubectl rollout status - статус 
 
 k rollout history deployment redis - история деплоймента
 k rollout undo deployment/flask - откатиться на старую версию
