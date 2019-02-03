@@ -20,6 +20,7 @@ k get pods
 k get events  
 k config view  
 k get services
+k logs pods - получить логи из stdout контейнера
 k logs pods -f - интерактивный режим вывода лога
 
 
@@ -38,6 +39,7 @@ k replace -f flask_dep.yaml - обновить из файла
 k kubectl create -f https://k8s.io/deployment.yaml --record - use http
 kubectl create -f <url> --edit - скачиваем и редактируем
 k diff - используем для сравнения
+kubectl create -f https://application/nginx/ - указать каталог с файлами
 
 
 
@@ -68,6 +70,9 @@ curl -X DELETE  'localhost:8080/apis/extensions/v1beta1/namespaces/default/repli
 > -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Foreground"}' \
 > -H "Content-Type: application/json"
 
+Удаление по селектору:
+kubectl delete deployment,services -l app=nginx
+
 k delete service hello-node  
 k delete deployment hello-node  
 docker rmi hello-node -f  
@@ -88,4 +93,10 @@ k expose deployment http --external-ip="172.17.0.94" --port=8000 --target-port=8
 ### APi
 k api-version - посмотреть возможные api 
 
+### ConfigMaps
+kubectl create configmap game-config --from-file=configure-pod-container/configmap/kubectl
+kubectl get configmaps game-config -o yaml\
 
+### Configure
+Настроить параметры ядра на нодах
+kubelet --allowed-unsafe-sysctls 'kernel.msg*,net.ipv4.route.min_pmtu'
