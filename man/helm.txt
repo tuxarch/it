@@ -45,6 +45,10 @@ requirements.yml - описывает зависимые пакеты
 
 # Плагины
 template - сдампить все переменные в один файл
+Использовать для просмотра значений
+Просмотр конкретного файла со скрытием коментариев
+helm template package -x templates/project.yaml | grep -v ^#
+
 
 ____________________________________
 устанавливаем окружение для работы
@@ -57,7 +61,10 @@ helm install -f values.yaml -f values.dev.yaml --set imageTag=tdd
 
 ## Repo ------------------------
 # Github
+Создаем чарт
+
 helm package .
+helm repo index .
 helm repo add .
 helm repo add github https://raw.githubusercontent.com/chetnuy/project/master/
 helm repo update

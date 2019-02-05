@@ -1,3 +1,28 @@
+### OC cli
+oc login
+oc new-project <project_name> --description="<description>" --display-name="<display_name>"
+oc get projects
+oc status
+oc delete project <#project>
+
+
+
+oc new-app . - создает новое приложение
+oc new-app https://github.com/openshift/sti-ruby.git - из гита
+
+Указываем что за приложение мы деплоем
+oc new-app /home/user/code/myapp --strategy=docker
+Качнет образ с докерхаба
+oc new-app mysql
+Качнет из локального репо
+oc new-app myregistry:5000/example/myimag
+
+## Установка openshift
+atomic-openshift-installer install - через морду
+ansible
+
+
+
 https://losst.ru/besplatnyj-vps-server
 основная статья
 
