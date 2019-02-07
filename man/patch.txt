@@ -1,0 +1,16 @@
+Cоздание патча для файла
+Нужно два файла оригинал и измененный файл
+
+Cравнить два файла:
+diff file_original file_modify
+
+Создать patch 
+diff -u file_original file_modify > file.patch
+
+Применить patch
+patch file_original < file.patch
+
+Отменить patch
+patch -R file_original < file.patch
+
+

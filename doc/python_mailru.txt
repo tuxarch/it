@@ -1,6 +1,6 @@
-Прикладной python 
-от 23 октября 2018
-https://www.youtube.com/watch?v=oLN3-1UX0-A&t=891s
+Прикладной python
+Mail.ru. 2018 год
+https://www.youtube.com/playlist?list=PLrCZzMib1e9qM62lMXC90SiFy7-1-kAPJ
 
 
 Пользоваться diff,

@@ -1,3 +1,11 @@
+Подготовка к сдаче LPIC
+Шимаев.
+
+https://github.com/ksemaev - конспекты
+https://www.youtube.com/watch?v=rKCu-tfL730&list=PLmxB7JSpraiep6kr802UDqiAIU-76nGfc
+
+
+
 HAL - виртуализация оборудования
 udev - пришел на смену HAL
 dbus - шина для HAL
