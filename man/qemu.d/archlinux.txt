@@ -1,0 +1,4 @@
+Для сетки
+
+pacman -S libvirt qemu dnsmasq ebtables virt-install
+Используем iptables вместо firewalld !!!!
