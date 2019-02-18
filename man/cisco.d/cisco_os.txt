@@ -1,0 +1,6 @@
+network Operating System (IOS) - 15.7
+CatOS—Catalyst Switch Operating System
+NX-OS—Nexus Operating System - замена catalyst, сетевая ОС
+IOS-XR - на high-end маршрутизаторах сериях CRS, ASR, провайдерском
+оборудовании.
+Starent Operating System (StarOS)
