@@ -1,0 +1,62 @@
+Datacenter products: 
+	Nexus Switches (1000v, 2000, 3000, 4000, 5000, 6000,7000, 9000)
+	MDS
+	Unified Computing System (UCS)
+Routers:
+	800 Series
+	Integrated Services Router (ISR) (1800, 2800, 3800)
+	ISR G2 (1900, 2900, 3900)
+	2500 Series, 7200, 7600, 12000
+	ASR (900, 1000, 9000) 
+	Network Convergence System (NCS) 6000
+	Carrier Routing System (CRS-1, CRS-3, CRS-X)
+Security appliances: 
+	ASA, ASA-X, ASA-CX, ASA with FirePOWER, 
+	PIX 500 series, Cisco Security Manager, 
+	Email Security Appliance (ESA), Web Security Appliance (WSA), 
+	Content Security Management Appliance (SMA)
+Catalyst switches: 
+	1900 Series, 2900 / 2950 / 2960 / 3500XL Series, 
+	3550 / 3750 Series, 3000 Series, 
+	Catalyst 4500/4900, 5000/5500 Series,
+	6500 Series, 6800 Series, 9300/9400/9500 Series
+
+
+маршрутизаторы - точка-точка - mcd
+c1841 - 9100 руб
+c2811 - 14000 руб
+c1941 - 25000 руб
+
+Межсетевой экран 
+ASA5505 - 15000 руб
+
+dpi
+Cisco SCE8000 - 800 тыс. руб
+
+wifi
+black - Cisco AIR-AP1242 - 20000 руб
+white - Cisco AIR-CAP2602 - 10000 руб
+
+Switches
+с4500 шасси под 6 модулей - 22000 руб.
+	модуль расширения - 10 тыс рублей
+	управляющий модуль - 15 тыс руб
+	блока питания (2)   - 15 тыс
+
+c2960 на 24 порта - 18000 тыс рублей
+
+Routers
+c1900/c2900/c3900 - 70 тыс рублей -  расширяемые
+c1800/c2800/c3800 
+isr4000  - 
+ASR - новое поокление
+c7200 - модель снята с производства
+
+
+OS:
+nternetwork Operating System (IOS) - 15.7
+CatOS—Catalyst Switch Operating System 
+NX-OS—Nexus Operating System - замена catalyst, сетевая ОС
+IOS-XR - на high-end маршрутизаторах сериях CRS, ASR, провайдерском
+оборудовании. 
+Starent Operating System (StarOS)

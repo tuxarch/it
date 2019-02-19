@@ -1,0 +1,4 @@
+tar xvf EVE_VM.ova
+qemu-img convert -f vmdk -O qcow2 EVE_VM.vmdk eve.qcow2
+
+
