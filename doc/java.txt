@@ -82,6 +82,3 @@ compile - скомплировать
 mvn exec:java -Dexec.mainClass="com.app.HelloWorld" - запустить ult com.app -
 это пакет Hello - имя класса
 
-_____________
-
-Интерфейс не является классом
