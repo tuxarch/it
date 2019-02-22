@@ -6,6 +6,7 @@ Routers:
 	800 Series
 	Integrated Services Router (ISR) (1800, 2800, 3800)
 	ISR G2 (1900, 2900, 3900)
+	ISR 4000 - производительнее ISR G2 на базе (IOS XE)
 	2500 Series, 7200, 7600, 12000
 	ASR (900, 1000, 9000) 
 	Network Convergence System (NCS) 6000
@@ -20,6 +21,8 @@ Catalyst switches:
 	3550 / 3750 Series, 3000 Series, 
 	Catalyst 4500/4900, 5000/5500 Series,
 	6500 Series, 6800 Series, 9300/9400/9500 Series
+Cloud:
+	csr 1000v
 
 
 маршрутизаторы - точка-точка - mcd
@@ -52,11 +55,3 @@ isr4000  -
 ASR - новое поокление
 c7200 - модель снята с производства
 
-
-OS:
-nternetwork Operating System (IOS) - 15.7
-CatOS—Catalyst Switch Operating System 
-NX-OS—Nexus Operating System - замена catalyst, сетевая ОС
-IOS-XR - на high-end маршрутизаторах сериях CRS, ASR, провайдерском
-оборудовании. 
-Starent Operating System (StarOS)

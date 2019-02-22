@@ -4,3 +4,10 @@ NX-OS—Nexus Operating System - замена catalyst, сетевая ОС
 IOS-XR - на high-end маршрутизаторах сериях CRS, ASR, провайдерском
 оборудовании.
 Starent Operating System (StarOS)
+
+ios 
+ios xe - на базе linux, модульность и многопоточность
+(cat,asr,isr,csr-cloud-image-eve)
+ios xr - работает на провайдерском и сервесном оборудовании, со своим
+синтаксисом.
+
