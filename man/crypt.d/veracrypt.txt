@@ -1,0 +1,8 @@
+Монтируем veracrypt с помощью cryptsetup:
+sudo cryptsetup open file.crypt --type tcrypt --veracrypt veracrypt
+sudo mount /dev/mapper/veracrypt /mnt/run/usb/
+
+Размонтируем:
+sudo umount /dev/mapper/veracrypt
+sudo cryptsetup tcryptClose veracrypt
+
