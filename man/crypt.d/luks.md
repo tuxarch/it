@@ -1,4 +1,4 @@
-Simple crypt folder
+Create crypt image
 ======================
 
 dd if=/dev/zero bs=1M count=100 of=~/my-container.img
