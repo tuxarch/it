@@ -1,3 +1,5 @@
+Создать образ через veracrypt?
+
 Монтируем veracrypt с помощью cryptsetup:
 sudo cryptsetup open file.crypt --type tcrypt --veracrypt veracrypt
 sudo mount /dev/mapper/veracrypt /mnt/run/usb/
