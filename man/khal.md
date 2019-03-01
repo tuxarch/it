@@ -8,6 +8,8 @@ configure - создать конфиг файл
 interactive - интерактивный режим  
 
 list 
+khal list tommorow
+khal list 05.03
 at - показывают список на день
 
 calendar - календарь на три месяца
