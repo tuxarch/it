@@ -173,3 +173,10 @@ secret=1234
 context=outcoling
 disallow=all
 allow=alaw
+
+
+______________
+
+Сессия устанавливается по протоколу sip, данные перадаются по rtp, rtsp
+протоколу
+

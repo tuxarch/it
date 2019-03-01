@@ -9,6 +9,9 @@ Red Hat Enterprise Linux Workstation - десктоп клиент для маш
 Red Hat Enterprise Linux Desktop - для создания клиенстких систем
 
 
+
+Подтянуть scientific repo:
+
 http://ftp.scientificlinux.org/linux/scientific/ - зеркало с пакетами
 https://mirror.yandex.ru/scientificlinux/
 
@@ -23,3 +26,8 @@ gpgkey=http://mirror.yandex.ru/scientificlinux/7.2/x86_64/os/RPM-GPG-KEY-sl
 gpgcheck=1
 enabled=1
 -----
+
+
+Red hat network
+rhn - прокси канал для получения пакетов, позволяет организовать 
+

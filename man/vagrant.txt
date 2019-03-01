@@ -49,9 +49,13 @@ sudo virsh vol-delete --pool default <THE_VOLUME>
 
 ------Plugins
 
+
 vagrant-scp - ставим для того чтобы вытащить файлы
 
 
 Подключиться с помощью ssh
 ssh vagrant@127.0.0.1 -p 2222 -i /Users/lorin/dev/ansiblebook/ch01/
 playbooks/.vagrant/machines/default/virtualbox/private_key
+
+------Error
+--debug используем отладку если не запускается

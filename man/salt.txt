@@ -1,0 +1,14 @@
+Master - minion
+salt-ssh - способ взаимодействия
+
+
+
+Запуск
+service salt-master start
+salt-master -l debug
+
+salt-key -L - просмотр ключей
+
+
+Запускаем комманду
+salt ‘larry1, larry2, curly1’ test.ping
