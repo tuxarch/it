@@ -1,47 +1,94 @@
+LVM2
+Cоздает логические тома вместо разделов на диске 
+______________________
+Теория
+
+PV (Physical Volume) - физические тома (разделы или целые диски )
+VG (Volume Group) - группы томов обьединяем физические тома PV в диск
+который будем в дальнейшем разбивать
+LP (Logical Group) - логические разделы уже сверху VG
+
 grub - ниже 1.0 не держит загрузку с LVM
-
-создает логические тома вместо разделов на диске 
-
-______________
 modprobe dm-mod - проверяем наличие модуля
+______________________
+Мониторинг
 
-разбиваем диск и создаем раздел с типом 8E (fdisk LVM type)
+pvdisplay - позволяет просмотреть инициализированные физ. разделы
+vgdisplay - просмотр групп разделов
+lvdisplay - просмотр логических разделов 
 
-pvdisplay - позволяет просмотреть инициализир разделы
-pvcreate /dev/sda1 - инициализация раздела
-
-vgcreate MVLM /dev/sda1 (,dev/sda2)- создание группы разделов
-vgdisplay - просмотор группы разделов
-
-lvcreate -l +100%FREE MLVM -n lvolhome - создание тома внутри группы томов
-lvcreate -L 10G
-lvdisplay - просмотр разделов 
-Этот том будет доступен позже как устойство /dev/mapper/Volgroup00-lvolhome
-или /dev/VolGroup00/lvolhome. 
-
-mkfs.ext3 /dev/mapper/VolGroup00-lvolhome - создаем и монтируем разделы
-mount /dev/mapper/VolGroup00-lvolhome /home
+lvscan - посмотреть снапшоты
+lvs - посмотреть используемый размер снапшотов
+pvs - 
 
 
+______________________
+Практика
+
+
+pvcreate /dev/sdb - инициализировать раздел создать физический том
+
+vgcreate vg0 /dev/sdb /dev/sda1 - создать группу vg0
+
+vgextend vg0 /dev/sdc - добавить в группу том
+
+lvcreate -n data -L10G vg0 - создаем lvm-том с именем data, размеров 10G
+
+Этот том будет доступен, как устройство /dev/mapper/vg0-data (/dev/vg0/data)
+
+mkfs.ext4 -L date /dev/vg0/date - форматируем
+
+_______________________
+
+Задачи:
+
+Просканировать диски на наличие томов и добавить их
+vgscan && vgchange -ay - 
 
 Увеличить размер:
 lvextend -L 20G VolGroup00/lvolhome (или lvresize -L +5G VolGroup00/lvolhome)
-# resize2fs /dev/VolGroup00/lvolhome
+resize2fs /dev/VolGroup00/lvolhome
+
+Cоздание логического тома используя %
+lvcreate -l +100%FREE MLVM -n lvolhome - 
 
 Использовать все свободное место:
-# lvextend -l +100%FREE VolGroup00/lvolhome
+lvextend -l +100%FREE VolGroup00/lvolhome
 
 Уменьшить размер
 resize2fs /dev/VolGroup00/lvolhome 9G
-# lvreduce -L 10G VolGroup00/lvolhome (или lvresize -L -5G VolGroup00/lvolhome)
-# resize2fs /dev/VolGroup00/lvolhome
+lvreduce -L 10G VolGroup00/lvolhome (или lvresize -L -5G VolGroup00/lvolhome)
+resize2fs /dev/VolGroup00/lvolhome
 
 Добавить раздел
 pvcreate /dev/sdb1
-# vgextend VolGroup00 /dev/sdb1
+vgextend VolGroup00 /dev/sdb1
 
 
 Перенести данные перед удалением тома sdb1
-# pvmove /dev/sdb1 /dev/sdf1
+pvmove /dev/sdb1 /dev/sdf1
+
+Удалить диск из группы
+vgreduce vg0 /dev/vdc - удаляем неиспользуемый том из группы
+pvremove /dev/vdca - удаляем физический том
+
+Добавить чистый диск, перенести на него данные и удалить старый
+pvcreate /dev/vdc
+vgextend vg0 /dev/vdc
+pvmove /dev/vdb /dev/vdc 
+vgreduce vg0 /dev/vdb - удалить том из группы
+
+Создание снапшотов:
+В снапшот записываются только изменения.
+lvcreate -n backup -l +10%FREE -s /dev/vg0/data - cоздаем снапшот
+lvscan - посмотреть создан ли снапшот
+lvs - размер снапшота, при отсутствии памяти отключается
+Перед восстановлением нужно отмонтировать раздел 
+lvconvert --merge /dev/vg0/backup
+
+При использовании снапшотов, запись будет происходить также и внего, что
+существенно может отразиться на скорости чтения записи.
 
 
+___________________
+zfs -  как альтернатива
