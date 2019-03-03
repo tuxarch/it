@@ -1,30 +1,88 @@
+Система инициализации
+
+Возможности:
+Параллельный запуск служб
+Отслеживает процессы использует cgroup
+Логирование
+Монтирование
+Управление именем, датой, языком
+Работа с контейнерами и вм
+
+Файлы юнитов хранятся:
+/usr/lib/systemd/system/
+/etc/systemd/system/ - приоритетнее
+
+Типы юнитов:
+.service - службы (без указания типа он выбирается)
+.mount - точка монтирования
+.device - устройства
+.socket - сокеты
+.target - аналог уровней запуска в sysvinit, но имеют имя и определенные цели
+.timer - замена cron
+
+
+
+_________________________________
+
+systemctl - основная команда
+
+
+systemadm(systemd-ui) - графическая оболочка
+systemctl -H user@host - выполнить команду по ssh на удаленной машине
+
+systemctl status - дерево состояния системы
+systemctl - список запущенных юнитов
+systemctl --failed - просмотр ошибок
 systemctl list-units - просмотр состояния служб
+systemctl list-unit-files - список unit-файлов
+
+systemd-analyze blame - сколько времени запускается какой юнит
+
+
+systemctl status PID - показать свойство cgroup'ы куда входит PID
+
 systemctl start sshd.service - запуск ssh
+systemctl reload unit - перегрузить конфиг
+
+systemctl mask (unmask) unit - маскировка, сделать невозможным запуск
+
+systemctl cat unit - вывести содержимое
+systemd-deltа - аналог diff
+systemctl edit unit - редактирование и автоперезагрузка
+systemctl revert - отменить изменения сделанные в unit
+systemctl daemon-reload - перегрузить systemd для поиска новых юнитов
+
+
+Эмитация уровней sysvinit
+systemctl list-units --type=target - список целей(уровней)
+systemctl isolate graphical.target - переключиться между уровнями
+systemctl get-default - текущий уровень
+systemctl set-default multi-user.target - уровень по умолчанию
+
+
+
+
+_________________________________
+Управление питанием:
+systemctl reboot
+systemctl poweroff - выключить компьютер
+systemctl suspend, hibernate, hybrid-sleep
+
+
+
+
+
+
 
 journalctl - просмотр логов
+hostnamectl - задать имя хоста
+
 
 ____________________________________
-Cоздание юнита для zabbix
-
-cat /etc/systemd/system/zabbix-agent.service
-[Unit]
-Description=Zabbix Agent
-After=syslog.target network.target
-
-[Service]
-Type=forking
-ExecStart=/usr/sbin/zabbix_agentd
-PIDFile=/run/zabbix/zabbix_agentd.pid
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-----
-cat /etc/tmpfiles.d/zabbix-agent.conf
-d /var/run/zabbix 0755 zabbix zabbix
 
 tty
-
 systemctl getty@tty4.service
 
+sudo
+journalctl _COMM=sudo - комманды запущенные с sudo
 
