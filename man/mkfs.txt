@@ -1,0 +1,2 @@
+mkfs.ext2 -T small /dev/vg0/root - для маленьких дисков или (4кб)
+mkfs.ext3 -i 8192 /dev/sda - 
