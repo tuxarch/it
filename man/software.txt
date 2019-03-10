@@ -128,3 +128,5 @@ cadvisor - сборка логов внутри контейнера в kuber
 polemarch - ansible интерфейс
 bazzar - cvs от cannonical
 scid - шахматный анализ, chess 
+pacemaker - кластер для linux систем
+
