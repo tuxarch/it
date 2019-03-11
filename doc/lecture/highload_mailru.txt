@@ -1,0 +1,7 @@
+HIGHLOAD курс от mail.ru 2017 год начало
+https://www.youtube.com/playlist?list=PLrCZzMib1e9rZohs_FJg8MK52Ey494z40
+
+Признаки высоких нагрузок:
+Утилизация оборудования 50-70%
+Запросы от 1000 в секунду
+
