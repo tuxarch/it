@@ -22,3 +22,8 @@ Defaults:имя_пользователя timestamp_timeout=20
 
 ## alias
 sudo='sudo '
+
+
+## Логирование
+Добавить лог-файл к конфиг
+Defaults logfile=/var/log/sudolog

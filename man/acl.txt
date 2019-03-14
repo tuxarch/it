@@ -1,0 +1,36 @@
+Access Control list - Списки контроля доступа
+
+Теория:
+crw-rw----+ + указывает на acl
+chmod может перезаписывать права
+
+
+Поиск файлов с acl:
+getfacl -R -s -p <dir> | sed -n 's/^# file: //p'
+
+
+Более расширенный и гибкий способ разграничения доступа
+
+Посмотреть права ACL:
+# getfacl <file/dir>
+
+Файловая система должна быть смонтированна с acl флагом!
+tune2fs -l /dev/sdXY | grep "Default mount options:"
+
+Не переопределенна ли функция /proc/mounts nocal
+
+Добавить разрешения для пользователя:
+setfacl -m "u:user:permissions" <file/dir>
+
+Разрешение для группы:
+setfacl -m "g:group:permissions" <file/dir>
+
+Все файлы и каталоги при создании будут наследовать записи ACL родительского каталога:
+# setfacl -dm "entry" <dir>
+
+Удалить определённую ACL запись:
+# setfacl -x "entry" <file/dir>
+
+Удалить все ACL записи:
+# setfacl -b <file/dir>
+

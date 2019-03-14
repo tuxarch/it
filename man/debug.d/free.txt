@@ -1,0 +1,25 @@
+cat /proc/meminfo
+
+
+used - реально используемая память (total - free - cache)
+free - свободная память
+shared - память занятая tmpfs и разделяемая
+availible - доступно для запуска новых приложений
+
+
+
+________________________________________________
+
+Очистить pagechache:
+sync; echo 1 > /proc/sys/vm/drop_caches
+
+Clear dentries and inodes.
+dentries - структура данных представляющая каталог
+inodes - структара данных файла
+Структуры используются для кэша файловой системы
+sync; echo 2 > /proc/sys/vm/drop_caches
+
+
+Clear PageCache, dentries and inodes.
+sync; echo 3 > /proc/sys/vm/drop_caches
+

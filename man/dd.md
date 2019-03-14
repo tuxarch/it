@@ -1,6 +1,7 @@
 ### dd backup/restore
 
 Для создания резервной копии MBR:
+Используем bs=100M - для скоростной записи
 dd if=/dev/sda of=/path/mbr-backup bs=512 count=1
 Восстановление MBR:
 dd if=/path/mbr-backup of=/dev/sda bs=512 count=1

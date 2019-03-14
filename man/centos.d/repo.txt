@@ -1,0 +1,36 @@
+Repo:
+
+EPEL - хранилище от fedora. popular
+yum install epel-release -y
+
+EIRepo - последние драйвера для видео, звука, девайса
+
+___________________
+Конфиги в /etc/yum.repos.d/
+
+baseurl - ссылка на репо
+enabled - репо включен
+gpgcheck - проверка
+mirrorlist - список с репозиториями
+
+____________________
+Yandex mirror
+
+baseurl=http://mirror.yandex.ru/centos/$releasever/os/$basearch/
+gpgkey=http://mirror.yandex.ru/centos/$releasever/os/$basearch/RPM-GPG-KEY-CentOS-7
+
+baseurl=http://mirror.yandex.ru/centos/$releasever/updates/$basearch/
+gpgkey - оставить из /etc/pki
+
+Yandex epel
+baseurl=http://mirror.yandex.ru/epel/7/$basearch
+gpgkey=http://mirror.yandex.ru/epel/RPM-GPG-KEY-EPEL-7
+
+
+_______________________
+Config:
+
+yum clean all - очистить кэш
+
+/etc/yum/pluginconf.d/fastestmirror.conf > enabled=0 - отключить плагин
+
