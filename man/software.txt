@@ -105,7 +105,7 @@ etcd - служба распределенного хранения конфиг
 confd - управелние конфигурацией из etcd
 memcached - сервер кэширования серверов
 dart - аналог javascript
-clickhouse - интерактивная БД из яндекс.метрики
+clickhouse - столбцовая бд. из яндекс.метрики
 sxiv - простой просмотр изображений
 runit, supervisor - запуск скриптов
 flatpack, snap, appimage - приложения в контейнерах
@@ -128,3 +128,4 @@ cadvisor - сборка логов внутри контейнера в kuber
 polemarch - ansible интерфейс
 bazzar - cvs от cannonical
 scid - шахматный анализ, chess 
+bup - backup in git, бэкап в гит
