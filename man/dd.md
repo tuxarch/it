@@ -5,6 +5,8 @@
 dd if=/dev/sda of=/path/mbr-backup bs=512 count=1
 Восстановление MBR:
 dd if=/path/mbr-backup of=/dev/sda bs=512 count=1
+Стереть mbr:
+dd if=/dev/zero of=/dev/sda bs=512 count=1
 
 Если нужно сохранить только загрузочный код (он занимает 446 байт), то меняем размер блока следующим образом:
 dd if=/dev/sda of=/path/mbr-boot-code bs=446 count=1

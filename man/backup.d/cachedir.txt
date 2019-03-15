@@ -1,0 +1,11 @@
+Тэгирование директорий
+
+       cachedir tag $HOME/.cache
+
+       To remove a cache directory tag:
+
+       cachedir untag $HOME/.cache
+
+       To find all cache directories below your home directory:
+
+       cachedir find $HOME

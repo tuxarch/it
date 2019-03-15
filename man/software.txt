@@ -130,3 +130,4 @@ bazzar - cvs от cannonical
 scid - шахматный анализ, chess 
 bup - backup in git, бэкап в гит
 pacemaker - кластер для linux систем
+cdist - аналог ansible, работает поверх ssh и на python

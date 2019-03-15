@@ -1,0 +1,4 @@
+Легкий инкрементальный бэкап на python
+Есть поддержка шифрования и ssh
+
+attic init ssh://user@hostname:port/repository.attic

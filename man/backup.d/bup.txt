@@ -1,0 +1,24 @@
+Сделать бэкап в git 
+
+ bup init
+Make a local backup (-v or -vv will increase the verbosity):
+
+ bup index /etc
+ bup save -n local-etc /etc
+Restore a local backup to ./dest:
+
+ bup restore -C ./dest local-etc/latest/etc
+ ls -l dest/etc
+Look at how much disk space your backup took:
+
+ du -s ~/.bup
+Make another backup (which should be mostly identical to the last one; notice that you don't have to specify that this backup is incremental, it just saves space automatically):
+
+ bup index /etc
+ bup save -n local-etc /etc
+Look how little extra space your second backup used (on top of the first):
+
+ du -s ~/.bup
+Get a list of your previous backups:
+
+ bup ls local-etc
