@@ -28,3 +28,10 @@ destination(d_CISCO_GW);
 ##################################
 
 Добавляем это в syslog.conf
+
+
+#####################################
+Раскрасить вывывод ставим ccze, grc, most.
+
+И добовляем в конфиг /etc/syslog-ng/syslog-ng.conf
+destination console_all { program("ccze -A -m ansi >> /dev/tty12"); };

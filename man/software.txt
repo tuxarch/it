@@ -131,3 +131,11 @@ scid - шахматный анализ, chess
 bup - backup in git, бэкап в гит
 pacemaker - кластер для linux систем
 cdist - аналог ansible, работает поверх ssh и на python
+augeas - управление конфигурацией, примитив который использует puppet
+certmng - управление ssl сертификатами, проверка, продление
+diamond-python - система мониторинга
+dio - i/o мониторинг
+doas - аналог sudo 
+dxf - docker storage
+fam - мониторинг изменения файлов
+graylog2 - сбор логов
