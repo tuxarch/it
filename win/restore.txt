@@ -1,0 +1,11 @@
+Включить службу восстановления:
+enable-computerrestore -drive "c:\"
+
+
+enable-computerrestore -drive "C:\"
+iex 'VSSAdmin Resize ShadowStorage /For=C: /On=C: /MaxSize=5%'
+Checkpoint-Computer -Description 'Моя точка'
+
+Может зависить от службы теневого копирования тома
+
+

@@ -31,7 +31,7 @@ destination(d_CISCO_GW);
 
 
 #####################################
-Раскрасить вывывод ставим ccze, grc, most.
+Раскрасить вывывод ставим lnav, ccze, grc, most.
 
 И добовляем в конфиг /etc/syslog-ng/syslog-ng.conf
 destination console_all { program("ccze -A -m ansi >> /dev/tty12"); };
