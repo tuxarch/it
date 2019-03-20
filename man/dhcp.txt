@@ -1,3 +1,20 @@
+Установления соединения:
+-> DHCP_DISCOVER - ff:ff:ff:ff
+<- DHCP_OFFER 
+-> DHCP_REQUEST 
+<- DHCP_ACK 
+
+Обновление сессии:
+-> DHCP_REQUEST
+<- DHCP_ACK
+
+Переключение к другому сервесу:
+-> DHCP_PREQUEST - ff:ff:ff:ff
+<- DHCP_ACK
+
+_________________________________________
+
+
 Cуществует два файла настроек
 	/etc/conf.d/dhcp
 	/etc/dhcp/dhcp.conf
