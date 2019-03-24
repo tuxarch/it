@@ -5,6 +5,8 @@ pacman -Qmq - список неофициальных
 pacman -S $(pacman -Qnq) - переустановка
 pacman -Syu --noconfirm  - подтверждение
 
+pacman -S --force - принудительное удаление  
+
 
 cache: 
 /var/cache/pacman/pkg
