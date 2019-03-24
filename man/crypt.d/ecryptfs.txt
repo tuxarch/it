@@ -1,0 +1,9 @@
+ecryptfs-utils и keyutils
+
+
+
+Собираем ядро с поддежкой
+
+modprobe ecryptfs
+
+
