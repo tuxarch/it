@@ -6,3 +6,28 @@ Encfs
 
 Для шифрования домашнего каталога применяем модуль
 pam_encfs
+fuse
+
+
+++++++++++++++++++++++++++++++++
+
+/etc/pam.d/common-auth << auth sufficient pam_encfs.so (перед auth requisite pam_unix.so )
+/etc/pam.d/system-auth
+
+В группу добавляем:
+gpasswd -u user fuse
+
+Создаем каталоги и монтируем:
+mkdir /home/.encfs/user
+encfs /home/.encfs/user /home/user
+
+Размонтируем:
+fusermount -u ~/visible
+
+Добавляем /etc/security/pam_encfs.conf
+user           /home/.encfs/user       /home/user     -v                      allow_other
+
+/etc/fuse.conf - строчку
+user_allow_other
+
+

@@ -1,9 +1,54 @@
+Ставим:
 ecryptfs-utils и keyutils
 
-
-
-Собираем ядро с поддежкой
-
+Грузим модуль:
 modprobe ecryptfs
 
+Монтируем:
+mount -t ecryptfs /home/.ecryptfs/user/.private/ /home/user -o ecryptfs_unlink,ecryptfs_fnek_sig=f2b5e2e3a3065,ecryptfs_key_bytes=16,ecryptfs_cipher=aes,ecryptfs_sig=f2b5e2e068155,ecryptfs_passthrough=n
 
+В /etc/fstab:
+/home/.ecryptfs/user/.private/ /home/user ecryptfs noauto,rw,user,exec,ecryptfs_unlink,ecryptfs_fnek_sig=f2b5155,ecryptfs_key_bytes=16,ecryptfs_cipher=aes,ecryptfs_sig=f2b5e25,ecryptfs_passthrough=n 0 0
+
+
+Для монтирования от пользователя:
+От рута:
+touch /root/.ecryptfs/auto-mount
+ecryptfs-wrap-passphrase /root/.ecryptfs/wrapped-passphrase
+mv /root/.ecryptfs /home/.ecryptfs/user
+chown -R user:user /home/.ecryptfs/user/.ecryptfs
+ln -s /home/.ecryptfs/user/.ecryptfs /home/user/.ecryptfs
+
+
+Пишем в /home/user/.bash_profile
+
+# -*- shell-script -*-
+#
+if [ -r "${HOME}/.ecryptfs/auto-mount" ]; then
+  grep -qs "${HOME} ecryptfs" /proc/mounts
+  if [ $? -ne 0 ]; then
+    mount -i "${HOME}" ; cd "${HOME}"
+  fi
+fi
+
+
+Редактируем /etc/pam.d/system-auth
+
+auth      required  pam_unix.so     try_first_pass nullok
+auth      required  pam_ecryptfs.so unwrap
+#...
+password  required  pam_ecryptfs.so
+password  required  pam_unix.so     try_first_pass nullok sha512 shadow
+#...
+# eCryptfs optional in session context
+#session  optional  pam_ecryptfs.so
+
+
+
+Монтируем от пользователя:
+ecryptfs-insert-wrapped-passphrase-into-keyring /home/user/.ecryptfs/wrapped-passphrase
+
+mount -i /home/user
+
+Основная статья:
+http://sysphere.org/~anrxc/j/articles/ecryptfs/index.html
