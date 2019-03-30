@@ -1,0 +1,18 @@
+Проекты храняться:
+/etc/puppet/code/environments/production/modules/helloworld/manifest/init.pp
+ class helloworld {
+   notify { 'hello, world!': }
+ }
+
+Применяем конфиг:
+/etc/puppet/code/environments/production/manifests/site.pp
+
+node default { 
+	 class { 'helloworld': }
+ }
+
+node default - должно выполняться на всех тачках
+
+puppet parser validate site.pp - проверить конфиг
+
+puppet agent -t - забрать конфиг с сервера
