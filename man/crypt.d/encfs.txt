@@ -11,6 +11,7 @@ fuse
 
 ++++++++++++++++++++++++++++++++
 
+/etc/fuse.conf << allow_from_other
 /etc/pam.d/common-auth << auth sufficient pam_encfs.so (перед auth requisite pam_unix.so )
 /etc/pam.d/system-auth
 

@@ -60,3 +60,10 @@ WantedBy=multi-user.target
 ----
 cat /etc/tmpfiles.d/zabbix-agent.conf
 d /var/run/zabbix 0755 zabbix zabbix
+
+______________________________________
+
+Параметры zabbix
+/etc/zabbix/zabbix-server.conf
+
+ZQ

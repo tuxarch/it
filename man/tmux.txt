@@ -53,3 +53,6 @@ c-b :attach -d
 
 Перегрузить окно :detach -a
 
+
+
+tmux new "command && command" - Запустить команду в терминале tmux
