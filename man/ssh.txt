@@ -68,3 +68,6 @@ _______
 
 ssh -D 8080 user@server - пробрасываем порт
 Затем в браузере проиписываем порт
+
+sudo ssh -ND 8080 aldog@zabix.srg-it.ru -p 58319 -i id_rsa
+

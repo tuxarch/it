@@ -1,0 +1,5 @@
+scp -P NNNN /path/to/file_local user@server:/path/to/dir_server
+
+Идем на сервер на нестандартный порт, с нестандартным ключом
+scp -i id_rsa ./local_file -P 5000 name@server:/mnt/file
+
