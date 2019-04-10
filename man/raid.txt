@@ -1,2 +1,8 @@
 mdadm - позвляет организовать программный raid
 
+Понизить скорость sync на дисках:
+Временно понизить скорость sync можно так:
+  echo 1000 > /proc/sys/dev/raid/speed_limit_max
+Затем вернуть обратно
+  echo 200000 > /proc/sys/dev/raid/speed_limit_max
+

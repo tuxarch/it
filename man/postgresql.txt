@@ -97,3 +97,8 @@ pgadmin
 phppgadmin - обертка
 #Require local - закомитить нужно для доступа из внешней сети
 
+
+__________________________
+Бэкап
+C переносом на удаленную машину
+pg_dump -C -h localhost -U localuser dbname | psql -h remotehost -U remoteuser dbname

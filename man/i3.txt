@@ -83,3 +83,4 @@ assign [class=«skype»] имя_воркспэйса
 i3-save-tree --workspace 10
 
 
+Для блокировки экрана ставим i3lock
