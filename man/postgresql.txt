@@ -100,5 +100,9 @@ phppgadmin - обертка
 
 __________________________
 Бэкап
+Чтобы можно было удаленно подключаться к базе, редактируем pg_hba.conf 
+local  all      all          md5
+И systemctl restart postgresql
+
 C переносом на удаленную машину
 pg_dump -C -h localhost -U localuser dbname | psql -h remotehost -U remoteuser dbname
