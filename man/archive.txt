@@ -3,6 +3,9 @@ tar czvf file.tar.gz file1 flie2 - создать gzip тарбол архив
 
 tar cfJ <archive.tar.xz> <files> - xz archive
 
+tar -tvf my-data.tar.gz - список файлов в архиве
+tar -tvf my-data.tar.gz 'search-patter'
+
 ## zip
 zip -r zipfile.zip directory - создать с рекурсией
 

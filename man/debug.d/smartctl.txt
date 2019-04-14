@@ -1,0 +1,4 @@
+smartctl -a /dev/sda
+
+Нас интересует raw_value
+

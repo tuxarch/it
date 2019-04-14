@@ -1,0 +1,36 @@
+hg init 
+hg add
+hg commit
+hg status /st
+hg diff
+
+
+hg log - история коммитов
+
+hg revert --all - вернуть состояние последнего коммита, для файла
+
+hg remove file.txt - удалить файл из репо
+
+hg cat -r 9789:561aae149448 file.txt - просмотр содержимого из ревизии
+
+hg diff -r rev1:rev2 file.txt - разница между ревизиями
+
+hg update -r rev1 - перемещаемся между ревизиями
+hg up -r 1
+hg up 
+
+
+hg rollback - удалить последний коммит, который незапушен
+
+
+hg branch branch_name - создать ветку
+
+Mercurial делает пуш всех веток, гит только текущей ветки.
+
+hg push --rev branch_name - запушить только текущую ветку
+
+hg push --new-branch - создать удаленную ветку
+
+Создать pull request:
+$ curl --user s3m3n:bbpassword https://bitbucket.org/api/2.0/repositories/s3m3n/reponame/pullrequests/4
+https://bitbucket.org/zhemao/bitbucket-cli

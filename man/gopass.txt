@@ -1,0 +1,5 @@
+Подключить комплит:
+source <(gopass completion bash)
+
+Конфиги храняться:
+.config/gopass/config.yml

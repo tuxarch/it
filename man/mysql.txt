@@ -139,3 +139,6 @@ _________________________
 Пользователи - различные права с различных ip-адресов
 
 
+change master to master_host='sql1.srg-it.ru', master_user='repl',
+master_password='ei5OhThaix', master_log_file='sql1-bin.001468', master_log_pos=89581550;
+
