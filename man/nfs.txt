@@ -3,13 +3,20 @@
 
 nfs-utils
 
-/etc/exports - правим
+/etc/exports - правим на сервере
 /export  192.168.0.0/24(rw,sync,no_subtree_check,crossmnt,fsid=0)
 
-exportfs -rv - перичитать конфиг
+/etc/fstab - на клиенте
+bac2.ru:/backups/mongo_baikal/ /backup/mongo_baikal/ nfs auto,noatime,nolock,bg,nfsvers=4,soft,tcp,actimeo=1800 0 0
+
+
+exportfs -rv - перичитать конфиг на сервере
+
+showmount -e sever.name - посмотреть  конфиг на сервере с клиента
 
 
 Запускаем службы nfs nfsclient
-
 mount 192.168.0.1:/home /home  - монтируем
+
+
 

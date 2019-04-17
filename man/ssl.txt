@@ -1,0 +1,6 @@
+Получить сертификат сайта:
+openssl s_client -showcerts -connect srg-it.ru:443 </dev/null 2>/dev/null|openssl x509 -outform PEM
+
+Проверить сертификат:
+openssl x509 -in new.srg-it.ru.crt.chained -text -noout
+

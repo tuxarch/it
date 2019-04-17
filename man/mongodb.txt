@@ -16,4 +16,5 @@ db.first.insert({"say helo": "hello work"}) - создает запись
 db.first.find().prety() - выводит содержимое записи структурированно
 
 
-
+Подключение к удаленной базе:
+mongo -u root --host baikal.srg-it.ru
