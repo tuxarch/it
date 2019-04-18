@@ -48,3 +48,6 @@ mysql_install_db again
 
 _________________________________________________________
 
+База доступна только на чтение, readonly - изменить
+SET GLOBAL read_only = 0;
+UNLOCK TABLES;

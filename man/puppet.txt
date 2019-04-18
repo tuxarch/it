@@ -21,6 +21,9 @@ puppet module install puppetlabs-stdlib - установить модуль file
 ставится на сервере
 
 
+Посмотреть расположение модулей:
+puppet config print modulepath
+
 ________
 
 site.pp
