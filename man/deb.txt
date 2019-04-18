@@ -13,3 +13,7 @@ lintian - проверка пакета deb
 
 dh_make - сборщик deb-пакета
 
+
+=========================================================
+
+mysqlcheck --database express --tables disids
