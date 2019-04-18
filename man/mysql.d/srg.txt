@@ -51,3 +51,7 @@ _________________________________________________________
 База доступна только на чтение, readonly - изменить
 SET GLOBAL read_only = 0;
 UNLOCK TABLES;
+=======
+Проверка структуры базы данных:
+mysqlcheck --database express --tables tables
+
