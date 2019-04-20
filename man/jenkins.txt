@@ -1,5 +1,13 @@
-artifacts exe, app, web 
 
+Перезапуск/выключение:
 
-jenkins.war - file java run
+localhost:8080/saveRestart - дождаться завершения запущенных заданий
+localhost:8080/restart
 
+sudo /etc/init.d/jenkins restart
+
+$ curl -X POST -u <user>:<password> http://<jenkins.server>/exit
+
+Для получения crumb jenkins:
+curl -s -u admin:admin http://localhost:8080/crumbIssuer/api/json
+curl -X POST -u admin:admin http://localhost:8080/restart -H 'Jenkins-Crumb:e3faff6e707379bde95f3a9067dc7eae
