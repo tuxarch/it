@@ -16,3 +16,5 @@ node default - должно выполняться на всех тачках
 puppet parser validate site.pp - проверить конфиг
 
 puppet agent -t - забрать конфиг с сервера
+
+
