@@ -29,3 +29,5 @@ netstat - сетевая статистика
 -ie - количество отправленных пакетов
 
 
+sudo netstat -anlp | grep :443 | grep ESTABLISHED | wc -l - количество
+подключений по 443
