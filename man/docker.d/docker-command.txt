@@ -1,0 +1,2 @@
+ d exec -ti --user root condescending_blackburn /bin/sh - запустить шел в
+ контейнере
