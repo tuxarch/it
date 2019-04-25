@@ -1,0 +1,6 @@
+top для nginx
+sudo ngxtop -f main -l /var/log/nginx/site1/access.log
+
+Забираем логи с удаленного сервера:
+$ ssh user@remote_server tail -f /var/log/apache2/access.log | ngxtop -f common
+

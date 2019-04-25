@@ -1,0 +1,6 @@
+На убунту 1404
+конфиги
+/etc/init/jaeger-agent.conf 
+Старт
+initctl start jaeger-agent
+

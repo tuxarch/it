@@ -1,0 +1,5 @@
+dstat --top-io --top-bio - bio-запись байт, io - обращение к файловым
+системам.
+
+sudo dstat -tldnpms 10 - универсальный запуск
+dstat --top-cpu -tldnpms 10
