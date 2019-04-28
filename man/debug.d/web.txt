@@ -1,0 +1,3 @@
+Количество активных соединений:
+sudo netstat -anlp | grep :443 | grep ESTABLISHED | wc -l
+

@@ -1,0 +1,19 @@
+Проверить наличие иерархий групп:
+$ grep -E -- \\\<cgroup\\\> < /proc/mounts
+
+
+Создать группу:
+cgcreate -g memory:MongoLimitGroup
+
+Назначить лимит памяти на группу:
+echo 1610612736 > /sys/fs/cgroup/memory/MongoLimitGroup/memory.limit_in_bytes
+
+Дропнуть кэш из памяти:
+sync; echo 3 > /proc/sys/vm/drop_caches
+
+Добавить процесс в группу
+cgclassify -g memory:MongoLimitGroup pid
+
+Удалить группу:
+cgdelete subsystems:path
+

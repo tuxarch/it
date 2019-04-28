@@ -18,3 +18,12 @@ db.first.find().prety() - выводит содержимое записи ст�
 
 Подключение к удаленной базе:
 mongo -u root --host baikal.srg-it.ru
+
+
+Узнать движок:
+mongo >>
+db.serverStatus().storageEngine
+
+
+Ограничить память для движка wiredTiger:
+storage.wiredTiger.engineConfig.cacheSizeGB

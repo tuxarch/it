@@ -1,0 +1,6 @@
+lxc-ls --active - запущенные контейнеры
+
+
+Изменить размер контейнера:
+pct resize <vmid> <disk> <size> [OPTIONS]
+pct resize 212 rootfs 15G

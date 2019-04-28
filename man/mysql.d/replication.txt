@@ -1,0 +1,31 @@
+show slave status \G - смотрим ошибки
+Master_Log_File: mysql-bin.000004
+Exec_Master_Log_Pos: 155
+__________________________________________
+
+Пропустить ошибку:
+SET GLOBAL sql_slave_skip_counter = N
+
+
+__________________________________________
+Перезапустить реплику:
+
+stop slave;
+restart slave;
+change master to master_host='sql1.srg-it.ru', master_user='repl', master_password='x', master_log_file='sql1-bin.000216', master_log_pos=177530044;
+START SLAVE;
+
+show slave status \G
+
+При запущенной реплика нас интересует:
+
+Slave_IO_State: Waiting for master to send event
+Slave_IO_Running: Yes
+Slave_SQL_Running: Yes
+Seconds_Behind_Master: 5
+
+
+________________________________________
+Перенести бэкап:
+innobackupex --slave-info --parallel=3 --no-timestamp
+sudo innobackupex --slave-info --use-memory=1G --stream=xbstream ./ | ssh aldoshkineg@backup2.srg-it.ru -p 58319 -i /home/aldoshkineg/.ssh/id_rsa "xbstream -x -C /mnt/mysql2"
