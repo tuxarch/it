@@ -30,6 +30,8 @@ puppet cert --sign $client_name - подписать сертификат
 Проверить состояние на с клиента
 puppet agent --test - отправить запрос на сертификат
 
+puppet config print - получить конфиг
+
 
 foreman - вэб-морда для простой настройки
 puppet module install puppetlabs-stdlib - установить модуль file_line 

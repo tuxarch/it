@@ -1,0 +1,31 @@
+pct list - вывести список машин
+
+pveam list local - список системных образов
+
+pct create $CTID local:vztmpl/$Template.tar.gz --cpulimit $CORE --cpuunits 1024 --hostname $NAME --memory $MEMORY --net0 name=eth0,bridge=vmbr0,gw=$GWIP,ip=$IP/24,type=veth --onboot 1 --ostype centos --rootfs $STORAGES:$DiskSize --swap 512'
+
+pveam remove local:vztmpl/debian-8.0-standard_8.0-1_amd64.tar.gz - удалить
+образ
+
+pct start 110
+pct console 110 - подконектиться 
+(ctrl+a q) - отключиться
+
+pct enter 100 - сделать chroot в контейнер
+pct config - получить информацию по контейнеру
+
+
+pct set 100 -net0 name=eth0,bridge=vmbr0,ip=192.168.15.147/24,gw=192.168.15.1
+pct set 100 -memory 512 - изменить количество памяти
+
+pct cpuset - показывает на каких ядрах работают контейнеры
+
+pct clone 100 101 - клонируем контейнер
+pct destroy 100 - удалить контейнер
+
+
+Диски---------
+pct df - использование дисков
+pct resize 212 rootfs 15G - указываем величину диска
+
+

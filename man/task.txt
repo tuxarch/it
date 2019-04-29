@@ -26,7 +26,7 @@ task 1 rename - переименовать
 
 task 2 annotate Добавить аннотацию
 	denotate - удалить аннотацию
-task 3 due:8/28/2013 - назначить срок исполнения
+task 3 due:2019-05-16 - назначить срок исполнения
 task 3 due:4days 
 task 6 recur:(weekly, monthly, early) - сделать задачу рекурсивной
 task list pro:Projectname - фильт на группу
