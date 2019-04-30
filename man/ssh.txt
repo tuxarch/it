@@ -71,3 +71,12 @@ ssh -D 8080 user@server - пробрасываем порт
 
 sudo ssh -ND 8080 aldog@zabix.srg-it.ru -p 58319 -i id_rsa
 
+
+____________________________________________________
+
+Завершить сеанс юзера
+
+w - смотрим 
+echo "Ha-ha" | write user pts/3
+ps t3 - кто сидит на pts/tty
+kill -9 30772 - пид берем из pts
