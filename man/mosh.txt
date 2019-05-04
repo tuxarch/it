@@ -1,0 +1,9 @@
+Нужно расшарить 60001 порт upd
+
+Кастомный ключ, кастомный порт
+mosh --ssh="~/bin/ssh -i ./identity -p 5444" myhost.com
+
+Убить все сессии
+kill `pidof mosh-server`
+
+

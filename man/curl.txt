@@ -8,3 +8,6 @@ cheat.sh
 curl cheat.sh/vagrant
 curl cht.sh/go/http
 
+Используем прокси:
+curl -v --socks5-hostname 52.59.253.120:1080 -U user:pass https://2ip.ru
+

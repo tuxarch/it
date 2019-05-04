@@ -1,0 +1,4 @@
+Установка rhe
+yum -y install python-pip
+
+

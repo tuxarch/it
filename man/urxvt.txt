@@ -32,3 +32,7 @@ M-u start url-select
 #   y:        Copy (yank) selected URL and deactivate selection mode
 #   q/Escape: Deactivate URL selection mode
 
+____________________
+Экспорт на удаленный хост
+ssh <host> 'mkdir -p .terminfo/r'
+scp /usr/share/terminfo/r/rxvt-unicode-256color <host>:~/.terminfo/r/

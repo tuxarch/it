@@ -1,16 +1,137 @@
-После всей этой канифоли с ключами и параметрами нужно знать:
+Установка (для клиента тот же пакет)
 
-	- Для пинга между клиентами нужно добавать в конфиг
-		client to client
-	- включить форвардинг 
-		 echo 1 > /proc/sys/net/ipv4/ip_forward
-		 отредактировать /etc/systctl.conf
-	- включить nat
-		iptables -A FORWARD -s 10.100.0.0/24 -j ACCEPT
-		sudo iptables -A FORWARD -m state --state RELATED,ESTABLISHED
-		-j ACCEPT
-		sudo iptables -t nat -A POSTROUTING -s 10.100.0.0/24 -o enp3s0
-		-j MASQUERADE
-	Сохранить настройки /etc/init.d/iptables save
+yum install epel-release
+yum install openvpn easy-rsa –y
+
+cp /usr/share/doc/openvpn-*/sample/sample-config-files/server.conf /etc/openvpn
+
+________________________________________________________________
+
+Генерируем сертификаты через easy-rsa:
+
+https://www.dmosk.ru/miniinstruktions.php?mini=openvpn-easyrsa3
+
+Идем в cd /usr/share/easy-rsa/3.0.3
+
+Создаем файл vars - переменный для генерации
+
+Создаем pki
+/easyrsa init-pki
+
+Создаем корневой сертификат:
+./easyrsa build-ca
+
+Формируем ключ Диффи-Хеллмана:
+./easyrsa gen-dh
+
+Запрос на сертификат, вводим yes и задаем пароль
+./easyrsa gen-req vpn-server nopass
+./easyrsa sign-req server vpn-server
+
+Создаем ta ключ:
+openvpn --genkey --secret pki/ta.key
+
+Переносим ключи: (ca.crt, server.crt, server.key, ta.key)
+cp -r pki/* /etc/openvpn/keys/
+
+Добавляем клиенский сертификат:
+./easyrsa gen-req client1 nopass
+./easyrsa sign-req client client1
+
+
+Забираем сертификаты для пользователя:
+ca.crt
+issued/client1.crt
+private/client1.key
+dh.pem
+ta.key
+
+Отозвать сертификат:
+./easyrsa revoke client1
+
+
+_____________________________________________________________________
+
+Основные настройки:
+По умолчанию udp, 1194 порт - смотрим netstat
+
+
+Основные сертификаты:
+ca keys/ca.crt
+cert keys/issued/vpn-server.crt
+key keys/private/vpn-server.key
+dh keys/dh.pem
+tls-auth keys/ta.key 0
+
+
+#Порт
+port 1194
+
+#Протокол
+proto udp
+
+#Тип интерфейса tun-сетевой уровень, tap-канальный
+dev tun0
+
+#Режим работы сервера
+mode server
+
+#Серверу назначается первый адрес из первой подсети
+ifconfig 10.8.0.1 255.255.255.0
+
+#Клиентам
+ifconfig-pool 10.8.0.10 10.8.0.100
+
+#Системе объявляется маршрут на всю OpenVPN-сеть
+route 10.8.0.0 255.255.255.0
+
+#Передаётся маршрут на всю OpenVPN-сеть клиентам
+push «route 192.168.0.0 255.255.255.0»
+
+#Шлюз длы вышеуказанных маршрутов
+push «route-gateway 10.8.0.1»
+
+Днс для openvpn:
+push "dhcp-option DNS 8.8.8.8"
+
+Переписать шлюз по умолчанию на клиентах и перенаправить весь трафик в tun0
+push "redirect-gateway def1 bypass-dhcp"
+
+Запускать в непривелигированном режиме
+user nobody
+group nobody
+
+
+Добавить маршрут на клиентов:
+push "route 104.18.56.108 255.255.255.255"
+
+
+
+-----
+На клиенте
+client
+
+адресс сервера
+remonte server_ip 1194
+
+
+
+_____________________________________________________________________
+
+Настройка форвардинга и маскарадинга:
+
+
+- Для пинга между клиентами нужно добавать в конфиг
+	client to client
+- включить форвардинг 
+	 echo 1 > /proc/sys/net/ipv4/ip_forward
+	 отредактировать /etc/systctl.conf
+- включить nat
+	iptables -A FORWARD -s 10.100.0.0/24 -j ACCEPT
+	sudo iptables -A FORWARD -m state --state RELATED,ESTABLISHED
+	-j ACCEPT
+	sudo iptables -t nat -A POSTROUTING -s 10.100.0.0/24 -o enp3s0
+	-j MASQUERADE
+Сохранить настройки /etc/init.d/iptables save
 	/var/lib/iptables/rules-save - файл с конфигом
 
