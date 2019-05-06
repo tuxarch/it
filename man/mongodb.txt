@@ -27,3 +27,10 @@ db.serverStatus().storageEngine
 
 Ограничить память для движка wiredTiger:
 storage.wiredTiger.engineConfig.cacheSizeGB
+
+Удаленный бэкап
+mongodump --username root --password Fawi --out backup_dir --host name.ru
+
+Удаленное восстановление:
+mongorestore --host sql3.srg-it.ru
+
