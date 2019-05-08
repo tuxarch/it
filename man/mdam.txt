@@ -1,3 +1,12 @@
 mdadm — утилита для управления программными RAID-массивами в Linux.
 программный рейд.
 
+Узнать состояние массива:
+cat /proc/mdstat
+
+
+Удаление массива:
+
+mdadm -S /dev/md0
+mdadm --zero-superblock /dev/sd[a-e]1
+

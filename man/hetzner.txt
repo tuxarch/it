@@ -1,0 +1,3 @@
+Быстро развернуть образ:
+/root/.oldroot/nfs/install/installimage -a -n my-hostname -r yes -l 1 -p /:ext4:4G -K /root/.ssh/robot_user_keys -i /root/.oldroot/nfs/install/../images/Ubuntu-1604-xenial-64-minimal.tar.gz
+

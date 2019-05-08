@@ -3,8 +3,7 @@ zpool status -v - инфо по пулу
 
 
 Создать пул:
-zpool create -f -o ashift=13 -O atime=off -O dedup=off -O compression=lz4
-tank mirror /dev/sda1 /dev/sdb2
+zpool create -f -o ashift=13 -O atime=off -O dedup=off -O compression=lz4 tank mirror /dev/sda1 /dev/sdb2
 
 Уничтожить пул:
 zpool destroy myzfs
@@ -25,6 +24,35 @@ zpool replace myzfs /disk1 /disk3
 Восстановление рейда:
 zpool scrub myzfs
 
+Комперссию посмотреть:
+zfs get compression
+zfs get compressratio - степень сжатия
+zfs set compression=lz4 rpool - включить компрессию на разделе
+
+Посмотреть точки монтирования:
+zfs get mountpoint
+
+Отмонтировать/примонтировать:
+zfs unmount (-f) tank/home/eschrock - force
+zfs set mountpoint=/foo_mount tank
+
+Обновить:
+zfs upgrade
+
+
+Снапшоты:
+zfs list -t snapshot - список снапшотов
+zfs snapshot rpool/db/store@snap_name - создать снапшот
+zfs rollback rpool/db/store@pre-rm - восстановить из снапшота
+
+
+_________________________________________________________________________
+
+autoexpand=on - позволяет монтировать диски большего размера
+compression=gzip-9 - максимальная комперссия
+
+
+
 _________________________________________________________________________
 
 Статистика:
@@ -35,4 +63,13 @@ zfs list -o compression
 
 История:
 zpool history
+
+
+_________________________________________________________________________
+
+Преимущества zfs:
+Всегда консистентное состояние из-за cow
+Все блоки с чексуммой
+Компрессия, снапшоты
+Накопление изменение в памяти и запись ее на диск
 

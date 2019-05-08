@@ -34,3 +34,6 @@ mongodump --username root --password Fawi --out backup_dir --host name.ru
 Удаленное восстановление:
 mongorestore --host sql3.srg-it.ru
 
+______________
+При удалении базы также стоит удалить и каталог 
+/tmp/mongodb
