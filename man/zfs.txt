@@ -1,0 +1,38 @@
+zpool list - список пулов
+zpool status -v - инфо по пулу
+
+
+Создать пул:
+zpool create -f -o ashift=13 -O atime=off -O dedup=off -O compression=lz4
+tank mirror /dev/sda1 /dev/sdb2
+
+Уничтожить пул:
+zpool destroy myzfs
+
+Отключить диск от пула:
+zpool detach myzfs /disk3
+
+Подключить диск к пулу:
+pool attach myzfs /disk1 /disk3
+
+Отключить/включить диск
+zpool offline myzfs /disk1
+zpool online myzfs /disk1
+
+Заменить один диск другим:
+zpool replace myzfs /disk1 /disk3
+
+Восстановление рейда:
+zpool scrub myzfs
+
+_________________________________________________________________________
+
+Статистика:
+zpool iostat 5
+
+Посмотреть компрессию:
+zfs list -o compression
+
+История:
+zpool history
+
