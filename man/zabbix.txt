@@ -66,4 +66,18 @@ ______________________________________
 Параметры zabbix
 /etc/zabbix/zabbix-server.conf
 
-ZQ
+______________________________________
+
+Работа с кастомными метриками
+
+Добавляем через zabbix.conf.d
+UserParameter=discovery.hard_disk,/etc/zabbix/scripts/queryDisks.sh
+
+Удаленная проверка:
+zabbix_get -s sqlssd.srg-it.ru -k "discovery.hard_disk"
+
+Проверить локально:
+zabbix_agentd.exe -c c:\zabbix\zabbix_agentd.win.conf -t Win_SysDrv_FreeSpace
+
+
+

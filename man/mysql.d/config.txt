@@ -1,0 +1,20 @@
+Узнать максимальное количество соединений:
+SHOW VARIABLES LIKE "max_connections";
+
+Посмотреть количество потоков:
+SHOW STATUS WHERE `variable_name` = 'Threads_connected';
+SHOW PROCESSLIST;
+
+
+Установить/Отключить лок:
+FLUSH TABLES WITH READ LOCK;
+SET GLOBAL read_only = ON;
+SET GLOBAL read_only = OFF; - отключить
+
+Посмотреть список всех переменных
+SHOW VARIABLES
+SHOW VARIABLES LIKE 'read_only';
+
+
+Посмотреть движок таблицы:
+SELECT * FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'my_some_database'

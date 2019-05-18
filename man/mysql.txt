@@ -3,6 +3,7 @@ _____________________
 create alter drop - команды создания, редактирования и удаления
 
 SELECT USER from mysql.user; - посмотреть пользователей
+SHOW GRANTS FOR zabbix@localhost - узнать права
 SHOW DATABASES - посмотреть базы данных
 show tables - просмотр таблиц
 show create table tovar - посмотреть структуру таблицы

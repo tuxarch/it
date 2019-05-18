@@ -1,0 +1,5 @@
+Проверить таблицы:
+ls *.MYI | xargs basename -s .MYI | xargs myisamchk 
+
+Безопасный ремонт:
+
