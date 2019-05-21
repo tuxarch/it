@@ -135,3 +135,10 @@ _____________________________________________________________________
 Сохранить настройки /etc/init.d/iptables save
 	/var/lib/iptables/rules-save - файл с конфигом
 
+_________________
+
+Настроить iptables на srg:
+
+echo 1 > /proc/sys/net/ipv4/ip_forward
+iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
+iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o enp2s0 -j MASQUERADE

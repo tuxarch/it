@@ -1,7 +1,7 @@
 modprobe vboxdrv && modprobe vboxnetflt && modprobe vboxnetadp
- Нужно запустить модули
+Нужно запустить модули
 
- sudo usermod -a -G vboxusers `whoami` && sudo reboot
+sudo usermod -a -G vboxusers `whoami` && sudo reboot
 
 VirtualBox - GUI manager
 ______________________
@@ -27,7 +27,7 @@ VBoxManage control "win10" setvideomodehint 1366 768 16
 
  ____________________________
 
- VBoxManage list vms - просмотр машин
+VBoxManage list vms - просмотр машин
  	startvm vmname - запуск машины
 
 ___________________
@@ -40,10 +40,7 @@ _________________________
 Загрузка с usb
 VBoxManage internalcommands createrawvmdk -filename /mnt/image/usb.vmdk -rawdisk /dev/sdb
 
-
 __________________
 Сеть 
 Сетевой мост - пробрасываем виртуалку в локальную сеть
-
-
 

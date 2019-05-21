@@ -12,7 +12,7 @@ __________________________________________
 
 stop slave;
 restart slave;
-change master to master_host='sql1.srg-it.ru', master_user='repl', master_password='x', master_log_file='sql1-bin.000216', master_log_pos=177530044;
+change master to master_host='sql1.srg-it.ru', master_user='repl', master_password='ei5OhThaix', master_log_file='sql1-bin.001497', master_log_pos=177530044;
 START SLAVE;
 
 show slave status \G

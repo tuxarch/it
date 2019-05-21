@@ -25,3 +25,5 @@ software-properties-common
 apt-cache policy <packageName>
 apt install package=1.2.33
 
+Список все установленных пакетов:
+sudo apt list --installed
