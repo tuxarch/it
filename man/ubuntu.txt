@@ -25,5 +25,11 @@ software-properties-common
 apt-cache policy <packageName>
 apt install package=1.2.33
 
-Список все установленных пакетов:
-sudo apt list --installed
+update:
+sudo apt update && sudo apt ugprade
+sudo apt install ubuntu-release-upgrader-core
+sudo do-release-upgrade
+
+
+Все установленные приложения:
+apt list --installed

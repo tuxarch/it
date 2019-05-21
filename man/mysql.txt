@@ -3,6 +3,7 @@ _____________________
 create alter drop - команды создания, редактирования и удаления
 
 SELECT USER from mysql.user; - посмотреть пользователей
+SHOW GRANTS FOR zabbix@localhost - узнать права
 SHOW DATABASES - посмотреть базы данных
 show tables - просмотр таблиц
 show create table tovar - посмотреть структуру таблицы
@@ -140,5 +141,5 @@ _________________________
 
 
 change master to master_host='sql1.srg-it.ru', master_user='repl',
-master_password='ei5OhThaix', master_log_file='sql1-bin.001468', master_log_pos=89581550;
+master_password='', master_log_file='sql1-bin.001468', master_log_pos=89581550;
 

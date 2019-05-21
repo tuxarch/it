@@ -8,4 +8,4 @@ sudo systemctl enable puppet
 sudo systemctl start puppet
 
 
-
+puppet apply - применть конфиг локально
