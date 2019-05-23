@@ -135,6 +135,15 @@ _____________________________________________________________________
 Сохранить настройки /etc/init.d/iptables save
 	/var/lib/iptables/rules-save - файл с конфигом
 
+<<<<<<< HEAD
+_________________
+
+Настроить iptables на srg:
+
+echo 1 > /proc/sys/net/ipv4/ip_forward
+iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
+iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o enp2s0 -j MASQUERADE
+=======
 
 
 Добавить в aws:
@@ -143,3 +152,4 @@ iptables -A POSTROUTING -t nat -j MASQUERADE
 
 iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o virbr0 -j MASQUERADE
 iptables -I FORWARD -o virbr0 -d 10.8.0.0/24 -j ACCEPT
+>>>>>>> e40475fe911f0daa9f76c28fbc8e7ec653d3a856
