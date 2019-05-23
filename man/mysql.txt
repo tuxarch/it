@@ -20,15 +20,6 @@ order by - сортировка вывода
 
 _________________________________
 
-чтобы получить доступ по сети нужно
-	1) в файле my.cnf прописать порт
-	2) закомитеть #bind-address           = 127.0.0.1
- 	3) GRANT ALL PRIVILEGES ON database.* TO username@"%" IDENTIFIED BY 'password'
-	   WITH GRANT OPTION;  а также разрешить подключаться по сети к базе.
-
- mysql --host=172.17.0.2 -u root -p  подключиться к базе удаленно.
-
-	
 
 \s STATUS - выводит статистку по программе
 DESCRIBE table  // show create table <table> - позволяет посмотреть структуру таблицы

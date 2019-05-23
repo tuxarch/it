@@ -1,0 +1,18 @@
+Порт 3306
+
+mysql --host=172.17.0.2 -u root -p  подключиться к базе удаленно.
+
+Посмотреть пользователей на хосте:
+select user, host, password from mysql.user;
+
+Доступ для пользователя root:
+CREATE USER 'root'@'%' IDENTIFIED BY 'sad1';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%';
+
+
+Чтобы получить доступ по сети нужно
+- закомитеть #bind-address = 127.0.0.1
+- GRANT ALL PRIVILEGES ON database.* TO username@"%" IDENTIFIED BY 'password' WITH GRANT OPTION;
+
+
+

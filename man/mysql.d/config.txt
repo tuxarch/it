@@ -9,7 +9,9 @@ SHOW PROCESSLIST;
 Установить/Отключить лок:
 FLUSH TABLES WITH READ LOCK;
 SET GLOBAL read_only = ON;
+
 SET GLOBAL read_only = OFF; - отключить
+UNLOCK TABLES;
 
 Посмотреть список всех переменных
 SHOW VARIABLES
