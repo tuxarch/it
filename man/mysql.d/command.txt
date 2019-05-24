@@ -1,0 +1,5 @@
+Создать/удалить базу данных
+CREATE DATABASE dbname;
+DROP DATABASE dbname;
+
+
