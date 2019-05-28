@@ -73,3 +73,9 @@ _________________________________________________________________________
 Компрессия, снапшоты
 Накопление изменение в памяти и запись ее на диск
 
+
+Создать свап раздел:
+
+zfs create -V 8G -b $(getconf PAGESIZE)  -o logbias=throughput -o sync=always -o primarycache=metadata -o com.sun:auto-snapshot=false <pool>/swap
+mkswap -f /dev/zvol/<pool>/swap
+swapon /dev/zvol/<pool>/swap

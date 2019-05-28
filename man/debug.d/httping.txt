@@ -1,0 +1,6 @@
+Пингуем сайт
+httping --url https://ba.srg-it.ru -s -Y -Z
+
+Графический режим:
+httping --url https://ba.srg-it.ru -N
+
