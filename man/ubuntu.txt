@@ -25,7 +25,7 @@ software-properties-common
 apt-cache policy <packageName>
 apt install package=1.2.33
 
-update:
+update distributive:
 sudo apt update && sudo apt upgrade
 sudo apt install ubuntu-release-upgrader-core
 sudo do-release-upgrade
@@ -35,4 +35,10 @@ sudo do-release-upgrade
 apt list --installed
 
 
-Удалить старые ядра
+Удалить старые ядра:
+sudo dpkg --list 'linux-image*'|awk '{ if ($1=="ii") print $2}'|grep -v `uname -r`
+Удаляем все по одному
+sudo apt-get purge linux-image-3.19.0-25-generic
+sudo apt-get autoremove
+sudo update-grub
+

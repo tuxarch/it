@@ -4,3 +4,8 @@ openssl s_client -showcerts -connect srg-it.ru:443 </dev/null 2>/dev/null|openss
 Проверить сертификат:
 openssl x509 -in new.srg-it.ru.crt.chained -text -noout
 
+
+Проверить что ключ принадлежит ssl сертификату:
+openssl pkey -in privateKey.key -pubout -outform pem | sha256sum
+openssl x509 -in certificate.crt -pubkey -noout -outform pem | sha256sum
+openssl req -in CSR.csr -pubkey -noout -outform pem | sha256sum

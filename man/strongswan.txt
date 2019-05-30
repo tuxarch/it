@@ -1,0 +1,3 @@
+Перегрузить соединение по быстрому:
+ipsec restart && ipsec up test_megatest
+
