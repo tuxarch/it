@@ -84,5 +84,8 @@ swapon /dev/zvol/<pool>/swap
 arc_summary
 cat /proc/spl/kstat/zfs/arcstats
 
+echo "options zfs zfs_arc_max=1073741824" >> /etc/modprobe.d/zfs.conf
+echo 1073741824 > /sys/module/zfs/parameters/zfs_arc_max
+update-initramfs -u
 
 echo "options zfs zfs_arc_max=4294967296" | tee -a /etc/modprobe.d/zfs.conf
