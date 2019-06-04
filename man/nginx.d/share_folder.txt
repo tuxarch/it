@@ -1,0 +1,23 @@
+Как расшарить папку на чтение
+
+
+Добавляем линк в sites-enabled
+ln -s /etc/nginx/sites-available/storage.conf /etc/nginx/sites-enabled/storage.conf
+
+
+server {
+
+        listen 8094;
+        server_name hermes.srg-it.ru;
+        access_log /var/log/nginx/filestorage.log;
+        error_log /var/log/nginx/filestorage.log info;
+        root /home/hydra/photos;
+        client_max_body_size 12m;
+
+        location / {
+                autoindex on;
+        }
+}
+
+service nginx reload
+
