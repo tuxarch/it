@@ -3,3 +3,22 @@
 Hadoop реализует модель MapReduce - где есть узел разбивающий задания и
 занимающийся сверкой результата.
 
+
+___________________
+
+Добавить нового пользователя на baikal-quorum1:
+kadmin.local -q "addprinc <username>"
+
+Логинимся под админом:
+sudo -uhdfs kinit -k -t /etc/hadoop/conf/hdfs.keytab hdfs/baikal-master1.srg-it.ru@SRG-IT.RU
+
+Создаем пользовательский каталог:
+hadoop fs -mkdir /user/achuvashov
+hadoop fs -chown achuvashov:hadoop /user/achuvashov
+
+Добавляем в паппет:
+modules/human/manifests/hadoop_users.pp
+
+_______________________________________________________________________
+
+
