@@ -1,0 +1,267 @@
+user www-data;
+worker_processes auto;
+worker_rlimit_nofile 30000;
+
+pid        /var/run/nginx.pid;
+
+events {
+  accept_mutex on;
+  accept_mutex_delay 500ms;
+  worker_connections 1024;
+}
+
+http {
+
+  include       /etc/nginx/mime.types;
+  default_type  application/octet-stream;
+
+  access_log /var/log/nginx/access.log;
+  error_log /var/log/nginx/error.log error;
+
+  sendfile on;
+  server_tokens on;
+
+  types_hash_max_size 1024;
+  types_hash_bucket_size 512;
+
+  server_names_hash_bucket_size 64;
+  server_names_hash_max_size 512;
+
+  keepalive_timeout   65s;
+  keepalive_requests  100;
+  client_body_timeout 60s;
+  send_timeout        60s;
+  lingering_timeout   5s;
+  tcp_nodelay         on;
+
+
+  client_body_temp_path   /var/nginx/client_body_temp;
+  client_max_body_size    10m;
+  client_body_buffer_size 128k;
+  proxy_temp_path         /var/nginx/proxy_temp;
+  proxy_connect_timeout   90s;
+  proxy_send_timeout      90s;
+  proxy_read_timeout      90s;
+  proxy_buffers           32 4k;
+  proxy_buffer_size       8k;
+  proxy_set_header        X-Real-IP         $remote_addr;
+  proxy_set_header        X-Forwarded-For   $proxy_add_x_forwarded_for;
+  proxy_set_header        X-Forwarded-Proto $scheme;
+  proxy_set_header        Host              $host;
+  proxy_headers_hash_bucket_size 64;
+
+
+  include /etc/nginx/conf.d/*.conf;
+  include /etc/nginx/sites-enabled/*;
+}
+
+types {
+    text/html html htm shtml;
+    text/css css;
+    text/xml xml;
+    image/gif gif;
+    image/jpeg jpeg jpg;
+    application/javascript js;
+    application/atom+xml atom;
+    application/rss+xml rss;
+    text/mathml mml;
+    text/plain txt;
+    text/vnd.sun.j2me.app-descriptor jad;
+    text/vnd.wap.wml wml;
+    text/x-component htc;
+    image/png png;
+    image/tiff tif tiff;
+    image/vnd.wap.wbmp wbmp;
+    image/x-icon ico;
+    image/x-jng jng;
+    image/x-ms-bmp bmp;
+    image/svg+xml svg svgz;
+    image/webp webp;
+    application/font-woff woff;
+    application/java-archive jar war ear;
+    application/json json;
+    application/mac-binhex40 hqx;
+    application/msword doc;
+    application/pdf pdf;
+    application/postscript ps eps ai;
+    application/rtf rtf;
+    application/vnd.apple.mpegurl m3u8;
+    application/vnd.ms-excel xls;
+    application/vnd.ms-fontobject eot;
+    application/vnd.ms-powerpoint ppt;
+    application/vnd.wap.wmlc wmlc;
+    application/vnd.google-earth.kml+xml kml;
+    application/vnd.google-earth.kmz kmz;
+    application/x-7z-compressed 7z;
+    application/x-cocoa cco;
+    application/x-java-archive-diff jardiff;
+    application/x-java-jnlp-file jnlp;
+    application/x-makeself run;
+    application/x-perl pl pm;
+    application/x-pilot prc pdb;
+    application/x-rar-compressed rar;
+    application/x-redhat-package-manager rpm;
+    application/x-sea sea;
+    application/x-shockwave-flash swf;
+    application/x-stuffit sit;
+    application/x-tcl tcl tk;
+    application/x-x509-ca-cert der pem crt;
+    application/x-xpinstall xpi;
+    application/xhtml+xml xhtml;
+    application/xspf+xml xspf;
+    application/zip zip;
+    application/octet-stream bin exe dll deb dmg iso img msi msp msm;
+    application/vnd.openxmlformats-officedocument.wordprocessingml.document docx;
+    application/vnd.openxmlformats-officedocument.spreadsheetml.sheet xlsx;
+    application/vnd.openxmlformats-officedocument.presentationml.presentation pptx;
+    audio/midi mid midi kar;
+    audio/mpeg mp3;
+    audio/ogg ogg;
+    audio/x-m4a m4a;
+    audio/x-realaudio ra;
+    video/3gpp 3gpp 3gp;
+    video/mp2t ts;
+    video/mp4 mp4;
+    video/mpeg mpeg mpg;
+    video/quicktime mov;
+    video/webm webm;
+    video/x-flv flv;
+    video/x-m4v m4v;
+    video/x-mng mng;
+    video/x-ms-asf asx asf;
+    video/x-ms-wmv wmv;
+    video/x-msvideo avi;
+}
+
+geo $bank_user_by_ip {
+    91.198.54.134/32 "ahml";
+}
+
+log_format ssl_log  '$remote_addr $webuser $ssl_client_fingerprint [$time_local] '
+                    '"$request" $status $body_bytes_sent ';
+
+map $ssl_client_s_dn $ssl_client_s_dn_cn {
+  default           "";
+  ~CN=(?<CN>[^,/]+) $CN;
+}
+
+map $ssl_client_verify $auth_type {
+  default "off";
+  NONE    "protected";
+}
+
+
+upstream ws_backend {
+    server valuator2.srg-it.ru:8080;
+    server valuator3.srg-it.ru:8080  backup;
+}
+
+
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+
+
+	root /var/www/html;
+
+	index index.html index.htm index.nginx-debian.html;
+
+	server_name _;
+
+	location / {
+		try_files $uri $uri/ =404;
+	}
+
+
+}
+
+
+
+server {
+  listen       *:10001 ssl;
+
+  server_name  front.srg-it.ru;
+
+  ssl on;
+  ssl_certificate           /etc/secret/cert/srg-it.ru.crt.chained;
+  ssl_certificate_key       /etc/secret/cert/srg-it.ru.key;
+  ssl_session_cache         shared:SSL:10m;
+  ssl_session_timeout       5m;
+  ssl_protocols             TLSv1 TLSv1.1 TLSv1.2;
+  ssl_ciphers               ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA256:DHE-RSA-AES256-SHA:ECDHE-ECDSA-DES-CBC3-SHA:ECDHE-RSA-DES-CBC3-SHA:EDH-RSA-DES-CBC3-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:DES-CBC3-SHA:!DSS;
+  ssl_prefer_server_ciphers on;
+
+  index  index.html index.htm index.php;
+
+  access_log            /var/log/nginx/webservice.access.log ssl_log;
+  error_log             /var/log/nginx/webservice.error.log;
+
+  set $webuser 'ahml';
+
+
+  location / {
+    proxy_pass            http://localhost:8080/service/;
+    proxy_read_timeout    600;
+    proxy_connect_timeout 90s;
+    proxy_send_timeout    90s;
+    proxy_set_header      REMOTE_USER $webuser;
+  }
+
+  location /service {
+    proxy_pass            http://localhost:8080/service/;
+    proxy_read_timeout    600;
+    proxy_connect_timeout 90s;
+    proxy_send_timeout    90s;
+    proxy_set_header      REMOTE_USER $webuser;
+  }
+}
+
+server {
+  listen       *:8096 ssl;
+
+  server_name  front.srg-it.ru;
+
+  ssl on;
+  ssl_certificate           /etc/secret/cert/srg-it.ru.crt.chained;
+  ssl_certificate_key       /etc/secret/cert/srg-it.ru.key;
+  ssl_session_cache         shared:SSL:10m;
+  ssl_session_timeout       5m;
+  ssl_protocols             TLSv1 TLSv1.1 TLSv1.2;
+  ssl_ciphers               ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA256:DHE-RSA-AES256-SHA:ECDHE-ECDSA-DES-CBC3-SHA:ECDHE-RSA-DES-CBC3-SHA:EDH-RSA-DES-CBC3-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:DES-CBC3-SHA:!DSS;
+  ssl_prefer_server_ciphers on;
+
+  index  index.html index.htm index.php;
+
+  access_log            /var/log/nginx/webservice.access.log ssl_log;
+  error_log             /var/log/nginx/webservice.error.log;
+
+  auth_basic $auth_type;
+  auth_basic_user_file trustedClients.d/webservice.htpasswd;
+  ssl_client_certificate /etc/nginx/trustedClients.pem;
+  ssl_verify_client optional_no_ca;
+  if ($bank_user_by_ip) { 
+  set $webuser $bank_user_by_ip; 
+  set $auth_type "off";
+}
+if ($remote_user) { set $webuser $remote_user; }
+if ($ssl_client_s_dn_cn) { set $webuser $ssl_client_s_dn_cn; }
+
+
+
+  location / {
+    proxy_pass            http://localhost:8096/service/;
+    proxy_read_timeout    600;
+    proxy_connect_timeout 90s;
+    proxy_send_timeout    90s;
+    proxy_set_header      REMOTE_USER $webuser;
+  }
+
+  location /service {
+    proxy_pass            http://localhost:8096/service/;
+    proxy_read_timeout    600;
+    proxy_connect_timeout 90s;
+    proxy_send_timeout    90s;
+    proxy_set_header      REMOTE_USER $webuser;
+  }
+}
+
