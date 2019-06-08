@@ -9,3 +9,10 @@ openssl x509 -in new.srg-it.ru.crt.chained -text -noout
 openssl pkey -in privateKey.key -pubout -outform pem | sha256sum
 openssl x509 -in certificate.crt -pubkey -noout -outform pem | sha256sum
 openssl req -in CSR.csr -pubkey -noout -outform pem | sha256sum
+
+
+
+Сгенерировать самоподписной:
+openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -days 365 -subj '/CN=localhost'
+
+
