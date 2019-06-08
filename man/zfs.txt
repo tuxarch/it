@@ -39,6 +39,9 @@ zfs set mountpoint=/foo_mount tank
 Обновить:
 zfs upgrade
 
+Удалить раздел:
+zfs destroy tank/swap
+
 
 Снапшоты:
 zfs list -t snapshot - список снапшотов

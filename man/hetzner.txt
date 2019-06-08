@@ -1,3 +1,12 @@
 Быстро развернуть образ:
 /root/.oldroot/nfs/install/installimage -a -n sqlssd -r yes -l 1 -p /:ext4:16G -K /root/.ssh/robot_user_keys -i /root/.oldroot/nfs/install/../images/Ubuntu-1604-xenial-64-minimal.tar.gz
 
+
+Инструкция по замене дисков:
+https://wiki.hetzner.de/index.php/Festplattenaustausch_im_Software-RAID/ru
+Then you can access your server, using the user name "root" and the following password: JmtAMPRrerYYUq
+
+
+Инструкция по установке:
+https://wiki.hetzner.de/index.php/Installimage/ru
+JmtAMPRrerYYUq
