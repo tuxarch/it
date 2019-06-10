@@ -1,0 +1,5 @@
+Интерактивная трассировка
+
+mtr --tcp --port=10051 -rw -c5 zabbix.srg-it.ru > mtr_zabbix.report
+
+
