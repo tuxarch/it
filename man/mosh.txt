@@ -6,4 +6,10 @@ mosh --ssh="~/bin/ssh -i ./identity -p 5444" myhost.com
 Убить все сессии
 kill `pidof mosh-server`
 
+Настроить порты на centos:
+sudo iptables -I INPUT 1 -p udp --dport 60000:61000 -j ACCEPT
+
+Настраиваем firewalld:
+https://gist.github.com/jnovack/c39776187f81d0dcdf69
+
 
