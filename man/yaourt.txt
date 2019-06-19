@@ -17,3 +17,4 @@ makepkg -c --skippgpcheck
 makepgk -i
 
 yaourt -Syu --aur - обновление 
+--noconfirm - автоматическое подтверждение

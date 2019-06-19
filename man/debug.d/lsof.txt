@@ -1,0 +1,11 @@
+list open files
+
+lsof -u user - от юзера
+
+lsof -i :2-22 - что слушается на порту
+
+lsof -i 4 - открытые соединения
+
+kill -9 `lsof -t -u tecmint` - убить все процессы от пользователя
+
+lsof +d /mnt/trash/ - кто использует каталог
