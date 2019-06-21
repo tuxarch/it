@@ -4,6 +4,7 @@
 encov 
 самостоятельно найдет кодировку и преобразует по текущей локали
 
+iconv -f CP866 -t UTF-8 -o out.txt cofface_and_Alka_recovery_twrp_kenzo.bat
 iconv -f WINDOWS-1251 -t UTF-8 -o output_file.txt original_file.txt 
 где: 
 -f WINDOWS-1251 - исходная кодировка,

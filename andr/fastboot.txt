@@ -1,0 +1,8 @@
+Прошить загрузчик можно через 
+fastboot (зайца)
+
+Смотрим подключенные устройства:
+sudo fastboot devices
+
+Прошиваем рекавери:
+sudo fastboot flash recovery twrp-3.3.1-0-kenzo.img
