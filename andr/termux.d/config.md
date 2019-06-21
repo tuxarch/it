@@ -13,3 +13,5 @@ $PREFIX/{bin,etc}
 termux-fix-shebang
 
 
+## Отключить приветсвие консоли
+touch .hushlogin

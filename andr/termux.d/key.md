@@ -29,3 +29,11 @@ Volume Up+P → Page Up
 Volume Up+N → Page Down
 Volume Up+. → Ctrl+\ (SIGQUIT)
 Volume Up+V → Show the volume control
+
+
+### Для создания дополнительных символов в меню нужно добавить
+extra-keys = [['ESC','/','-','HOME','UP','END','PGUP'],['TAB','CTRL','ALT','LEFT','DOWN','RIGHT','PGDN']]
+В 
+
+~/.termux/termux.properties
+
