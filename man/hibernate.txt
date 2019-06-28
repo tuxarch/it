@@ -23,6 +23,7 @@ add in fstab:
 add grub config:
 resume=/dev/sda1 resume_offset=325345
 sudo filefrag -v /swapfile (first physical_offset)
+swap-offset /swapfile
 
 add for archlinux 
 mkinitcpio.conf HOOK 'resume' (after udev!!!) && mkinitcpio -p linux

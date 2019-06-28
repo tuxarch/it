@@ -1,5 +1,7 @@
 Encfs
 
+Ставим на gentoo pam_mount
+
 шифруем только файлы, а не файловую систему.
 Все делается в пространстве пользователя, все метаданные хранятся в файла.
 Нужно знать только пароль.
@@ -10,8 +12,8 @@ fuse
 
 
 ++++++++++++++++++++++++++++++++
+/etc/fuse.conf << user_allow_other
 
-/etc/fuse.conf << allow_from_other
 /etc/pam.d/common-auth << auth sufficient pam_encfs.so (перед auth requisite pam_unix.so )
 /etc/pam.d/system-auth
 

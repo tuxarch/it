@@ -7,3 +7,13 @@ mybackup
 gpg --output backup.tar.xz -d backup-20180321-orca@archlinux.tar.xz.asc && \
 tar xvf backup.tar.xz
 
+_____________
+
+Как я сделал бэкап gentoo на смонтированной системе:
+fsarchiver savefs /mnt/backup/gentoo-rootfs.fsa /dev/sda1 -v -A -j3
+fsarchiver restfs filesystems.fsa id=0,dest=/dev/sda1 id=1,dest=/dev/sdb1
+
+uid диска остаются теже, метки в fstab можно не менять, единственное нужно
+смонтировать систему и прописать grub-install
+
+

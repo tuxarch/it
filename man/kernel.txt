@@ -1,6 +1,6 @@
 make mrproper - очистка от страх файлов
 
-make silentoldconfig - адаптация с выбором 
+make syncconfig (silentoldconfig) - адаптация с выбором 
 
 make olddefconfig - применение настроек по умолчанию
 ___________________________________
