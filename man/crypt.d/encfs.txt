@@ -1,20 +1,23 @@
 Encfs
 
-Ставим на gentoo pam_mount
-
 шифруем только файлы, а не файловую систему.
-Все делается в пространстве пользователя, все метаданные хранятся в файла.
+Все делается в пространстве пользователя, все метаданные хранятся в файлe.
 Нужно знать только пароль.
 
-Для шифрования домашнего каталога применяем модуль
-pam_encfs
+++++++++++++++++++++++++++++++++
+
+Ставим:
+pam_encfs (для gentoo из исходников https://code.google.com/archive/p/pam-encfs/) 	
+	- /etc/security/pam_encfs.conf
+	- /lib/security/pam_encfs.so 
 fuse
 
 
 ++++++++++++++++++++++++++++++++
-/etc/fuse.conf << user_allow_other
 
-/etc/pam.d/common-auth << auth sufficient pam_encfs.so (перед auth requisite pam_unix.so )
+/etc/fuse.conf    << user_allow_other
+
+/etc/pam.d/common-auth    << auth sufficient pam_encfs.so (перед auth requisite pam_unix.so )
 /etc/pam.d/system-auth
 
 В группу добавляем:
@@ -24,13 +27,15 @@ gpasswd -u user fuse
 mkdir /home/.encfs/user
 encfs /home/.encfs/user /home/user
 
+
 Размонтируем:
 fusermount -u ~/visible
 
-Добавляем /etc/security/pam_encfs.conf
-user           /home/.encfs/user       /home/user     -v                      allow_other
+Добавляем /etc/security/pam_encfs.conf << 
+drop_permissions
+encfs_default
+fuse_default
+ash           /home/.encfs/ash      /home/ash     -v                      allow_other
 
-/etc/fuse.conf - строчку
-user_allow_other
 
 
