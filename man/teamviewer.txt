@@ -1,0 +1,3 @@
+Рабочая версия для orca msi:
+teamviwer12 сначало надо запустить службу 
+systemctl status teamviewer
