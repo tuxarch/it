@@ -1,0 +1,7 @@
+certbot - нужно поставить
+
+Протестить
+certbot certonly --dry-run -d pokrov.tk
+
+Получить:
+certbot certonly -d example.com -d www.example.com
