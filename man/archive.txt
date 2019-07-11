@@ -1,11 +1,22 @@
-unrar e archive.rar file.exe - извлечь один файл из архива
+## tar
+mkdir pp && tar xvf puppet_srg_clear.tar.gz -C pp - в папку все извлечь
 tar czvf file.tar.gz file1 flie2 - создать gzip тарбол архив
-
-tar cfJ <archive.tar.xz> <files> - xz archive
-
 tar -tvf my-data.tar.gz - список файлов в архиве
 tar -tvf my-data.tar.gz 'search-patter'
+tar -xf etc.tar etc/apt/sources.list - извлечь только один файл
+
+Сжатие с шифрованием:
+tar -cvz /mnt/folder | gpg -e -r myname@mail.com -o backup.tgz.gpg
+gpg -d backup.tgz.gpg | tar -xz
+
+
+# xz
+XZ_OPT="-9e --threads=3 tar cfJ <archive.tar.xz> <files> - xz archive
+6 - обычная степень сжатия
 
 ## zip
 zip -r zipfile.zip directory - создать с рекурсией
+
+## rar
+unrar e archive.rar file.exe - извлечь один файл из архива
 
