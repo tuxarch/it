@@ -1,0 +1,4 @@
+Чтобы изменить сеть добавляем в Vagrantfile:
+    libvirt.management_network_name = "default"
+    libvirt.management_network_address = '192.168.122.0/24'
+
