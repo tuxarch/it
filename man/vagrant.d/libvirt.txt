@@ -2,3 +2,11 @@
     libvirt.management_network_name = "default"
     libvirt.management_network_address = '192.168.122.0/24'
 
+
+Настройка сети:
+При конфигурации "open" - те без внесения правил libvirt
+Достаточно ее:
+iptables -A POSTROUTING -t nat -j MASQUERADE
+
+iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
+iptables -t nat -A POSTROUTING -s 192.168.122.0/24 -o enp0s25 -j MASQUERADE

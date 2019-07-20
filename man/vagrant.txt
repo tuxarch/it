@@ -17,6 +17,14 @@ vagrant destroy - выключить и уничтожить
 ubuntu/trusty64 - ubuntu 3.13
 
 
+------variables
+Используем переменную чтобы достучаться до проекта:
+export VAGRANT_CWD=/mnt/data/box/vagrant/galeracluster
+Стучимся по ssh:
+ssh me 'export VAGRANT_HOME=/mnt/data/image/vagrant && export VAGRANT_CWD=/mnt/data/box/vagrant/galeracluster && vagrant status'
+
+
+
 ------vagrant-libvirt
 
 для работы с kvm ставим плагин 

@@ -1,0 +1,4 @@
+Тестируем
+Создаем test:
+molecule init role --driver-name vagrant --role-name test --verifier-name testinfra
+

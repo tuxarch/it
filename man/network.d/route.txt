@@ -1,0 +1,4 @@
+Добавить статический маршрут в systemd:
+cat /etc/dhcpcd.exit-hook
+ip route add 192.168.122.0/24 via 192.168.1.65
+

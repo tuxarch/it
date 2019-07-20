@@ -1,0 +1,8 @@
+Установить имя для машины:
+config.vm.hostname = "myhost"
+
+Изменить репо по умолчанию generic/ubuntu1804:
+sed -i 's/us.archive.ubuntu.com/mirror.yandex.ru/g' /etc/apt/sources.list
+sed -i 's/security.ubuntu.com/mirror.yandex.ru/g' /etc/apt/sources.list
+
+

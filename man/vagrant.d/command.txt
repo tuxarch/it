@@ -1,0 +1,6 @@
+Удалить образа с подтверждениeм:
+vagrant destroy -f
+
+Выполнить команду на машине:
+vagrant ssh sql4 -c "cat /etc/hostname"
+

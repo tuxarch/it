@@ -1,3 +1,5 @@
+Важно понимать что создаются символьные ссылки, а не приносятся бинари
+
 Необходимые пакеты для сборки:
 apt install libffi-dev gcc zlib1g-dev make 
 
@@ -5,6 +7,8 @@ apt install libffi-dev gcc zlib1g-dev make
 sudo apt-get install libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev
 
 На проде потребуется поставить <100мб. Скорее всего 10м
+
+
 ---------------------------------------------
 
 Качаем питон и ставим его в общую папку для того чтобы создавать от него
