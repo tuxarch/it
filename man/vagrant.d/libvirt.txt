@@ -1,3 +1,9 @@
+для работы с kvm ставим плагин
+vagrant plugin install vagrant-libvirt
+export VAGRANT_DEFAULT_PROVIDER=libvirt
+
+
+
 Чтобы изменить сеть добавляем в Vagrantfile:
     libvirt.management_network_name = "default"
     libvirt.management_network_address = '192.168.122.0/24'
