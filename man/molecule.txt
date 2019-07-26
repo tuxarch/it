@@ -1,0 +1,50 @@
+=== Установка
+
+pip install virtualenv
+virtualenv -p `which python2` venv
+source venv/bin/activate
+pip install molecule  docker 
+
+
+molecule init role -r <name> - создаем роль name
+Cоздаем новый провайдер (заменяет molecule/default)
+molecule init scenario --role-name <name> --scenario-name default
+--driver-name vagrant
+
+
+
+=== Работа из директории
+
+molecule --debug <command> - режим отладки
+
+molecule test --destroy=never - полный тест проекта
+molecule converge - создать инстанс и не удалять его
+molecule login - войти в созданный инстанс
+
+molecule destroy - удалить все
+molecule cleanup - удалить всю инфраструктуру
+molecule syntax - проверка синтаксиса
+molecule lint - анализ кода на ошибки
+molecule dependency - установка зависимостей
+molecule idempotence - проверка на воспроизводимость
+molecule matrix (lint) - узнать последовательность команды
+molecule list - просмотр инстансов
+
+
+=== Settings
+
+scenario - есть различные сценарии по умолчанию это докер/default, все это
+храниться в ./molecule
+
+testinfra - позволяет проверить создались ли пользователи, открыты порты и тд
+
+
+=== Note
+
+Шаблоны:
+git clone https://github.com/RedHatNordicsSA/meta_skeleton.git
+
+==== Command
+molecule matrix test - вывести всю цепочку
+
+

@@ -1,0 +1,3 @@
+Существуют две реализации кластера от mysql
+ndb cluster, innodb cluster
+
