@@ -46,5 +46,7 @@ git clone https://github.com/RedHatNordicsSA/meta_skeleton.git
 
 ==== Command
 molecule matrix test - вывести всю цепочку
+cookiecutter - поднимаем проект из шаблона
+
 
 
