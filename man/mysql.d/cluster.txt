@@ -1,3 +1,5 @@
 Существуют две реализации кластера от mysql
 ndb cluster, innodb cluster
+Как пишется они медленнее и используются чаще:
+galera (percona extradb)
 

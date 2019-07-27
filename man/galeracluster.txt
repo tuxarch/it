@@ -1,0 +1,65 @@
+Galera и Percona XtraDB Cluster почти одно и тоже
+Реализация на 5.7
+
+В основе протокол сертифицированной репликации galera
+
+-----------------------------------------------------------
+
+Установка на ubuntu
+sudo apt-get install software-properties-common
+apt-key adv --keyserver keyserver.ubuntu.com --recv BC19DDBA
+
+/etc/apt/sources.list.d/galera.list (указываем версию, дистр) 
+deb https://releases.galeracluster.com/mysql-wsrep-5.7/ubuntu bionic main
+deb https://releases.galeracluster.com/galera-3/ubuntu bionic main
+
+
+Приоритетность источника
+/etc/apt/preferences.d/galera.pref
+Package: *
+Pin: origin releases.galeracluster.com
+Pin-Priority: 1001
+
+apt update
+
+apt-get install galera-3 galera-arbitrator-3 mysql-wsrep-5.7
+
+-----------------------------------------------------------
+
+Settings:
+
+На ведущей ноде нужно проинициализировать кластер:
+
+mysqld_bootstrap
+systemctl start mysql --wsrep-new-cluster
+galera_new_cluster
+
+
+Коннектимся и проверяем:
+SHOW STATUS LIKE 'wsrep_cluster_size';
+_3eBslqV55T-
+
+
+[mysqld]
+datadir=/var/lib/mysql
+socket=/var/lib/mysql/mysql.sock
+user=mysql
+binlog_format=ROW
+bind-address=0.0.0.0
+default_storage_engine=innodb
+innodb_autoinc_lock_mode=2
+innodb_flush_log_at_trx_commit=0
+innodb_buffer_pool_size=122M
+wsrep_provider=/usr/lib/libgalera_smm.so
+wsrep_provider_options="gcache.size=300M; gcache.page_size=300M"
+wsrep_cluster_name="galera"
+wsrep_cluster_address="gcomm://192.168.122.11,192.168.122.12,192.168.122.13"
+wsrep_node_name=sql3
+wsrep_node_address="192.168.122.13"
+wsrep_sst_method=rsync
+
+[mysql_safe]
+log-error=/var/log/mysqld.log
+pid-file=/var/run/mysqld/mysqld.pid
+
+

@@ -154,3 +154,8 @@ iptables -A POSTROUTING -t nat -j MASQUERADE
 
 iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o virbr0 -j MASQUERADE
 iptables -I FORWARD -o virbr0 -d 10.8.0.0/24 -j ACCEPT
+
+
+Реально работает для libvirt (пингуем хосты+получаем доступ из вне+выход в
+интернет на нодах):
+ sudo iptables -t nat -A POSTROUTING -s 192.168.122.0/24 -o enp0s25 -j MASQUERADE
