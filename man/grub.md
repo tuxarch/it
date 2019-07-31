@@ -1,5 +1,6 @@
 Разрешение консоли:
-В зависимости от версии grub открываете файл /boot/grub/menu.lst или /boot/grub/grub.cfg, 
+В зависимости от версии grub открываете файл /boot/grub/menu.lst или  
+/boot/grub/grub.cfg, 
 находите секцию menuentry и в конец строки linux/boot/vmlinuz-2.6.32-5-amd64 root=... добавляете vga=795
 
 Depth/24bit  
