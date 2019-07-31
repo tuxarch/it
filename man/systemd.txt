@@ -91,4 +91,3 @@ systemctl getty@tty4.service
 
 sudo
 journalctl _COMM=sudo - комманды запущенные с sudo
-
