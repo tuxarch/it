@@ -1,0 +1,41 @@
+Change master to slave:
+
+1. Включаем релейные логи (cмотрим конфиги и файлы в базе):
+	sqlssd-relay-bin
+        sqlssd-relay-bin.index
+	Добавить в конфиг:
+		server-id = 1
+		log-bin = /var/lib/mysql/mysql-bin
+
+		Просмотреть текущую позицию мастера:
+		SHOW MASTER STATUS\G
+
+		Для подключение цепочки реплик на середине:
+		server-id = 3
+		log-bin = /var/lib/mysql/mysql-bin
+		relay-log = /var/lib/mysql/mysql-relay-bin
+		relay-log-index = /var/lib/mysql/mysql-relay-bin.index
+		log-slave-updates
+		skip-slave-start
+
+
+2. Установить лок:
+        FLUSH TABLES WITH READ LOCK
+        SET GLOBAL read_only = ON
+
+3. Отстанавливаем реплику и цепляем ее:
+        stop slave;
+        SHOW MASTER STATUS\G
+        show slave status \G
+        change master to master_host='sqlssd', master_user='repl',
+	master_password='***', master_log_file='', master_log_pos='';
+        start slave;
+
+4. Создаем тестовую базу
+        CREATE DATABASE test
+        DROP DATABASE test
+
+5. Отключаем репликацию, включаем запись:
+        SET GLOBAL read_only = OFF
+        UNLOCK TABLES
+

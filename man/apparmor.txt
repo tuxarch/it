@@ -1,0 +1,4 @@
+disable:
+GRUB_CMDLINE_LINUX_DEFAULT="apparmor=0" >> /etc/default/grub
+
+update-grub

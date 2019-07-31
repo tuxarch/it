@@ -4,3 +4,8 @@ YouCompleteMe
 ./install.py
 
 ________________________________________
+
+syntastic
+
+:SyntasticInfo - инфо по линтерам
+:SyntasticCheck

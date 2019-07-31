@@ -1,0 +1,88 @@
+=== Типы данных:
+
+булены, биты
+инты - средние, малые и большие
+serial - автогенерация большого положит числа с увеличением
+децималы и флоты
+даты и временные метки
+чар до 256 символов
+варчар до 65 000
+блобы, тексты, - до 4 гб
+
+
+=== Основные команды:
+
+HELP - посмотреть команды
+CREATE/DROP - создание/удаление
+ALTER - редактирование
+select - задать колонки
+from - из какой базы
+where - условие
+ORDER BY - сортировка вывода
+GROUP BY - позволяет объединять в стороки в группы и уже с ними работать
+UNION - позволяет объединять запросы
+
+
+=== Работа с базами, таблицами, записями
+
+CREATE DATABASE dbname; - создать/удалить базу данных
+DROP DATABASE dbname;
+
+SHOW DATABASES - посмотреть базы данных
+show tables - просмотр таблиц
+show create table tovar - посмотреть структуру таблицы
+show index from tovar - посмотреть индексы к таблице
+create index name_index on table_name(coll_name) - создать индекс
+
+DESCRIBE table  // show create table <table> - позволяет посмотреть структуру таблицы
+INSERT INTO table VALUES ('1','Ivan') - добавить запись
+SELECT * FROM table - вывести содержимое таблицы
+                    WHERE colum='value' - условие
+UPDATE table SET age='21' WHERE surname='Smirnov' - изменить значение age
+DELETE FROM table WHERE id='4' - удалить запись 4
+SELECT COUNT(*) FROM table - подсчитать количество строк в таблице
+
+SELECT SUM(rating) FROM Customers; - высчитывает сумму в столбце
+SELECT AVG(rating) FROM Customers; - среднее арифметическое в стл
+SELECT MAX(rating) FROM Customers;
+SELECT MIN(rating) FROM Customers;
+SELECT COUNT(rating) FROM Customers; - количество не равное NULL
+
+
+Cоздание таблицы:
+CREATE TABLE Orders
+(id SERIAL,
+date DATE,
+product_id BIGINT UNSIGNED NOT NULL,
+qty INT UNSIGNED,
+amount DECIMAL(10,2),
+customer_id BIGINT UNSIGNED,
+PRIMARY KEY (id),
+FOREIGN KEY (product_id) REFERENCES Products (id)
+ON DELETE RESTRICT ON UPDATE CASCADE,
+FOREIGN KEY (customer_id) REFERENCES Customers (id)
+ON DELETE RESTRICT ON UPDATE CASCADE)
+ENGINE InnoDB CHARACTER SET utf8;
+
+
+=== Расширенные команды:
+
+Заливаем тестовую базу движок innodb:
+	git clone https://github.com/datacharmer/test_db.git && cd test_db && \
+	mysql -u root -p < employees_partitioned.sql
+
+Быстрое заполнение таблицы:
+        создаем на табах файл-таблицу
+        \N - вместо NULL
+        LOAD DATA LOCAL INFILE 'C:/data/Customers.txt' INTO TABLE Customers CHARACTER SET cp1251;
+
+Запрос в запросе:
+        SELECT name FROM Customers
+        WHERE id IN
+        (SELECT DISTINCT customer_id FROM Orders
+        WHERE product_id = 5);
+
+Выгрузить запрос а потом загрузить
+        SELECT * from Customers INTO OUTFILE 'C:/data/Customers.txt';
+        LOAD DATA INFILE 'C:/data/Customers.txt'
+        INTO TABLE Customers_copy;

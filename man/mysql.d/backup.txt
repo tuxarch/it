@@ -1,0 +1,40 @@
+=== legacy
+
+mysqldump --opt -p test > test.sql - сделать бекап ( нужно ввести пароль)
+mysql -p test2 < test.sql - восстановит базу из резервной копии
+
+
+=== percona-xtrabackup
+
+=Ключи:
+--parallel=N_THREADS - паралельное копирование файлов
+--compress-threads=N_THREAD -  паралельное сжатие (requires --parallel)
+--parallel=N_THREADS - количество потоков при декомпресси
+-
+
+
+=proff
+Перенести бэкап:
+innobackupex --slave-info --parallel=3 --no-timestamp
+sudo innobackupex --slave-info --use-memory=1G --stream=xbstream ./ | ssh user@x.dd.ru -p 58319 -i /home/user/.ssh/id_rsa "xbstream -x -C /mnt/mysql2"
+
+Развернуть:
+innobackupex --apply-log --export --use-memory=4G /var/lib/mysql/
+chown -R mysql:mysql /var/lib/mysql
+
+
+=Неточные или старые команды:
+innobackupex --compress --stream=xbstream /tmp/db/ | ssh user@example.com "xbstream -x -C /tmp/db/"
+
+Копируем с компрессией в 4 потока используя больше памяти в директорию /var/lib/mysql
+time sudo innobackupex --compress --compress-threads=4  --use-memory=2G --stream=xbstream ./ | ssh vagrant@192.168.121.20 "xbstream -x --parallel=4 -C /var/lib/mysql"
+
+
+=Эталонная последовательность:
+systemctl stop mysql
+rm -rf /var/lib/mysql*
+rsync -avz -e 'ssh -p 58319' --progress backuper@backup2.srg-it.ru:/dir/ /var/lib/mysql/ --exclude 'express/offer.*'
+innobackupex --apply-log --export --use-memory=4G /var/lib/mysql/
+chown -R mysql:mysql /var/lib/mysql
+systemctl start mysql.service
+mysql -e "SET PASSWORD FOR 'debian-sys-maint'@'localhost' = PASSWORD('Z'); flush privileges;"

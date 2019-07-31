@@ -1,0 +1,8 @@
+Ставить gnome_keyring
+Не забываем сгенерить локаль
+
+Открываем проект через меню fail
+
+Database->Forward Engineer
+
+(Шорткаты для выполнения всего кода - Shft+Ctrl+Enter, текущая строка - Ctrl+Enter)

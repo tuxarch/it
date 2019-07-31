@@ -1,5 +1,9 @@
 Проверить таблицы:
 ls *.MYI | xargs basename -s .MYI | xargs myisamchk 
 
-Безопасный ремонт:
+Проверка таблицы из админки:
+CHECK TABLE <table1,table2>;
+
+Проверка структуры базы данных:
+mysqlcheck --database express --tables tables
 

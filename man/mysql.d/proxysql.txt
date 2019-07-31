@@ -1,0 +1,38 @@
+proxysql v2 - поддерживает xtradb cluster
+
+=== Настройка:
+apt-get install percona-xtradb-cluster-client-5.7
+
+mysql -u admin -padmin -h 127.0.0.1 -P 6032
+SHOW DATABASES;
+SHOW TABLES;
+
+Добавляем машину (меняем только ip):
+INSERT INTO mysql_servers(hostgroup_id, hostname, port) VALUES (0,'192.168.70.61',3306);
+
+Смотрим состояние:
+SELECT * FROM mysql_servers; 
+SELECT * FROM mysql_users;  - пароли не шифруются по умолчанию
+
+Создаем пользователя для мониторинга (без него у меня не работало ничего)
+на нодах:
+CREATE USER 'proxysql'@'%' IDENTIFIED BY 'ProxySQLPa55';
+GRANT USAGE ON *.* TO 'proxysql'@'%';
+на проксе:
+UPDATE global_variables SET variable_value='proxysql' WHERE variable_name='mysql-monitor_username';
+UPDATE global_variables SET variable_value='ProxySQLPa55' WHERE variable_name='mysql-monitor_password';
+
+Создаем пользователя на прокси:
+INSERT INTO mysql_users (username,password) VALUES ('sbuser','sbpass')
+LOAD MYSQL USERS TO RUNTIME;
+SAVE MYSQL USERS TO DISK;
+Его же на ip прокси
+CREATE USER 'sbuser'@'192.168.70.64' IDENTIFIED BY 'sbpass'
+GRANT ALL ON *.* TO 'sbuser'@'192.168.70.64';
+Коннектимся
+mysql -u sbuser -psbpass -h 127.0.0.1 -P 6033
+
+
+
+правим /etc/proxysql.cnf
+

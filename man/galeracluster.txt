@@ -34,15 +34,18 @@ mysqld_bootstrap
 systemctl start mysql --wsrep-new-cluster
 galera_new_cluster
 
+service apparmor stop
+service apparmor teardown
+/usr/sbin/update-rc.d -f apparmor remove
+dpkg -r apparmor libapparmor-perl libapparmor1
 
-Коннектимся и проверяем:
-SHOW STATUS LIKE 'wsrep_cluster_size';
-_3eBslqV55T-
+Коннектимся и проверяем количество нод:
+mysql -u root -p -e "SHOW STATUS LIKE 'wsrep_cluster_size'"
 
 
 [mysqld]
 datadir=/var/lib/mysql
-socket=/var/lib/mysql/mysql.sock
+#socket=/var/lib/mysql/mysql.sock
 user=mysql
 binlog_format=ROW
 bind-address=0.0.0.0
@@ -62,4 +65,63 @@ wsrep_sst_method=rsync
 log-error=/var/log/mysqld.log
 pid-file=/var/run/mysqld/mysqld.pid
 
+################################################
+Установка  percona-xtradb
+
+wget https://repo.percona.com/apt/percona-release_latest.generic_all.deb
+dpkg -i percona-release_latest.generic_all.deb
+apt remove apparmor -y
+apt-get update
+#apt-get install percona-xtradb-cluster-57 -y
+
+
+-----------/etc/mysql/my.cnf ----------
+[mysqld]
+
+socket = /var/run/mysqld/mysqld.sock
+pid-file = /var/run/mysqld/mysqld.pid
+bind-address = 0.0.0.0
+
+wsrep_provider=/usr/lib/libgalera_smm.so
+wsrep_cluster_name=pxc-cluster
+
+#меняется в зависимости от нод:
+wsrep_cluster_address=gcomm://192.168.123.14,192.168.123.15
+wsrep_node_name=pxc1
+wsrep_node_address=192.168.123.14
+
+wsrep_sst_method=xtrabackup-v2
+wsrep_sst_auth=sstuser:passw0rd
+pxc_strict_mode=ENFORCING
+binlog_format=ROW
+default_storage_engine=InnoDB
+innodb_autoinc_lock_mode=2
+
+-----------------------------------
+
+Cоздаем пользователя для репликации:
+CREATE USER 'sstuser'@'localhost' IDENTIFIED BY 'passw0rd';
+GRANT RELOAD, LOCK TABLES, PROCESS, REPLICATION CLIENT ON *.* TO
+  'sstuser'@'localhost';
+FLUSH PRIVILEGES;
+
+
+При первом запуске мастер ноды:
+/etc/init.d/mysql bootstrap-pxc
+
+Проверяем состояние:
+show status like 'wsrep%';
+wsrep_local_state_comment   Synced                               
+wsrep_cluster_size          1                                    
+wsrep_cluster_status        Primary                              
+wsrep_connected             ON                                   
+
+Смотрим cluster_size
+
+
+Добавление последующих нод:
+- правим конфиги
+- systemctl start mysql
+- смотрим wsrep_cluster_size
+- создаем базу и записи на разных нодах
 

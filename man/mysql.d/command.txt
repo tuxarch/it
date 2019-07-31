@@ -1,5 +1,36 @@
-Создать/удалить базу данных
-CREATE DATABASE dbname;
-DROP DATABASE dbname;
+=Подключиться или выполнить команду:
+mysql -u user -p -e 'show processlist'
+mysql --host=172.17.0.2 -u root -p  подключиться к базе удаленно.
+mysql < thefile - можно выполнить из файла
+mycli mysql://my_user@my_host.com:3306/my_database
 
 
+=Посмотреть количество подключений/потоков:
+SHOW STATUS WHERE `variable_name` = 'Threads_connected';
+SHOW VARIABLES LIKE "max_connections";
+SHOW PROCESSLIST;
+
+
+=Установить/Отключить лок:
+FLUSH TABLES WITH READ LOCK; - поставить
+SET GLOBAL read_only = ON;
+
+SET GLOBAL read_only = OFF; - отключить
+UNLOCK TABLES;
+
+=Посмотреть список всех переменных
+SHOW VARIABLES
+SHOW VARIABLES LIKE 'read_only';
+
+
+=Посмотреть движок таблицы:
+SELECT * FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'my_some_database'
+
+=Переустановить базу:
+service mysql stop
+mv /var/lib/mysql /tmp/mysql
+mkdir /var/lib/mysql
+chown -R mysql:mysql /var/lib/mysql
+mysqld --initialize
+или
+mysql_install_db again

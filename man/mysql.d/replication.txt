@@ -1,45 +1,31 @@
-show slave status \G - смотрим ошибки
+= Смотрим состояние репликации:
+
+show slave status \G 
 Master_Log_File: mysql-bin.000004
 Exec_Master_Log_Pos: 155
-__________________________________________
 
 Пропустить ошибку:
 SET GLOBAL sql_slave_skip_counter = N
 
 
-__________________________________________
-Перезапустить реплику:
+= Перезапустить реплику:
 
 stop slave;
 restart slave;
 change master to master_host='192.168.50.10', master_user='repl', master_password='repl', master_log_file='mysql-bin.000001', master_log_pos=1475;
 START SLAVE;
 
-
-Last MySQL binlog file position 523535630, file name sql1-bin.001488
-
 show slave status \G
-
 При запущенной реплика нас интересует:
-
 Slave_IO_State: Waiting for master to send event
 Slave_IO_Running: Yes
 Slave_SQL_Running: Yes
 Seconds_Behind_Master: 5
 
-
-________________________________________
-Перенести бэкап:
-innobackupex --slave-info --parallel=3 --no-timestamp
-sudo innobackupex --slave-info --use-memory=1G --stream=xbstream ./ | ssh user@x.dd.ru -p 58319 -i /home/user/.ssh/id_rsa "xbstream -x -C /mnt/mysql2"
-
-Развернуть:
-innobackupex --apply-log --export --use-memory=4G /var/lib/mysql/
-chown -R mysql:mysql /var/lib/mysql
+cat /var/log/mysql/error.log - также можно узнать статус
 
 
-___________________
-Создать пользователя для репликации:
+= Конфигурация master-slave:
 CREATE USER 'repl'@'%' IDENTIFIED BY 'repl';
 GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%';
 
@@ -57,4 +43,3 @@ relay-log = /var/lib/mysql/mysql-relay-bin
 relay-log-index = /var/lib/mysql/mysql-relay-bin.index
 log-slave-updates
 skip-slave-start
-

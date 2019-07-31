@@ -1,0 +1,53 @@
+===Cмотреть пользователей:
+
+SELECT USER from mysql.user; - посмотреть пользователей
+SHOW GRANTS FOR zabbix@localhost - узнать права
+-
+
+Посмотреть пользователей на хосте:
+select user, host, password from mysql.user;
+
+
+===Создать пользователя:
+
+CREATE USER 'anna' IDENTIFIED BY 'annapassword'; - создание пользователя
+GRANT SELECT,INSERT,DELETE,UPDATE ON test.* TO 'admin'@'localhost' IDENTIFIED
+BY 'secret'; - создаем пользователя 'admin' таблицы 'test' с указанными
+правами и паролем 'secret'
+REVOKE CREATE ON *.* FROM 'anna'@'localhost'; - отмена привелегии на создание
+
+Создать глобального рута:
+CREATE USER 'root'@'%' IDENTIFIED BY 'passw0rd';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%';
+
+===Сменить пароль рута:
+
+mysqladmin -u root password 'new_psd'
+mysqladmin -u root -p'old_pas' password 'new_psd'
+-
+
+mysqld --skip-grant-tables --user=mysql
+FLUSH PRIVILEGES;
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'new_passowrd';
+
+Добавляем /etc/mysql/my.cnf -если сложно запустить
+Add skip-grant-tables under [mysqld]
+-
+
+Возможно стоит посмотреть на политику паролей:
+SHOW VARIABLES LIKE 'validate_password%';
+
+Изменить политику паролей:
+SET GLOBAL validate_password.policy = 0;   // For LOW
+SET GLOBAL validate_password.policy = 1;   // For MEDIUM
+SET GLOBAL validate_password.policy = 2;   // For HIGH
+
+Отключить в mysql 8;
+UNINSTALL COMPONENT 'file://component_validate_password';
+
+===Из админки смена пароля:
+Mysql 8
+SET PASSWORD FOR 'jeffrey'@'localhost' = 'auth_string';
+
+===Удалить пользователя:
+DROP USER dbadmin@mysqltutorial.org;

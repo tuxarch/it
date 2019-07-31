@@ -47,3 +47,5 @@ peer_exchange = yes
 вставляем 
 / - перейти в корень
 * - mark to all 
+
+Для работы с p2p в мобильных сетях ставим: qbittorrent

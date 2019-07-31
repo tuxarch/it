@@ -1,0 +1,10 @@
+Установка темы:
+
+узнать текущую тему:
+echo g:colors_name
+
+
+Ставим тему в .vim/colors/gruvbox.vim
+
+Устновка темы:
+colorscheme distinguished

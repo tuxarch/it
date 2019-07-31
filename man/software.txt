@@ -146,3 +146,5 @@ monit - система мониторинга которая может груз
 sshguard - защита ssh от брутфорса
 tmpreaper - удаление tmp, неиспользуемых файлов
 vitess - mysql шардинг 
+firecracker/kata container - скрещивание контейнеров и vm
+wirequard - vpn решение, быстрее openvp
