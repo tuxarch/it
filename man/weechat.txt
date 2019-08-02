@@ -1,75 +1,73 @@
-/help
+### Key
+PgUp/PgDown - прокрутка чата
+Ctrl+R - поиск Enter/Ctrl+j - выйти из поиска
+Alt+A - ходим по новым сообщения
+Alt+L - открыть чистый текст (PgUP/PgDown)
+Alt+H - пометить все каналы как прочитанные
+F7 F8 - переключение при сплите окон
+F11 F12 - прокрутка юзеров
 
+
+### Command
+/msg alis LIST searchchat - поиск канала
+/join ##linux  - подключиться к каналу
+
+/help join - справка по командам
+/close - закрыть чат
+/query nickname Message - отправить личное сообщение
+/quit - закрыть программу
+
+/buffer - он же канал
+	clear - очистить историю
+
+/bar bufflist, title, nicklist - отключить панели 
+/bar hide nicklist
+
+/set - установить параметр
+/unset - отменить 
+/save - сохранить конфигурацию
+/fset irc.* - просмотр переменных
+/fset save_ - сохранить конфигурацию
+
+/script install go.py - устанавливаем плагины
+/key bind meta-! /buffer close  - cоздать бинд
+
+/window splitv 30 - сплит 70/30
+/window merge - закрыть сплит
+
+
+### Config
 Скрыть сообщение о коннектах 
-
 /set irc.look.smart_filter on
 /filter add irc_smart * irc_smart_filter *
 
-With a global filter (hide all join/part/quit):
-
+Фильт на join/quit
 /filter add joinquit * irc_join,irc_part,irc_quit *
 
-__________________________
-
-/window splitv 33
-/window merge
+/set weechat.bar.buflist.size 18 - задать размер панели
+/set weechat.bar.buflist.size_max  
 
 
-Подключиться к чату
-/query name -
-/close
-
-Установка плагинов
-/script install go.py
-
-Покинуть канал
-/join
-/part
-
-______________________
-Keybinds
-F7 F8 - переключение при сплите
-F11 F12 - прокрутка юзеров
-alt+h  - mark all read
-
-
-CTRL+UP DOWN - прокрутка
-
-Cоздать бинд
-/key bind meta-! /buffer close
-________________
-
+### Настройка freenode
 SASL аутeнтификация с использованием ключа
 
-$ openssl ecparam -genkey -name prime256v1 >~/.weechat/ecdsa.pem
-$ openssl ec -noout -text -conv_form compressed -in ~/.weechat/ecdsa.pem | grep '^pub:' -A 3 | tail -n 3 | tr -d ' \n:' | xxd -r -p | base64
+openssl ecparam -genkey -name prime256v1 >~/.weechat/ecdsa.pem
+openssl ec -noout -text -conv_form compressed -in ~/.weechat/ecdsa.pem | grep '^pub:' -A 3 | tail -n 3 | tr -d ' \n:' | xxd -r -p | base64
 
 /connect freenode
+/reconnect freenode
+
 /msg nickserv identify your_password
-/msg nickserv set pubkey Av8k1FOGetUDq7sPMBfufSIZ5c2I/QYWgiwHtNXkVe/q
+/msg nickserv set pubkey Av8k1FOGetUDq7c2I/QYWgiwHtNXkVe/q
 
 /set irc.server.freenode.sasl_mechanism ecdsa-nist256p-challenge
 /set irc.server.freenode.sasl_username "your_nickname"
 /set irc.server.freenode.sasl_key "%h/ecdsa.pem"
 
-/reconnect freenode
-_____________________
 
-/bar hide nicklist
+### Matrix
+В данное время есть два скрипта для weechat на lua и python.
+Ставиться кастомная библиотека olm для криптографии
+
 Ставим матрикс и пакет из аура lua-cjson
-закрыть канал /leave
-подключиться  /join #matrix-dev:matrix.org
-
-
-Отключить панели 
-/bar bufflist, title, nicklist
-Задать размер панели
-/set weechat.bar.buflist.size 18
-/set weechat.bar.buflist.size_max  
-
-/unset - отменить опцию
-/fset save_
-
-
-search - поиск каналов
-/msg alis LIST searchterm
+/script load matrix.lua

@@ -17,7 +17,7 @@ db.first.find().prety() - выводит содержимое записи ст�
 
 
 Подключение к удаленной базе:
-mongo -u root --host baikal.srg-it.ru
+mongo -u root --host baikal.ru
 
 
 Узнать движок:
@@ -27,6 +27,7 @@ db.serverStatus().storageEngine
 
 Ограничить память для движка wiredTiger:
 storage.wiredTiger.engineConfig.cacheSizeGB
+______________
 
 Удаленный бэкап
 mongodump --username root --password Fawi --out backup_dir --host name.ru
@@ -35,5 +36,75 @@ mongodump --username root --password Fawi --out backup_dir --host name.ru
 mongorestore --host sql3.srg-it.ru
 
 ______________
+=== Переустановка
 При удалении базы также стоит удалить и каталог 
 /tmp/mongodb
+Возможно поможет лог установки:
+Adding system user `mongod' (UID 111) ...
+Adding new group `mongod' (GID 116) ...
+Adding new user `mongod' (UID 111) with group `mongod' ...
+Creating home directory `/var/lib/mongodb' ...
+Processing triggers for systemd (237-3ubuntu10.23) ..
+
+
+=== Кластер ReplicaSet
+
+Также есть PRIMARY/SECONDARY машины, с асинхронной записью. Но которая может
+быть настроенна на подтверждение получение изменений.
+Данные копируются через oplog - аналог binlog mysql,но данная операция
+иденпотентна и может выполняться несколько раз.
+
+Если база данных огромна, то под нее стоит заводить специальную машину - arbitr. Который участвует в голосовании кого назначить PRIMARY.
+
+
+Последовательность установки:
+-------------------------
+
+Cтавим перконовские репы и после:
+percona-release enable psmdb-40 release && apt update
+apt install percona-server-mongodb-server
+
+Следует удалить локальные базы перед установкой кластера и сделать rm -rf
+/var/lib/mongod/*
+use local;
+db.dropDatabase(); (без запуска реплики)
+
+Добавляем в конфиг /etc/hosts и /etc/mongod.conf:
+replication:
+     replSetName: "rs-test"
+
+Коннектимся:
+mongo --host psmdb1 --port 27017
+
+Пишем:
+rs.initiate( { _id: "rs-test", members: [ { _id: 0, host: "psmdb1:27017" }, {
+_id: 1, host: "psmdb2:27017" }, { _id: 2, host: "psmdb3:27017" } ] });
+
+Ждем такое приглашение:
+rs-test:PRIMARY>
+Проверка состояния и конфигурации: rs.conf(), rs.status()
+
+Проверяем:
+PRIMARY: use test; db.foo.insert( {name: "Bruce", surname: "Dick"} ), db.foo.find().pretty()
+SEC: rs.slaveOk(), show collections; db.foo.find().pretty()
+
+=== Shared cluster
+Шардирование устроенна на наборах ReplicaSet
+
+Cоздаем ReplicaSet:
+mongod --configsvr --dbpath /data/db/cfg0 --port 26050 --logpath /data/db/log.cfg0 --fork --replSet c
+
+Cоздаем шарды:
+mongod --shardsvr --replSet a --dbpath /data/a/a1 --logpath /data/a/log.a1 --port 27001 --fork --logappend --smallfiles
+
+Обьединяем конфиг шарды:
+percona-server-mongodb-mongos
+mongos --configdb repSetConfigName/localhost:26050,localhost:26051,localhost:26052  --logappend
+--logpath /data/db/log.mongos --port 26060 --fork
+
+Cоздаем реплика сеты:
+rs.initiate()
+rs.add(“127.0.0.1:27001”)
+
+
+
