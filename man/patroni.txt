@@ -1,0 +1,69 @@
+Найстройка кластера 
+sudo -iu postgresql - логинимся под юзером
+patroni postgres0.yaml - поднимаем в мастер
+patroni postgres1.yaml - поднимаем в репилки
+
+Смотрим состояние кластера:
+patronictl -c postgres0.yml list
+
+Wal-лог значение -кто имеет более большее тот и продвинится в мастер. Кто
+станет лидером определяет кворум etcd, при отвалах базы стучаться друг в друга
+определяя продвижение в мастер.
+
+pgrevert - позловяет синкнуть старый мастер со слейва 
+При остановке patroni:
+- стопаем мастер, подключаем его в слейв и отматывает до позиции
+
+
+Распределнное key-value хранилище:
+etcdctl ls --recursive --sort -p /service/batman
+
+Узнать кто лидер:
+etcdctl get /service/batman/leader
+
+Инфо по ноде, состояние и позиция:
+etcdctl get /service/batman/members/postgresql1
+
+Постомтреть историю
+etcdctl get /service/batman/history
+
+===============================
+
+Редактируем конфигурацию кластера через patroni
+
+patronictl -c postgres0.yml edit-config batman
+
+patronictl - может работать с личного ноута
+Конфиги требующие перезагрузки применяются вручную.
+
+Узнать требуется ли перезагрузка через REST API curl http://localhost;8999
+Или через patronictl -c postgres0.yml list
+
+pending_restart:true
+
+Перегрузить кластер для применения настроек:
+patronictl -c postgres0.yml restart
+
+
+==== Tricks & Featchers
+
+TTL и LoopWait - неправильно настроенные параметры могут положить кластер на
+запись. Разработчики увеличили переключение до минуты.
+
+После инициализации bootstrap в дальнейшем, для изменения параметров
+используем patronictl
+Используем RestAPI для получения конфигурации
+
+Балансировка Haproxy pgbalancer
+
+nofailover - не включать хост в мастер
+replicationfrom - откуда брать реплику
+
+patronictl -c file.yaml switchover - ручное переключение
+patronictl restart node - перегружаем сервер без переключения мастера
+patronict reint - удаляет дата, и заливает данные
+patronictl pause - не обрабатывать ошибки и отвалы
+
+Синхронная репликация - в запросе можно указать тип транзакции синк асинк
+
+Обеспечивает разворачивание бэкапа на клатер

@@ -106,3 +106,12 @@ local  all      all          md5
 
 C переносом на удаленную машину
 pg_dump -C -h localhost -U localuser dbname | psql -h remotehost -U remoteuser dbname
+
+
+__________________________
+Кластера
+
+Patroni - python
+Stolon - go
+Pgpool2 
+
