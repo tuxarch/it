@@ -1,0 +1,12 @@
+Commercial SQL-db
+
+MS SQL Server
+Oracle DB - имеют возможность in-memory table, поддержка кластеризации
+
+NewSQL - распределенные базы с поддержкой sql
+
+CoockroachDB - распределенная бд, с sql синтаксисом
+Tarantol 
+TiDB - распределенная с sql синтаксисом
+
+

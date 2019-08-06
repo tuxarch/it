@@ -1,0 +1,7 @@
+Основной файл конфигурации ~/.config/mimetype.list
+
+Если мы работаем без окружения то ставим
+perl-file-mimeinfo
+
+mimeopen filetype.pdf - позволяет задать приложение по умолчанию
+
