@@ -3,6 +3,7 @@ dmidecode - информация по железу
 hardinfo - позволяет снять отчеты, легкий gui
 lshw 
 mpstat - анализ CPU и shedduler
+bash <(wget --no-check-certificate -O - https://raw.github.com/mgutz/vpsbench/master/vpsbench)
 
 ## Сеть
 netstat - сокеты, TCP/IP, Интерфейсы
@@ -41,3 +42,5 @@ lstat - проверка настроек на безопасность
 
 ## app
 ngxtop - nginx монитор
+Hammerdb - тестирование баз даных
+
