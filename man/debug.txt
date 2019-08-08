@@ -29,6 +29,9 @@ ltrace - используемые библиотеки
 dio - инфо по чтению и записи
 hddtemp
 ide-smart - информация по SMART
+Измерить скорость чтения и записи на диск:
+sudo hdparm -Tt /dev/sda
+dd if=/dev/zero of=/tmp/output bs=8k count=10k; rm -f /tmp/output
 
 ## Multitool
 sysdig - сетевые соединения, I/O, системные вызовы

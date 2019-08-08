@@ -32,6 +32,7 @@ encfs /home/.encfs/user /home/user
 fusermount -u ~/visible
 
 Добавляем /etc/security/pam_encfs.conf << 
+encfs_default --idle=1 - отмонтировать через минуту простоя
 drop_permissions
 encfs_default
 fuse_default

@@ -37,4 +37,24 @@ peer-to-peer - архитектура
 
 Join - операция не реализованна
 
+=== Установка
+curl https://www.apache.org/dist/cassandra/KEYS | sudo apt-key add -
+echo "deb http://www.apache.org/dist/cassandra/debian 39x main" |  tee /etc/apt/sources.list.d/cassandra.list
+apt update 
+sudo apt install cassandra ntp
 
+Порты которые использует касандра 7199 -jmx, 7000 - internode, 9042 - cql 
+
+
+nodetool status - проверить статус кластера (показывает только доступные)
+
+cqlsh 192.168.13.145 - подключаемся к ноде
+DESCRIBE KEYSPACES - смотрим базы
+create keyspace example with replication ={'class':'SimpleStrategy','replication_factor':2}; - создаем базу
+use example - подключаемся к базе
+create table my_table ( id int primary key, description text ); - создаем
+таблицу
+DESCRIBE TABLES; - смотрим таблицы
+
+insert into my_table (id, description) values (1,'Item 1'); - создаем запись
+select * from my_table - вывести записи 
