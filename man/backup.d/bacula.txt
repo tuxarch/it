@@ -1,9 +1,200 @@
-состав 
-bacula director - управление конфигурацией
-storage daemon - демон записи и чтения данных
-catalog - хранит базу данных 
-bacula console - интерфейс ком строки
-webmin - веб-интерфес для управления
-file daemon - машина с которой делается бэкап
-______________________
+### Bacula
 
+##### Основные понятия:
+
+bacula console - интерфейс командной строки (ставиться на терминал)
+
+bacula director - управление конфигурацией (на сервер)
+catalog SQL - хранит базу данных c информацией о бэкапах
+
+storage daemon - демон записи и чтения данных (ставиться на хранилище)
+
+file daemon - клиент на машине с которой делается бэкап
+
+
+##### Установка:
+
+yum install bacula-director bacula-storage bacula-client bacula-console
+
+Определяем поддерживаемую базу как mysql:
+alternatives --config libbaccats.so
+
+Создаем базy данных:
+mysql -u root -p -e 'create database bacula'
+mysql -u root -p -e 'grant all on `bacula`.* to 'bacula'@'localhost' identified by 'bacula'
+
+Инициализируем базу:
+/usr/libexec/bacula/make_mysql_tables
+
+Конфиги:
+/etc/bacula/bacula-sd.conf
+/etc/bacula/bacula-dir.conf 
+/etc/bacula/bacula-fd.conf 
+
+Стартуем службы:
+service bacula-fd start
+service bacula-sd start
+service bacula-dir start
+
+systemctl status bacula-director
+systemctl status bacula-fd
+systemctl status bacula-sd
+
+### Доступ к базе 
+
+#(postgres)
+edit /etc/postgres/pg_hba.conf:
+local   all             all                                     md5
+host    all             all             127.0.0.1/32            md5
+
+Создаем права на создание бд (вроде должна быть по дефолту):
+
+sudo -u bacula /usr/share/bacula-director/create_postgresql_database
+Не забывает изменить название базы в этом скрипте
+
+Создаем таблицы:
+/usr/share/bacula-director/make_postgresql_tables
+
+В конфиге /etc/bacula/bacula-dir.conf секция Catalog
+
+Подключаемся:
+psql -d bacula -U bacula -W
+
+Инициализируем базу:
+sudo -u bacula /usr/share/bacula-director/create_postgresql_database
+#(/postgres)
+
+
+Создаем каталог для хранения бэкапов на sd:
+mkdir -p /data/bacula
+chown -R bacula:bacula /data/bacula
+
+### Config
+--------------bacula-sd.conf:
+Не забываем указать имя хранилища, создаем устройство
+
+Storage {                             
+  Name = File3
+  SDPort = 9103                  
+  WorkingDirectory = "/var/lib/bacula"
+  Pid Directory = "/run/bacula"
+  Plugin Directory = "/usr/lib/bacula"
+  Maximum Concurrent Jobs = 20
+  SDAddress = 192.168.122.12
+}
+
+Device {
+  Name = FileChgr1-Dev1
+  Media Type = FileArchive
+  Device = /data/bacula
+  LabelMedia = yes;
+  Random Access = Yes;
+  AutomaticMount = yes;
+  RemovableMedia = no;
+  AlwaysOpen = no;
+  Maximum Concurrent Jobs = 5;
+}
+
+Autochanger {
+  Name = FileChgr1
+  Device = FileChgr1-Dev1
+  Changer Command = ""
+  Changer Device = /dev/null
+}
+
+
+------------------bacula-dir.conf:
+Добавляем расписание бэкапа и сторадж, DefaultJob
+Schedule {
+  Name = S1
+  Run = Level=Full sun at 2:05
+  Run = Level=Incremental mon-sat at 2:05
+}
+
+Storage {
+  Name = File3
+  # Do not use "localhost" here
+  Address = 192.168.122.12
+  SDPort = 9103
+  Password = "yppyzWHPuJxWMKOl0iSfDo79xuScNSBNn"
+  Device = FileChgr3
+  Media Type = File3
+  Maximum Concurrent Jobs = 5
+}
+
+
+Job {
+  Name              = "localhost"
+  JobDefs           = "DefaultJob"
+  Client            = "localhost"
+  FileSet           = "localhost"
+  Schedule          = "S1"
+#  Maximum Bandwidth = 70mb/s
+  SpoolData         = yes
+  Spool Size        = 20G
+  Maximum Concurrent Jobs = 20
+}
+
+FileSet {
+  Name = localhost
+  Include {
+    Options {
+        wilddir   = "lost+found"
+        regexfile = "\\.core$"
+        signature = MD5
+        recurse   = yes
+        onefs     = no
+        Compression = gzip
+    }# common
+    File = /
+ }
+  Exclude {
+    File = /var/spool/bacula
+    File = /tmp
+    File = /proc
+    File = /sys
+    File = /.journal
+    File = /.fsck
+  }
+}
+
+Client {
+        Name           = "localhost"
+        Address        = "localhost"
+        FDPort         = 9102
+        Catalog        = MyCatalog
+        Password       = "M3-udwP-TZm6psSYZS7OqIEOcMF9mTckB"
+        File Retention = 7 days
+        Job Retention  = 7 days
+        AutoPrune      = yes
+        Maximum Concurrent Jobs = 20
+
+
+-----------------bacula-fd.conf:
+Настройка бэкапа на клиенте, не забываем указать пароль
+
+
+Director {
+  Name = bac1-dir
+  Password = "M3-udwP-TZm6psSYZS7OqIEOcMF9mTckB"
+}
+
+
+
+## Bconsole
+
+Можно поставить на локальную машину, чтобы подключаться удаленно
+редактируем /etc/bacula/bconsole, на удаленной машине /etc/bacula/bacula-dir.
+Меняем ключ и адрес.
+
+add - добавить джабу
+status dir - просмотр расписания
+run Name - выполнить джабу
+show jobs=Name - посмотреть инфо по джабе
+
+
+
+### Tips&Triks
+
+Файл с бэкапом улетает сразу на fd, в WorkingDirectory
+Паралельное выполнение джаб

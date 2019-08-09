@@ -3,9 +3,10 @@ make mrproper - очистка от страх файлов
 make syncconfig (silentoldconfig) - адаптация с выбором 
 
 make olddefconfig - применение настроек по умолчанию
+make defconfig - создание настроек по умолчанию
 ___________________________________
 
-vanilla - общесистемное ядро
+vanilla - ядро от разработчиков
 
 /usr/src/ - каталог для сборки ядер
 
@@ -31,6 +32,7 @@ make install && make modules_install - установить ядро в boot (з
 Прокинуть ядро в ручную 
 cp arc/x64/boot/bzImage /boot/linux-4.5
 cp system.map /boot/system.map-4.5
+
 genkernel --instal initramfs - установить поддержку initrm
 initrmfs (initrd) - необходимые файлы udev, стартовый образ ФС и информация о модулях ядра.
 Изменить символьные ссылки для нового ядра в /boot
