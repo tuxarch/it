@@ -24,3 +24,6 @@ rsync -rv --size-only /mnt/data/book/ /mnt/allsync/book/ --temp-dir=/tmp --no-ow
 
 rsync -aHAXxv --numeric-ids --delete --progress -e "ssh -i /home/userg/.ssh/id_rsa -p 58319 -T -c aes128-gcm@openssh.com -o Compression=no -x" /backups/mys
 ql/daily/2019-05-15-1903_full/ user@sqlssd.ru:/var/lib/mysql/
+
+
+lsyncd - отслеживание изменения файлов и их копирование если их большое количество

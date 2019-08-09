@@ -111,6 +111,7 @@ pg_dump -C -h localhost -U localuser dbname | psql -h remotehost -U remoteuser d
 __________________________
 Кластера
 
+pacemaker/coresync - мастер на вирутальном ip
 Patroni - python
 Stolon - go
 Pgpool2 

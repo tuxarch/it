@@ -38,3 +38,12 @@ innobackupex --apply-log --export --use-memory=4G /var/lib/mysql/
 chown -R mysql:mysql /var/lib/mysql
 systemctl start mysql.service
 mysql -e "SET PASSWORD FOR 'debian-sys-maint'@'localhost' = PASSWORD('Z'); flush privileges;"
+
+
+==== Снятие бэкапа средствами lvm
+Сделать flush - cкинуть изменения на диск
+Заблокировать базу на запись на долю секунду
+
+Приведет к фрагментации данных и увеличению оверхэда
+
+mylvmbackup - рекомендуется на таблицах MyISAM
