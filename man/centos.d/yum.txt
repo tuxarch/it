@@ -1,0 +1,64 @@
+= Работа c пакетами
+
+=== Rpm
+
+Установка/обновление/удаление
+rpm -i install.rpm
+rpm U update.rpm
+rpm -e delete.rpm
+
+Информация о пакете:
+rpm -qi tmux 
+
+Список файлов которые установлены пакетом:
+rpm -ql tmux 
+
+Провести верификацию на отсутствие/изменение файлов:
+rpm -qV glibc
+
+Посмотреть зависимости от других пакетов и либ:
+rpm -qR 
+rpm -q --provides php
+
+Скрипты запускаемые при установке/удалении:
+rpm -q --provides php
+
+
+
+=== Yum
+
+Список репозиториев:
+yum repolist
+
+Поиск пакетов:
+yum search perf
+
+Установка с подтверждением:
+yum -y install epel-release
+
+Откат пакета на предыдущую версию/конкретную:
+yum downgrade pakage
+yum downgrade pakage-399.33.el7
+
+Переконфигурация системы под софт:
+alternatives --config mta
+
+Очистить кэш:
+yum clean all  
+
+Cписок доступных пакетов для обновления:
+yum list updates
+
+Список установленных пакетов:
+yum list installed
+
+Работа с группами:
+yum grouplist - список групп
+yum groupinstall Development Tools - установка группы
+
+
+
+=== Other 
+yumdownloader - позволяет просто загрузить пакет
+rpm2cpio - позволяет конвертировать пакет в архив
+

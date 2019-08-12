@@ -1,6 +1,14 @@
+Узнать что делает система:
+perf top
+
 Записываем подсистему
 perf record -e block:block_rq_issue -ag
 
 Запускаем отчет по созданному файлу:
 perf report 
 
+Cтатистика по запуску ls (переключение контекстов, page fault)
+perf stat 'ls'
+
+Замена strace
+perf trace 'ls'

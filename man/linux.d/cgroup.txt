@@ -1,3 +1,18 @@
+Вывести иерархию cgroup:
+systemd-cgls
+
+user.slice, machine.slice (вирт.машины), system.slice - 3 контрольные группы, 
+
+
+Выставить лимиты
+systemctl set-property nginx.service CPUShares=2048 (обычное значение 1024)
+systemctl set-property nginx.service MemoryLimit=500mb
+systemctl set-property system.slice BlockIOweight=100 &&
+systemctl set-property mariadb.service BlockIOweight=1000 - понижаем и
+увеличиваем
+
+
+
 Проверить наличие иерархий групп:
 $ grep -E -- \\\<cgroup\\\> < /proc/mounts
 

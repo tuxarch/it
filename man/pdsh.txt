@@ -1,0 +1,27 @@
+Тулза позволяющая выполнять однотипные команды на нескольких хостах
+
+Определяем тип подключения:
+export PDSH_RCMD_TYPE=ssh
+
+Файл с хостами:
+export WCOLL=/home/laytonjb/PDSH/hosts
+
+
+Конфигуриться ssh через переменную:
+export PDSH_SSH_ARGS_APPEND="-q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+
+Создаем файл machines с хостами:
+В нем можно быстро комментировать строки #, чтобы исключать лишнее тачки
+Есть возможность настроить файл gender, нужна поддержка gender, но что-то ip
+адреса тачек туда записать не удалось
+
+Выполняем команду:
+pdsh -w ^machines -l user "uptime"
+
+
+------
+pdcp - копирование на множество хостов
+Для работы pdcp ставим на хосты pdsh
+pdcp -w ^machines -R ssh -l user hosts.txt /home/vagrant/
+
+rpdcp - паралельное выполнение

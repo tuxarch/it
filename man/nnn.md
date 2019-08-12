@@ -1,5 +1,6 @@
 ### nnn -file manager
 
+X - delete
 e - edit file
 p - pager
 ? - help for hotkey

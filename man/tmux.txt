@@ -57,3 +57,9 @@ c-b :attach -d
 
 
 tmux new "command && command" - Запустить команду в терминале tmux
+
+
+Одновременное выполнение в нескольких терминалах:
+Ctrl+b :set synchronize-panes on
+
+CTRL+B ! - перенос активного окна на другую вкладку

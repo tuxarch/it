@@ -1,17 +1,22 @@
-Repo:
+Repo
 
-EPEL - хранилище от fedora. popular
-yum install epel-release -y
+== config
 
-EIRepo - последние драйвера для видео, звука, девайса
-
-___________________
 Конфиги в /etc/yum.repos.d/
 
 baseurl - ссылка на репо
 enabled - репо включен
 gpgcheck - проверка
 mirrorlist - список с репозиториями
+
+
+== EPEL 
+
+хранилище от fedora. popular
+yum install epel-release -y
+
+EIRepo - последние драйвера для видео, звука, девайса
+
 
 ____________________
 Yandex mirror
@@ -34,3 +39,10 @@ yum clean all - очистить кэш
 
 /etc/yum/pluginconf.d/fastestmirror.conf > enabled=0 - отключить плагин
 
+_______________________
+
+http://vault.centos.org/7.2.1511/os/Source/SPackages/
+
+
+
+отсюда можно скачать билды для сборки пакетов

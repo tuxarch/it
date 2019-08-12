@@ -5,33 +5,35 @@ lshw
 mpstat - анализ CPU и shedduler
 bash <(wget --no-check-certificate -O - https://raw.github.com/mgutz/vpsbench/master/vpsbench)
 
+## I/O, storage, disks
+iostat
+dio - инфо по чтению и записи
+hddtemp
+smartctl 
+ide-smart - информация по SMART
+hdparm -Tt /dev/sda - тест rw
+dd if=/dev/zero of=/tmp/output bs=8k count=10k; rm -f /tmp/o - тест rw
+
 ## Сеть
 netstat - сокеты, TCP/IP, Интерфейсы
 ss 
 iperf - померить пропускную способность между узлами сети
 host - dns резолвер
 
-
-
 ## Операционная система
+
 lttng - отладка ядра, необходимо ставить модули
 strace - посмотреть системные вызовы
 pidstat - информация по процессам
 vmstat - отчет по виртуальной памяти
 slabtop - инфо о буферах, кэшей, структур ядра
+perf top - узнать на что система тратит свое время
+ulimit - управление пользовательскими ресурсами
 
 ## Cофт
 gdb - отладчик c/с++ кода
 ldd - просмотреть используемые приложением библиотеки
 ltrace - используемые библиотеки
-
-## I/O, storage, disks
-dio - инфо по чтению и записи
-hddtemp
-ide-smart - информация по SMART
-Измерить скорость чтения и записи на диск:
-sudo hdparm -Tt /dev/sda
-dd if=/dev/zero of=/tmp/output bs=8k count=10k; rm -f /tmp/output
 
 ## Multitool
 sysdig - сетевые соединения, I/O, системные вызовы
@@ -41,7 +43,6 @@ sar - сбор, сохранение и отчет о системе
 
 ## security
 lstat - проверка настроек на безопасность
-
 
 ## app
 ngxtop - nginx монитор
