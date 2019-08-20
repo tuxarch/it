@@ -5,7 +5,7 @@ e - edit file
 p - pager
 ? - help for hotkey
 ctrl+r rename file
-r - rename batch
+r - rename batch/duplicate
 ctrl+g - выход в текущую директорию
 ,t ,h ,g - закладки
 D - инфо по файлу
