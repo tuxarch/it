@@ -1,0 +1,103 @@
+=== ELK Stack
+
+Elasticsearch - база/движок поиска
+Kibana - визуализация
+Logstash - сбор и отправка логов в elastic
+Filebeat - отправка текстовых логов в logstash
+
+
+=== Установка
+
+= Elasticsearch
+apt install openjdk-8-jre
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
+apt install apt-transport-https
+echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" | tee -a /etc/apt/sources.list.d/elastic-6.x.list
+apt update && apt-get install elasticsearch
+Проверяем порт 9200
+
+= Kibana
+... /elastic repo, version /
+apt install kibana
+Расшариваем интерфейс /etc/kibana/kibana.yml >>  server.host: "10.1.4.114"
+Проверяем порт 5601
+
+= Logstash
+... /elastic repo, version /
+apt install logstash
+
+Файл с конфигурацией /etc/logstash/conf.d/input.conf
+input {
+  beats {
+    port => 5044
+  }
+}
+
+Файл с конфигурацией /etc/logstash/conf.d/ouput.conf
+output {
+        elasticsearch {
+            hosts    => "localhost:9200"
+            index    => "nginx-%{+YYYY.MM.dd}" # имя индекса в elstic
+        }
+	#stdout { codec => rubydebug }
+
+Файл с конфигурацией /etc/logstash/conf.d/filter.conf
+
+filter {
+ if [type] == "nginx_access" {
+    grok {
+        match => { "message" => "%{IPORHOST:remote_ip} - %{DATA:user} \[%{HTTPDATE:access_time}\] \"%{WORD:http_method} %{DATA:url} HTTP/%{NUMBER:http_version}\" %{NUMBER:response_code} %{NUMBER:body_sent_bytes} \"%{DATA:referrer}\" \"%{DATA:agent}\"" }
+    }
+  }
+  date {
+        match => [ "timestamp" , "dd/MMM/YYYY:HH:mm:ss Z" ]
+  }
+  geoip {
+         source => "remote_ip"
+         target => "geoip"
+         add_tag => [ "nginx-geoip" ]
+  }
+}
+
+Для подсчета работы парсинг-фильтра используем https://grokdebug.herokuapp.com/
+
+Для Geoip ставим модуль в /etc/logstash
+wget http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz
+&& gunzip GeoLite2-City.mmdb.gz
+
+Слушает 5044 порт
+
+
+= Filebeat - агент сбора логов в Logstash (может сразу слать в elastic)
+apt install filebeat
+правим /etc/filebeat/filebeat.yml
+
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+      - /var/log/nginx/access.log  (путь до логов)
+  fields:
+    type: nginx_access
+  fields_under_root: true
+  scan_frequency: 5s
+
+- type: log
+  enabled: true
+  paths:
+      - /var/log/nginx/error.log
+  fields:
+    type: nginx_error
+  fields_under_root: true
+  scan_frequency: 5s
+
+output.logstash:
+  hosts: ["localhost:5044"] (куда отправлять)
+ 
+ 
+
+Cмотрим логи /var/log/filebeat/filebeat.log
+    	    /var/log/logstash/logstash.log
+
+Индекс создается когда начинают ехать данные, внимательно смотри данные
+
