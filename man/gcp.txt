@@ -1,0 +1,13 @@
+gcloud - ставим консоль из аура
+
+
+gcloud login auth
+Генерим ключ ssh
+
+Подключаемся через команду и админки
+gcloud beta compute --project "rock" ssh --zone "europe-north1-a" "instance"
+
+
+
+
+

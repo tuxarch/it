@@ -1,0 +1,5 @@
+Дашборд:
+https://grafana.com/grafana/dashboards/1860
+
+Ставить Json из 
+http://your-grafana-host:3000/dashboard/import

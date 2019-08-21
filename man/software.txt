@@ -149,3 +149,4 @@ vitess - mysql шардинг
 firecracker/kata container - скрещивание контейнеров и vm
 wirequard - vpn решение, быстрее openvp
 drawing - супер мальнькая тулза для редактирования изображений, скриншотов
+ovirt - аналог proxmox система управления вирутализацией
