@@ -1,0 +1,23 @@
+Создать сервисный акаунт:
+gcloud iam service-accounts create terraform --display-name "Terraform admin account"
+
+Генерим конфиг от него:
+gcloud iam service-accounts keys create /Users/.config/gcloud/creds/terraform_creds.json \
+--iam-account terraform@terraform-2018.iam.gserviceaccount.com
+
+Даем права:
+gcloud projects add-iam-policy-binding terraform-2018 \
+--member serviceAccount:terraform@terraform-2018.iam.gserviceaccount.com \
+--role roles/owner
+
+gcloud projects add-iam-policy-binding terraform-2018 \
+--member serviceAccount:terraform@terraform-2018.iam.gserviceaccount.com \
+--role roles/storage.admin
+
+Включаем API:
+gcloud services enable cloudbilling.googleapis.com
+gcloud services enable iam.googleapis.com
+
+Создаем конфиг compute_instance.tf
+
+

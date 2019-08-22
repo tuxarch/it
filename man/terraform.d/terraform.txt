@@ -1,0 +1,21 @@
+создаем файл main.tf
+
+// Configure the Google Cloud provider
+provider "google" {
+ credentials = "/home/usr/.config/gcloud/creds/terraform_creds.json"
+ project     = "kube-45653"
+ region      = "europe-west2-b"
+}
+
+
+terraform init - подсасываем конфиг
+terraform plan - проверяем 
+terraform apply - запускаем
+
+
+terraform destroy
+
+Прописываем переменную в конфиге, а зачем стучимся через нее
+ssh `terraform output ip`
+
+

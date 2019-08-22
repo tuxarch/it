@@ -1,13 +1,97 @@
-gcloud - ставим консоль из аура
+== Gcloud 
+ставим консоль из аура
 
 
+gcloud init
 gcloud login auth
-Генерим ключ ssh
+Инициализируем, скороее всего нужно подключить API к проекту.
 
-Подключаемся через команду и админки
+Подключаемся через команду или админку
 gcloud beta compute --project "rock" ssh --zone "europe-north1-a" "instance"
 
+Список конфигов:
+gcloud config list project
+
+Активируем конфигурацию:
+gcloud config configurations activate CONFIGURATION_NAME
+
+Задаем зону/также зону можно задавать при создании
+gcloud config set compute/zone ZONE
+Возвращаем дефолт
+gcloud config unset compute/zone
+Просмотр значения
+gcloud config list compute/region
+
+
+
+== Работа с instance
+
+Список проектов
+gcloud projects list 
+
+Создать проект
+gcloud projects create kube-learn-45653
+
+Переключиться на проект
+gcloud config set project kube-learn-45653
+
+Создание инстанса
+gcloud compute instances create my-instance
+
+Список образов 
+gcloud compute images list
+
+Создать инстанс из образа
+gcloud compute instances create centos --image centos-7-v20190813 --image-project centos-cloud
+
+Инфо по инстансу
+gcloud compute instances describe centos-main
+
+gcloud beta compute instances list - узнать тип машины
+gcloud compute machine-types describe n1-standard-1 - получить описание машины
+gcloud beta compute ssh centos --zone=europe-west1-b  - подключиться к машине
+
+gcloud compute disks list - инфо по дискам
+gcloud compute disks resize example-disk --size 250 - ресайз
+
+Запуск/остановка/перезагрузка/удаление инстанса
+gcloud compute instances start/reset/stop/reset centos --zone=europe-west1-b
+
+
+
+== Kubernetes
+
+Запуск kuber кластера:
+wget -q -O - https://get.k8s.io | bash
+
+Настраиваем количество нод, цод и тп
+<kubernetes>/cluster/gce/config-default.sh
+	- NUM_NODES - количество нод
+	- NODE_SIZE - задать регион
+	- MASTER_DISK_TYPE - тип диска
+	- NODE_DISK_SIZE - размер диска на нодах
+
+
+Запуск
+Kubernetes/cluster/kube-up.sh 
+
+Установка компонентов:
+gcloud components install kubectl
+
+Удаление
+cluster/kube-down.sh  
 
 
 
 
+== Хранилище
+gsutil - тулза для управления хранилищем
+
+gsutil ls - список хранилищ
+
+
+== Firewall
+gcloud compute firewall-rules list
+
+Создать правило:
+gcloud compute firewall-rules create default-ssh --network=<network-name> --description "SSH allowed from anywhere" --allow tcp:22
