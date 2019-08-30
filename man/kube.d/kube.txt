@@ -1,106 +1,153 @@
-nodes - машина в кластере
-pods - группа контейнеров запускаемых совместно
-replication controllers - контолер запуска реплик на подах
-services - pods с их политикой
-volumes - директория в контейнере
-labels - key/value значения для работы с объектами
+=== Kubernetes 
+Система оркестрации контейнеров.
+
+== Основные возможности:
+Монтирование хранилища
+Разделение прав доступа
+Разделение кластера между пользователями
+Работа с секретами
+Проверка жизни приложений
+Копирование экземпляров приложений
+Горизонтальное автомасштабирование
+Сервис дисковеринг
+Балансировка
+Мониторинг
+Логирование
+Отладка приложений
+Обеспечение авторизации и аутетификации
 
 
-kubulet - агент запущенный на нодах
+== Object/Абстракции:
+Node - хост на котором запускаются поды
+Pod - один или несколько контейнеров связанных логически
+Service - устанавливает логическую группу подов и определяет как к ним обращаться
+ReplicationController - Конролер запуска реплик на подах, устарел, проверяет вхождение по имени
+Label - значение которым помечают обьекты
+Annotations - метаданные для описания обьектов
+Selector - выбирает обьект на основе label
+ReplicaSet - обьединяет поду по селектору, гарантирует количество инстансов
+Deployment - описывает конечное состояние, количество и образы контейнеров
+Volume - интерфейс подключения дисков, подключается в контейнер(EmptyDir,PersistenDiskClaim)
+StatefulSet - позволяет дать конкретное определение обьекту
+Secrets - обьект содержащий чувствительную информацию. кидает tmpfs
+Name - имена для обьектов
+Namespace - простраство имен использующиеся в кластере.
+DaemonSets - запускает служебный под на каждой ноде. Storage, log, monitoring
+Ingress - набор правил для подключения к кластеру (правила, nginx, traefik)
+Garbage Collection - Удаление ненужный объектов по селектору
+TTL controller - указывает время жизни завершенных обьектов
+ConfigMaps
+HorizontalPodAtuoscalers 
 
 
-мастер - машина - kubulet - docker pods
+== Компоненты:
 
-kube-proxy - простой балансировщик tcp udp
-
-мастер-нода - система управления
-
-kubernetes api server - доступ к ip
-scheduler - привязывает запущенные ноды к подам
-
-
+= Master
+kube-apiserver - фронтэнд управления
 API-шлюз работающий через REST и сохраняющий состояние в etcd. kubelet
 обращается к API-серверу. Разворачивает Pods согласно описанию в YAML ил JSON.
 Контроль за ресурсами и пространством имен.
 
+etcd - хранилище конфигурации распредленное
+Kube-scheduler - планировщик отвечает за распределение подов на нодах
+kube-controller-manager - отвечает за запуск контроллеров
+cloud-controller-manager - отвечает за взаимодействие с провайдером облака
 
- kerbernetes/fleet/mesos
-
-_____________________________________________
-
-
-rkt - контейнерный движок для coreos
-
-minikube start - запуск тестовой среды 
-kubectl version
-
-kubectl cluster-info - по кластеру
-kubectl get nodes - по запущенным нодам
-
-запуск деплоя и список 
-kubectl run kubernetes-bootcamp --image=docker.io/jocatalin/kubernetes-bootcamp:v1 --port=8080
-kubectl get deployments
+= Node
+Kube-proxy - отвечает за передачу трафика
+Kubelet - управляющий компонент от мастера к ноде
 
 
+= Порты
+4149/TCP	kubelet	Default cAdvisor port used to query container metrics
+10250/TCP	kubelet	API which allows full node access
+10255/TCP	kubelet	Unauthenticated read-only port, allowing access to node state
+10256/TCP	kube-proxy	Health check server for Kube Proxy
+9099/TCP	calico-felix	Health check server for Calico (if using Calico/Canal)
+6443/TCP	kube-apiserver	Kubernetes API port
+
+== Service type
+- ClusterIP:
+Адрес доступный внутри кластера другим приложениям. Без внешнего
+доступа.
+TargetPort - порт контейнера, который нужно прокинуть
+
+- NodePort:
+Привязывает сервис к порту на каждой ноде
+NodePort - параметр указывает какой порт открыть на каждой ноде
+Используется для демонстрации
+
+- LoadBalancer:
+Создаем балансировщик на сервис. Весь трафик с порта идет в сервис. Отсутсвие
+управления соединением и роутами.
+
+- ExternalName - использует dns имя
+
+- External IP - привязывает сервис к ip
+
+- Ingress: не сервис, а точка входа в кластер.
 
 
-kubectl get - list resources
-kubectl describe - show detailed information about a resource
-kubectl logs - print the logs from a container in a pod
-kubectl exec - execute a command on a container in a pod
+== Volumes
 
-kubectl describe pods - просмотр информации по подам
-kubectl logs $POD_NAME 
+Хранение данных:
+GlusterFS, Ceph, Cinder, vShere, Quobyte, Cloud storage
 
-kubectl exec -ti $POD_NAME bash - запустить консоль в контейнере
-kubectl get services - просмотр служб
-
-
-kubectl expose deployment/kubernetes-bootcamp --type="NodePort" --port 8080 -
-cоздать новый сервис
-kubectl describe services/kubernetes-bootcamp - просморт описания сервисов
+PersistentVolume - часть хранилища в кластере
+PersistentVolumeClaim - запрашивает размер и права в хранилище
+VolumeSnapshots - создание снапшотов
+StorageClass - более глубокая настройка волюма
 
 
-kubectl describe deployment - описание процесса
+== Performance
+Позволяет распределять поды по нодам селекторам (tier)
+Возможность задать приоритетность для подов через PriorityClass
 
-создать метку для пода
-kubectl label pod $POD_NAME app=v1
+Повысть производительность шетдулера через указание % необходимых рабочих нод
+percentageOfNodesToScore
 
+Установить квоты на ресурсы для группы, пользователя
 
-kubectl delete service -l run=kubernetes-bootcamp - удалить сервис
-
-
-Просмотр информации по кластерам
-kubectl cluster-info
-Доступную информацию по кластерам
-~/.kube/config
-kubectl config view 
-kubectl use-context minikube
-Переключение в контекст minikube (изменить переменные)
-eval $(minikube docker-env)
-eval $(minikube docker-env -u)
+Ограничения по подам задается через resources:
+limit - максимальное значение, невозможно превысить
+request - запрашиваемое - те рабочее
+kubectl top pod name - полчить информацию по ресурсам
+2 - 2 цп
+0.5 - загружать на половину
 
 
-создать деплой
-kubectl run hello-node --image=hello-node:v1 --port=8080
+== Secrets 
+Пароли могут храниться на смонтированном волюме
+Загружаться в kubelet при подгрузке пода
+(Можно получить доступ из борда)
+
+kubectl create secret generic  - создание секрета на базе файла
+k get secrets 
+k get desctibe secrets/user-pass
+
+Создать через yaml, предварительно зашифровав пароли в base64
+
+Использование переменных среды с последющим объявлением их чере env-cекцию
+
+Возможно примонтирование ssh ключа
+k create secret generic ssh-key-secret --from-file=ssh-privatekey=/path/to/.ssh/id_rsa --from-file=ssh-publickey=/path/to/.ssh/id_rsa.pub
 
 
-expose - создает сервис который нужен для того чтобы пробросить порты наружу
+== Access - организация доступа к ресурсам кластера
 
-kubectl log <pods> посмотреть логи с пода
+k config use-context 
 
-заменить один образ контейнера на другой
-kubectl set image deployment/hello-node hello-node=hello-node:v2 
+== Addons
+Запускаются в kube-system namespace
+DNS
+DASHBOARD
+Monitoring
+Logging
 
 
+== API
+alpha - не рекомендуется для продакшена
+apiVersion: v1 - /api/v1   legacy group
 
 
-______________
-Способы установки
-minikube
-Hard way
-kubespray - ansible - cкрипты в т.ч aws, gcp
-kubeadm - не устанавливает контейнеры и сеть
-kops - создание и управление кластером на aws, gcp
-aws, google engine 
-
+Deployment - ReplicaSet - Pod

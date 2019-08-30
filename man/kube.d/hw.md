@@ -46,7 +46,3 @@ admin-key.pem, admin.pem
 worker.pem, worker-key.pem
 * kubecontroller manager
 * kube-proxy
-  
-
-
-

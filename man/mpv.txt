@@ -1,0 +1,8 @@
+Открываем стрим
+mpv --ytdl-format 94 https://www.youtube.com/watch?v=YPmX9CooGEE
+
+Узнать доступные форматы:
+youtube-dl https://www.youtube.com/watch?v=YPmX9CooGEE -F
+
+Открываем стрим c vk:
+mpv --ytdl-format hls https://vk.com/video-122784028_456240752

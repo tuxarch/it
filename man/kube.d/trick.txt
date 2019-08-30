@@ -1,0 +1,5 @@
+Перезапустить  deployment
+kubectl scale 0 && kubectl scale 1
+
+
+

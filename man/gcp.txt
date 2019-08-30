@@ -47,7 +47,7 @@ gcloud compute instances create centos --image centos-7-v20190813 --image-projec
 Инфо по инстансу
 gcloud compute instances describe centos-main
 
-gcloud beta compute instances list - узнать тип машины
+gcloud beta compute instances list - список машин, узнать тип машины
 gcloud compute machine-types describe n1-standard-1 - получить описание машины
 gcloud beta compute ssh centos --zone=europe-west1-b  - подключиться к машине
 
@@ -80,6 +80,31 @@ gcloud components install kubectl
 
 Удаление
 cluster/kube-down.sh  
+
+= Создание через gke
+Вэбморда, шарим:
+gcloud container clusters get-credentials your-first-cluster-r2 --zone europe-west3-c --project kube-learn
+Имеем настроенный kubectl
+
+
+gcloud container clusters create MY_KUBERNETES_CLUSTER \
+  --enable-cloud-logging \
+  --enable-cloud-monitoring \
+  --subnetwork default 
+  --num-nodes 3
+  --disk-size 10
+  --region europe-west3-c
+
+Список кластеров:
+gcloud container clusters list
+
+Удалить кластер:
+gcloud container clusters delete [NAME] --region europe-west3-c
+
+Ресайз:
+gcloud container clusters resize kube-2 --num-nodes 4 --size 4 --region europe-west3-c
+
+
 
 
 

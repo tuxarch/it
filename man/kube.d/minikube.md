@@ -24,5 +24,6 @@ stop and delete vm
 enabled local environment
 
 
-
+Запуск вместе с libvirt
+minikube start --vm-driver kvm2
 

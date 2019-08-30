@@ -1,4 +1,5 @@
-# kubectl - cli control kubernetes cluster manager
+# Kubectl 
+cli control kubernetes cluster manager
 
 ### Install and settings:
 
@@ -16,7 +17,10 @@ source < (k completion bash)
 k cluster-info   Информация по кластеру и подключению
 k get nods  - получить список машин в кластере 
 k get deployments  
-k get pods  
+k get pods -w - интерактивный режим 
+k get ing - ingress просмотр
+k get pv - persistent volume - хранилища
+k get pvc - зарезервированное место
 k get events  
 k config view  
 k get services
@@ -56,6 +60,10 @@ expose deployment
 
 k set image deployment/hello-node hello-node=hello-node:v2  
 update image of you Deployment
+
+создать метку для пода
+kubectl label pod $POD_NAME app=v1
+
 
 
 

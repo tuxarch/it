@@ -1,6 +1,5 @@
 Позволяет создавать слабо связанные приложения. К примеру, функции.
 
-
 Создаем ns
 kubectl create ns kubeless
 kubectl create -f https://github.com/kubeless/kubeless/releases/download/v1.0.0-alpha.8/kubeless-v1.0.0-alpha.8.yam
@@ -8,7 +7,6 @@ kubectl create -f https://github.com/kubeless/kubeless/releases/download/v1.0.0-
 kubeless function deploy toy --runtime python2.7 \
                               --handler toy.handler \
                               --from-file toy.py
-
 
 
 kubeless function ls
