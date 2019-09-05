@@ -45,3 +45,5 @@ QuickEdit - текстовый редактор
 psiphon - прокси, ssh тоннель
 http injector - vpn/proxy/ssh прокси
 torque - диагностика автомобилей по интерфейсу obd2
+stocard - хранение карт
+

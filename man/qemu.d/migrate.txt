@@ -1,0 +1,2 @@
+virsh migrate <vm> qemu+ssh://<hypervisor>/system --undefinesource
+--persistent

@@ -15,5 +15,6 @@ chmod +x coreos_production_qemu.sh
 
 ssh -l core -p 2222 localhost
 
-
-
+Декларативное описание конфигурация кластера
+Matchbox, 
+Config Transpliter - загружаем конфигурацию при старте c помощью ipxe, tftp
