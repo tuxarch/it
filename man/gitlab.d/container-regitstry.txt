@@ -1,0 +1,2 @@
+Включаем Packages/Container_Registers
+docker login registry.example.com

@@ -1,17 +1,70 @@
+=== Jenkins-Web
+Информация по установке:
+http://localhost:8080/systemInfo
 
 Перезапуск/выключение:
-
 localhost:8080/saveRestart - дождаться завершения запущенных заданий
 localhost:8080/restart
 
-sudo /etc/init.d/jenkins restart
-
-$ curl -X POST -u <user>:<password> http://<jenkins.server>/exit
+curl -X POST -u <user>:<password> http://<jenkins.server>/exit
 
 Для получения crumb jenkins:
 curl -s -u admin:admin http://localhost:8080/crumbIssuer/api/json
 curl -X POST -u admin:admin http://localhost:8080/restart -H 'Jenkins-Crumb:e3faff6e707379bde95f3a9067dc7eae
 
 
+=== Jenkins-cli
+
+Работаем через Jenkins-cli
+Скачиваем c сервера http://localhost:8080/jnlpJars/jenkins-cli.jar
+
+java -jar jenkins-cli.jar -auth username:passwd -s http:/localhost:9000 who-am-i
+Можно сгененрировать токен и добавить в env для сокращения команды
+JENKINS_USER_ID=user
+JENKINS_USER_API_TOKEN=3323423
+Или добавить в алиас
+
+Экспортировать Job
+.. get-job MyJob1 > MyJob1.xml
+Импортировать
+.. create-job NewJob < NewJob.xml
+.. version
+.. help
+
+
+=== Plugins
+
 Для работы с ansible ставим плагин, и ставим ansible на саму машину
+
+Делаем бэкап:
+Через плагин ThinBackup
+
+Мастер-Слайв
+ставим ssh-agent, ssh-slave
+
+
+=== Settings
+Запуск джобы:
+- открытие url
+- после запуска другого проекта
+- по расписанию
+- pool SCM - изменения гита, стучиться на гит по расписанию
+- дополнительные тригеры по плагинам и хукам
+	- Github, настраиваем хук на сайте на наш ip, белый ip
+
+=== Groovy
+Посмотреть все credentials
+new File("$(Jenkins.instance.root)/credentials.xml").txt
+
+Обнулить историю билдов:
+
+job = Jenkins.instance.getItemMyFullName("BuildName")
+job.getBuilds().each() {
+if (it.result == Result.Success) {
+ 	it.delete()
+	}
+}
+job.updateNextBuildNumber(1)
+
+
 

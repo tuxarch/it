@@ -1,0 +1,9 @@
+Uncoplicated firewall
+Простое управление netfilter
+==============================
+
+Закрыть все порты, кроме 22:
+
+sudo ufw allow ssh
+sudo ufw default deny incoming
+sudo ufw enable

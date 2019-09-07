@@ -1,0 +1,9 @@
+=== Plug
+vim-mode-plus
+terraform-fmt - выравнивание по ctrl+S
+language-terraform
+
+=== Hotkey
+Ctrl+, - меню настройки
+Alt - вернуть главное меню
+
