@@ -32,3 +32,7 @@ cgclassify -g memory:MongoLimitGroup pid
 Удалить группу:
 cgdelete subsystems:path
 
+Просмотр в какие группы входит процесс:
+systemctl status 3378 | grep CGroup
+cat /proc/3378/cgroup
+
