@@ -1,4 +1,4 @@
-make mrproper - очистка от страх файлов
+make mrproper - очистка от старых файлов сборки
 
 make syncconfig (silentoldconfig) - адаптация с выбором 
 
