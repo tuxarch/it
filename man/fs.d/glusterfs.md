@@ -65,3 +65,7 @@ gluster volume delete distributed
 Узнать состояние восстановления:
 gluster volume heal
 
+
+##  Heketi
+API для автоматизации разворацивания кластера в облаке
+

@@ -35,6 +35,10 @@ _________________
 dig nevernew.tk mx @8.8.8.8 - проверить наличие записи mx через гугловский
 сервер. Там же можно посмотреть приоритет mx (10) 
 
+nslookup -type=mx -port=53 -debug microsoft.com 8.8.8.8
+nslookup -port=8600 apache2.service.consul 127.0.0.1
+
+
 _____________________________
 
 Включить логирование на bind

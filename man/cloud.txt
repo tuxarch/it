@@ -1,0 +1,107 @@
+Didecated - все далешь сам
+IaaS - настраиваешь сервак
+PaaS - ставишь свое приложение и данные
+SaaS - гулпочта
+====================================
+
+Name		|	Hard			|	price	|	comment		
+----------------|-------------------------------|---------------|----------------------------
+gcp		| 1cpu, 0.6gb, 10gb		| 4-6$		| micro, ~$2 from region
+gcp		| 1cpu, 1.7gb, 50gb 		| 20$		| 
+gcp		| 2cpu, 2gb, 500gb 		| 44$		| 
+gcp		| 8cpu, 30gb, 500gb 		| 220$		| 
+activecloud 	| 1vcpu, 2gb, 50gb		| 1500 руб	|
+activecloud 	| 2vcpu, 8gb, 500gb		| 6200 руб	|
+activecloud	| 8cpu, 30gb, 500gb		| 18455 руб	|  
+activecloud 	| 8vcpu, 64gb, 4tb		| 46000 руб	|
+hetzner		| cx11 - 1cpu, 2gb, 20gb	| 3 euro	|
+hetzner		| ex42 - 8vcpu, 64gb, 2x4tb	| 47 euro	| did
+hetzner		| ax160-n - 24cpu, 128gb, 2x2tb	| 200 euro	| did, ssd, amd, 24core
+hetzner		| 4cpu, 16gb, 2x3tb		| 2200 руб	| did,auction,i7-2600
+selectel	| el10 - 4cpu, 32gb, 2x2tb	| 7500 руб	| 8vcpu, free_setup
+selectel	| 6cpu, 64gb, 2x4tb		| 11300 руб	| did, bl09, action, free_setup
+selectel	| 6cpu, 128gb, 2x4tb, 2x1tb	| 18200 руб	| did, bl11R-SSD, free_setup
+selectel	| 8cpu, 30gb, 254gb-nvme	| 15300 руб	| cloud, ~12000 sata
+rtcloud		| 1cpu, 0.5gb, 10gb		| 555 руб	|  
+rtcloud		| 2cpu, 2gb, 50gb		| 1555 руб	|  
+rtcloud		| 8cpu, 30gb, 500gb		| 18555 руб	|  
+softline	| 1cpu, 1gb, 10gb		| 1255 руб	|  
+softline 	| 8cpu, 30gb, 500gb		| 21255 руб	|  
+mail		| 1cpu, 1gb, 10gb		| 770 руб	| поминутный расчет
+mail		| 1cpu, 2gb, 50gb		| 1240 руб	|
+mail		| 8cpu, 30gb, 500gb		| 13280 руб	|  
+yandex		| 2cpu, 1gb, 3gb		| 800 руб	| min 230 руб 
+yandex		| 8cpu, 30gb, 500gb		| 10000 руб	|  
+mts		| 1cpu, 1gb, 10gb		| 900 руб	| 380 за ресурс
+reg		| 6cpu, 32gb, 500gb-ssd		| 9500 руб	| did, 
+reg		| 4cpu, 16gb, 2x1tb		| 4000 руб	| did, 
+sprinthost	| 4cpu, 16gb, 2x256gb, 1tb	| 9200 руб 	| did
+beget		| 4cpu, 32gb, 2x256gb		| 6900 руб 	| did
+timeweb		| 4cpu, 8gb, 2x1tb		| 3900 руб	| did
+timeweb		| 6cpu, 128gb, 2x4tb,2x480gb	|  - руб	| did, ssd
+timeweb		| 8cpu, 128gb, 2x4tb,2x480gb	|  - руб	| did, ssd
+timeweb		| 2cpu, 0.5gb, 5gb		| 190 руб	| акция от 45 руб
+timeweb		| 6cpu, 10gb, 200gb		| 3051 руб	|  
+rostelecom	| 8cpu, 16gb, 300gb		| 7500 руб	| moscow.rt.ru 
+rostelecom	| 1cpu, 1gb, 40gb		| 900 руб	| от, openstack-kvm 
+hostiman	| 4cpu, 16gb, 1000gb		| 5600 руб	|
+upcloud		| 1cpu, 1gb, 25gb		| 5$		| 
+gcp		| 8cpu, 32gb, 640gb 		| 160$		| 
+
+--------------------------------------------------------------------------------------------
+
+Если брать облака то какие?
+Для организации лучше брать aws, gcp - огромная инфраструктура, стандарт
+Возможно hetzner, ucloud, vultr. По деньгам не существенно.
+
+Облака для России:
+yandex, mail, rostelecom, selec. 
+Важно: cli, kuber 
+
+Сколько стоит оптимальное облако:
+8cpu, 30gb, 500gb - 14000-10000(gcp-yndx)
+
+Если выделенный сервер то где?
+Hetzner 
+
+Какой вариант лучше для россии
+reg, selec, смотрим сайт
+
+Самый дешевый сервер в мире - 3$ vps
+
+Расчет окупаемости стилажа в цоде и сервер:
+Unit - Supermicro 5017С-MTF 1U/350w/4sata/4ddr3/2x1gb/ 35600 руб
+ЦП - Core i7-2600 i7 2600 (8 Мб кэш, 3,40 ГГц) LGA 1155, 4 core - 5600 руб
+RAM - 1333Mhz/32max - 4x1600 - 6400 руб
+Диски - 2x3tb - 9800 руб
+			Итого: 57400
+Место в стойке - от 1000 руб до 4000 руб
+
+Расчет стоимости похожей конфигурации:
+	3500 руб (hetzner) /per mouth
+	7000 руб (reg,selec)
+
+
+Бюджетная виртуалка - консоль - 5$ (gcp,aws,hetzner..etc) 
+Рабочая машинка - 50$ hetzner
+Для россии - 7000 руб (reg,selec)
+
+
+Выгодны ли облака? Нет, лучше брать didacated.
+Cвоя стойка в офисе с хорошим интернетом. Машина которая стоит 16000/месяц
+Будет стоит 60000. Для внутренних вычислений лучший вариант.
+Для серьезных мощностей нужна своя стойка
+
+
+Итог:
+Как кор в работе - hetzner, reg, своя стойка в цодах. Либо скейлинг на облаках.
+Proxy, vps-консоли, редиректы - облака
+Супермощности - свои стойки
+
+
+
+
+
+
+
+

@@ -154,3 +154,6 @@ influxdb - бд временных рядов написанна на Go
 graphite - система сбора метрик, (своя схд)
 rancher - реализация kubernetes
 gitcracken - ui для git
+lustre - распределенная ФС для параллельных вычеслений
+rocket.chat
+mattermost - корпоротивные месенджеры

@@ -1,0 +1,62 @@
+=== HASHICORP CONSUL
+
+== Установка
+wget https://releases.hashicorp.com/consul/1.6.0/consul_1.6.0_linux_amd64.zip
+unzip consul_1.6.0_linux_amd64.zip
+cp consul /usr/bin
+
+= Запуск
+consul agent -dev
+consul agent -dev -bind $getip
+
+consul agent -dev -bind $getip -config-dir /etc/consul.d -ui -client=$getip
+Идем на curl http://92.168.123.11:8500/ui
+
+И
+
+
+Провереть доступные узлы
+consul members (--detailed) 
+curl localhost:8500/v1/catalog/nodes
+
+
+Добавляем службы:
+mkdir /etc/consul.d
+cat /etc/consul.d/apache2.json
+{"service":
+    {
+    "name": "apache2",
+    "tags": ["httpd"],
+    "port": 80
+    }
+}
+
+Перезапускаем consul
+consul agent -dev -bind 192.168.123.11 -config-dir /etc/consul.d
+
+Проверяем:
+
+curl -s localhost:8500/v1/catalog/services | python -m json.tool
+curl -s localhost:8500/v1/catalog/service/apache2 | python3 -m json.tool
+
+dig @127.0.0.1 -p 8600 apache2.service.consul
+nslookup -port=8600 apache2.service.consul 127.0.0.1
+
+Добавить данные в хранилище
+curl -X PUT -d 'test' http://localhost:8500/v1/kv/web/key1
+curl -X PUT -d 'test'  http://localhost:8500/v1/kv/web/sub/key3
+
+
+Забрать все
+curl -s -v http://localhost:8500/v1/kv/?recurse | python -m json.tool
+Только один ключ:
+curl -s -v http://localhost:8500/v1/kv/web/key1 | python3 -m json.tool
+Удалить 
+curl -s -v -X DELETE http://localhost:8500/v1/kv/web/key1
+Удалить все:
+curl -s -v -X DELETE http://localhost:8500/v1/kv/web/?recurse
+
+
+=== Отказоустойчивость реализуется 
+Consul из коробки отказоустойчивый — там Raft на 3+ ноды. Просто подняли 4 ноды по гайду и настроили ACL.
+

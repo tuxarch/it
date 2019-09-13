@@ -1,0 +1,61 @@
+=== HASHICORP VAULT
+
+key-value хранилище
+Написан на go
+
+
+
+Можно создать любое количество токенов
+Логирование доступа к ним
+
+
+
+== Установка
+wget https://releases.hashicorp.com/vault/1.2.2/vault_1.2.2_linux_amd64.zip
+unzip vault_1.2.2_linux_amd64.zip
+cp vaul	/usr/bin/vault
+
+= Запуск сервера dev-mode;
+vault server -dev
+vault server -dev -dev-listen-address=0.0.0.0:8200
+
+export VAULT_ADDR='http://127.0.0.1:8200'
+Ищем в логах:
+Unseal Key: qiB5Awylf7tgEvB7bfzB+0zQ0TgkvyJgM0Spcb0sqPQ=
+Root Token: s.D05kyhcfehy5ykCPhibAcHUF
+
+Подключаемся
+vault login (и вводим root-token из лога)
+
+Записать:
+vault kv put secret/hello foo=world
+Переписать и добавить:
+vault kv put secret/hello foo=world excited=yes
+Получить:
+vault kv get secret/hello
+vault kv get -field=excited secret/hello
+vault kv get -format=json secret/hello | jq -r .data.data.excited
+Удалить:
+vault kv delete secret/hello
+
+
+Нужно подключить движок для хранения секретов
+kv = secret/
+vault secrets enable -path=kv kv
+vault secrets list
+
+Создаем:
+vault write kv/air type=boening class=878
+vault write kv/hello target=world
+vault write kv/my-secret value="s3c(eT"
+
+
+Работаем с ключом aws:
+vault secrets enable -path=aws aws
+vault write aws/config/root \
+    access_key=AKIAI4SGLQPBX6CSENIQ \
+    secret_key=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 \
+    region=us-east-1
+
+
+

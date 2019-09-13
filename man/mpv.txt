@@ -6,3 +6,6 @@ youtube-dl https://www.youtube.com/watch?v=YPmX9CooGEE -F
 
 Открываем стрим c vk:
 mpv --ytdl-format hls https://vk.com/video-122784028_456240752
+
+Открыть с паролем:
+mpv --ytdl-raw-options=username=name@mail.ru,password=7scVITx9R1MxQem9eA --ytdl-format hls-637 https://vk.com/video-26551941_171358225
