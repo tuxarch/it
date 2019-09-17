@@ -27,3 +27,6 @@ enabled local environment
 Запуск вместе с libvirt
 minikube start --vm-driver kvm2
 
+Запуск на cri-o
+--container-runtime=cri-o
+

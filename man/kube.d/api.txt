@@ -1,0 +1,13 @@
+Взаимодействие с кластером через API
+
+/healthz
+/metrics
+/api Core Group
+	/api/v1
+	/api/v1/{pods,nodes,services}
+/apis Named Group
+	/apis/$NAME/$VERSIONS
+alpha
+beta
+stable
+
