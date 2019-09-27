@@ -1,0 +1,171 @@
+Установка:
+
+pip install awscli
+pacman -S aws-cli
+complete -C aws_completer aws
+
+Создаем юзера в aim
+
+Запускаем:
+aws configure
+
+Конфиг храниться в 
+~/.aws
+
+
+===============================
+== EC2
+Посмотреть запущенные инстансы
+aws ec2 describe-instances
+
+===============================
+== S3
+Создать bucket
+aws s3api create-bucket --bucket my-bucket --region us-west-2 --create-bucket-configuration LocationConstraint=us-west-2
+aws s3api create-bucket --bucket my-bucket --region eu-central-1 --create-bucket-configuration LocationConstraint=eu-central-1
+Имя должно быть уникальным
+
+Посмотреть список bucket
+aws s3 ls
+
+Копировать в бакет
+aws s3 ls s3://my-bucket
+
+Удалить бакет
+aws s3 rb s3://bucket-name --force
+
+Копировать в бакет
+aws s3 cp cruel.png s3://my-bucket/cruel.png
+
+Удалить из бакета:
+aws s3 rm s3://my-bucket-chetnu/cruel.png
+
+Копировать из бакета
+aws s3 cp s3://my-bucket-chetnu/cruel.png cruel.png
+
+Из бакета в бакет
+aws s3 cp s3://mybucket/test.txt s3://mybucket2/
+
+Из бакета в glacier:
+
+--expired - удалить файл по истечению срока
+--version-control - контроль версий для файлов
+
+
+===============================
+== Glacier
+Создать хранилище
+aws glacier create-vault --vault-name ash-vault --account-id -
+
+Просмотр хранилищ
+aws glacier list-vaults --account-id -
+
+Копировать в хранилище:
+aws glacier upload-archive --account-id - --vault-name ash-vault --body largefile
+
+Разбиваем большой файл на части и загружаем его в хранилище:
+aws glacier initiate-multipart-upload --account-id - --archive-description "multipart upload test" --part-size 1048576 --vault-name myvault
+export UPLOADID="19gaRezEXAMPLES6Ry5YYdqthHOC_kGRCT03L9yetr220UmPtBYKk-OssZtLqyFu7sY1_lR7vgFuJV6NtcV5zpsJ"
+aws glacier upload-multipart-part --upload-id $UPLOADID --body chunkaa --range 'bytes 0-1048575/*' --account-id - --vault-name myvault
+aws glacier upload-multipart-part --upload-id $UPLOADID --body chunkab --range 'bytes 1048576-2097151/*' --account-id - --vault-name myvault
+aws glacier upload-multipart-part --upload-id $UPLOADID --body chunkac --range 'bytes 2097152-3145727/*' --account-id - --vault-name myvault
+Можно прекрутить проверку чек суммы кусков --сhecksum
+
+Чтобы получить список файлов в хранилище создаем job и ждем ее завершения
+aws glacier initiate-job --account-id - --vault-name ash-vault --job-parameters '{"Type": "inventory-retrieval"}'
+aws glacier list-jobs --account-id - --vault-name my-vault
+aws glacier get-job-output --account-id - --vault-name ash-vault --job-id JMshNq_M7R3YiAzYpBKQJiWR-fV6299Q2LAN1WWrOa6CtD5FfK7OIMfjOZmKyeLPO6pNs92wYUC4XKhsocw-vS2 outfile.json
+
+Удалить архив
+Ждем завершения джобы
+aws glacier delete-archive --account-id - --vault-name VAULT01 --archive-id "n7XzcNhdl0QMBK3G-Y3F8pLst9oqIlwafsdfsdfsdfsdfGhSL2CpNL2_3yYlgu1Cc-riLJIHVFkRLpnx0WTakjflndsflnaMpgDj0kw"
+Можно удалить просто целое хранилище
+
+Скачать архив:
+Создаем джабу
+aws glacier initiate-job --vault-name test --account-id - --job-parameters '{"Type": "archive-retrieval", "ArchiveId": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"}'
+Ждем ее завершения
+aws glacier describe-job  --account-id - --vault-name photos --job-id YBcVmT0ypwMBGjupI6oD
+Скачиваем, можно кусками
+aws glacier get-job-output account-id - --vault-name photos --range bytes=0-1073741823  --job-id YBcVmT0ypwMBGjupI6oD photos.part1
+
+
+===============================
+== EBS - блочные устройства под инстансами
+Просмотр
+aws ec2 describe-volumes
+
+Создать диск:
+aws ec2 create-volume --volume-type gp2 --size 5 --availability-zone us-east-1a
+
+Cоздать диск на базе снапшотa:
+aws ec2 create-volume --volume-type io1 --iops 1000 --snapshot-id snap-066877671789bd71b --availability-zone us-east-1a
+
+Создать снапшот:
+aws ec2 create-snapshot --volume-id vol-1234567890abcdef0 --description "This is my root volume snapshot"
+
+Получить список снапшотов(?)
+aws ec2 describe-snapshots --filters Name=tag:Group,Values=Prod --query "Snapshots[*].{ID:SnapshotId,Time:StartTime}"
+
+Расширить раздел:
+aws ec2 modify-volume --size 150 --volume-id vol-1234567890abcdef0
+
+Оставляем в живых сторадж после удаления инстанса
+aws ec2 modify-instance-attribute --instance-id i-1234567890abcdef0 --block-device-mappings "[{\"DeviceName\": \"/dev/sda1\",\"Ebs\":{\"DeleteOnTermination\":false}}]"
+
+Примонтировать диск к инстансу:
+aws ec2 attach-volume --volume-id vol-1234567890abcdef0 --instance-id i-01474ef662b89480 --device /dev/sdf
+
+
+===============================
+== EFS 
+Он же NFS 4.1
+
+Создать
+aws efs create-file-system --creation-token sssd330923dd
+
+Посмотреть
+aws efs describe-file-systems
+
+Примонтировать диск:
+aws efs create-mount-target --file-system-id file-system-id \
+--subnet-id  subnet-id --security-group ID-of-the-security-group-created-for-mount-target 
+--region aws-region --profile adminuser
+
+sudo yum install -y amazon-efs-utils
+sudo mount -t efs -o tls fs-12345678:/ /mnt/efs
+
+Удалить точку монтирования и фс:
+aws efs delete-mount-target --mount-target-id fsmt-bfbe2fe6
+aws efs delete-file-system --file-system-id fs-4aaba71
+
+
+===============================
+== Storage Gateway
+aws storagegateway help
+
+===============================
+== Snowball
+
+aws storagegateway help
+
+
+===============================
+== VPC
+Получить список виртуальных сетей:
+aws ec2 describe-vpcs 
+
+Список подсетей по зонам
+aws ec2 describe-subnets
+
+Посмотреть доступный Internet gataway
+aws ec2 describe-internet-gateways
+
+Посмотреть доступные порты:
+aws ec2 describe-security-groups
+
+Узнать внутренние dns:
+aws ec2 describe-instances
+
+Посмотреть опции dhcp:
+aws ec2 describe-dhcp-options

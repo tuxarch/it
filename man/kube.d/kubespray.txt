@@ -31,6 +31,9 @@ ansible-playbook -i inventory/mycluster/hosts.ini reset.yml
 
 __________________
 
+Настройка kubectl
+копируем с мастера /etc/kubernetes/admin.conf ~/.kube/config
+
 Чек на память:
 kubespray/roles/kubernetes/preinstall/tasks/0020-verify-settings.yml
 

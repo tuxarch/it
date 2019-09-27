@@ -1,0 +1,3 @@
+ABAC - Attribute-Based Access Control - можно назначить права достапа на
+ресурсы. Например на поды
+RBAC - Role-Based Access Control - основная политка доступа

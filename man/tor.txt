@@ -31,3 +31,12 @@ nc -l -p 3003
 torify telnet g5a6wykhm2ajtwvk.onion 3003
 
 ondevice - сервис создания тунеля доступа
+
+_____________________________________________
+Перенаправляем весь трафик через tor:
+
+Proxychains-ng
+
+proxychains curl suip.biz/ip/
+
+

@@ -1,0 +1,5 @@
+Дефолтные namespaces:
+kube-system - системная
+kube-public - отрыта для все и не защищена
+kube-node-lease
+default

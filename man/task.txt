@@ -1,112 +1,137 @@
+TASKWARRIOR
+=======================================================================
+== Основные сущности
+
 wait - время ожидания до включения задачи в список (waiting list)
 scheduled - время начала работы с задачей
 due - время завершения
 
 Возможные состояния задания
 pending - в продолжении
-delete - удаленна
+delete - удалена
 waiting - в ожидании
 recurring - в повторении
 сompleted - завершенно
 
 
+=======================================================================
+== Основные команды
 
-taskwarrior.org
-
-task add - добавить задачу
 task help - ман
-long - подробная информация о задачах
-minimal - короткий список
+task report - короткая справка по командам
+task add - добавить задачу
+task long - подробная информация о задачах
+task minimal - короткий список
 task add "message" progect:(без аргументов снимаем привязку)
-task project:name - инфо по проекту
 task project - список проектов
-start/stop - запуск задачи
-priority: (H,M,L) 
-task 1 rename - переименовать
+task list pro:name - инфо по проекту / фильтр project
+task start/stop - запуск задачи
+task ID rename - переименовать
+task edit - редактировать запись
+task done - завершить задачу
+task ID annotate - добавить аннотацию
+        denotate - удалить аннотацию
+task delete - удаление задачи
+task info ID - получить инфо по таску
+task undo - отменить последнее действие
 
-task 2 annotate Добавить аннотацию
-	denotate - удалить аннотацию
+
+== Advanced
+
+task ID modify dependencies 3 - первая завист от 3(повышая ее приоритет)
+task ID modify project:name - задать проект для задачи
+task ID modify due:31st - задать время исполнения
+
+task /foo/ list - поиск по имени (casesitive)
+
+task duplicate - создать копию задачи (приоритет по дефолту)
+
+task append - добавить в конец заголовка таска
+task pretend - добавить в начало заголовка таска
+
+
+== Tags
+
+task tags - спискок по тэгам
+task ID modify tags:tag_name - добавить тэг или заменить
+task 3 modify +tag_name - добавить тэг
+
+task +tag all - поиск по тэгу и всем заданиям
+
+
+== Сontext - позволяет группировать таски
+
+task context list - список контекстов
+task context define devops +devops - создать контекст на базе тэга
+task context define learn project:learn - созадть контекст на основе проекта
+task context devops - переключиться на контекст
+task context none - выключить контекст
+task context show - узнать какой контекст сейчас
+task context delete devops - удалить контекст
+
+
+== Работа с приоритетами
+
+priority: (H,M,L) 
+Приоритет можно добавить на проект
+task info 1 - узнать расчет приоритета
+
 task 3 due:2019-05-16 - назначить срок исполнения
 task 3 due:4days 
 task 6 recur:(weekly, monthly, early) - сделать задачу рекурсивной
-task list pro:Projectname - фильт на группу
-done - завершение задачи
-delete - удаление
-undo - отменить последнее действие
-info - просмотр информации
 
+Приоритет увеличивается если таска становиться активной
+task active - список активных заданий
+task start/stop - запуск остановка
 
-task completed - завершенные задачи
-complete - просмотр завершенных задач
-edit - редактировать запись
+task overdue - просроченные задачи
 
-
-task 1 modify dependencies 3 - первая завист от 3(повышая ее приоритет)
-task 1 2  modify project:name
-
-task calc
-tasl calendar
-
-task export > backup.txt
-
-task append - добавить в конец заголовка
-task pretend - добавить в начало
-
-projects - просмотр проектов
-
-task ghistory история созданных и завершенных дел
-
-task timesheet - лист с последним заданием?
-task burndown - график создания 
-
-show - вывод конфига
-
-task active - спискок активных заданий
-
-task duplicate - создать копию задачи
-
-task 1 modify tags: new tags - изменить или добавить тэг
-
-task tags - спискок по тэгам
-
-alias t= task add $1 - создание алиаса
-
-task +tag - поиск по тэгу
-
-task 3 modify +tag = добавить тэг
 
 scheduled:due-4d
 wait:due-3d - создание отложенной записи
 
-task report - короткая справка
-___________
-
-UDA - пользовательские поля
-
-task config uda.cost.type numeric
-task config uda.cost.name cost - создаем собственное поле
-затем их можно редактировать через modufy name:value
-
-context
-task context define devops +devops - задать контекст и работать в нем
-task context devops - переключиться на него
-task context list - список контекстов
-___________
-
-task config alias.rm delete - создать алиасу
-
-task overdue - просроченные задачи
 
 task 1 modify until:eoy - удалить задачу после такой даты
-
 eom - последняя дата месяца
 
 
 task end.after:2015-05-01 and end.before:2015-05-31 completed - сортировка
 задач
 
-task /foo/ list - поиск по имени
+
+task add Pay the rent due:1st recur:monthly until:2015-03-31
+
+
+=======================================================================
+== Статистика и визуализация
+
+task ghistory - гистограмма созданных и завершенных дел
+task completed - завершенные задачи
+task projects - просмотр проектов
+
 task count - количество заданий
 task status:delete count
 
-task add Pay the rent due:1st recur:monthly until:2015-03-31
+task calc 5*10/2 - калькулятор
+task calendar - календарь
+
+task timesheet - лист с последним заданием?
+task burndown - график создания 
+
+
+=======================================================================
+== Config
+
+task show - вывод конфига
+task export > backup.txt
+task config alias.rm delete - создать алиасу
+
+
+UDA - пользовательские поля
+task config uda.cost.type numeric
+task config uda.cost.name cost - создаем собственное поле
+Затем его можно редактировать через modufy name:value
+
+
+=======================================================================
+== Taskd - server

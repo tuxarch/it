@@ -1,0 +1,5 @@
+Используем конфиг vim
+:help nvim-from-vim
+
+Файл конфигурации:
+~/.config/nvim/init.vim
