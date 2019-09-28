@@ -207,4 +207,19 @@ PV - паравиртуализация
 HVM - hardware vir machine
 Старое и новое поколение инстансов
 
+Виды:
+General Purpose (t2, m5, m4, m3) - базовые
+Compute Optimazed (C5,C4,C3) - perfomance cpu
+Memory Optimazed (X1e, X1, R4) - memory, best for db
+Storage Optimazed (H1, I3, D2) - IOPS
+Advanced Computing (P3, P2) - GPU, FPGA
+
+Инстансы на базе intel, 
+Поддержка AES и тп
+
+Способы оплаты - 
+Почасовая
+Резервирование - до 75% скидки, сколько нужно ресурсов и когда. От года.
+Spot pricing - до 90%, но в любое время мощности могут забрать
+
 
