@@ -1,84 +1,67 @@
-﻿ebuild - файл необходимый для сборки
+﻿==== Config
+ebuild - файл сборки 
+/usr/portage - ebuild directory
+/usr/portage/profiles/use.desc - use-flags description
+/etc/portage/package.use - файл позволяющий настроить каждый пакет
+/var/lib/portage/world - список всех установленных пакетов в мире. Пакеты
+отсутствующие здесь не будут обновляться
 
-По умолчанию файлы ebuild находятся в /usr/portage.
+Portage позволяет устанавливает разные версии одного пакет вместе, для этого он использует слота.
 
-emerge --sync - обновляет дерево Portage
-emerge-webrsync - также обновляет Portage
-
-emerge --search - поиск пакетов
-emerge --searchdesc - поиск по тексту описания
-
-	--pretend - позволяет увидеть какие зависимости будут еще 
-		установленны
-	--fetchonly - загрузка пакета без установки
-emerge -vp alsa-lib - позволяет посмотреть если флаг документа (doc)
+gentoolkit - утилитка для управления пакетами
 
 
-/etc/portage/package.use - файл позволяющий настроить каждый пакета
+==== Emerge
+        --search - поиск пакетов
+ 	--searchdesc - поиск по тексту описания
+	--av - спросить подтверждения действия
+
+
+== List
+emerge --info - показывает все используемые env, USE-flags
+qlist -IUv - список всех установленных пакетов
+equery list '*' - список всех установленных пакетов
+equery list 'package' - найти установленный пакет
+equery d package - покажет какие пакеты зависят от этого пакета
 
 equery files alsa-lib | less - выводит все установленные файлы
-equery list '*' - список всех установленных пакетов
 
-emerge --unmerge - позволяет удалить пакет, но зависимые пакеты необходимые пакеты не трогает.
+
+== Install
+emerge -av package
+	--pretend - просмотр зависимостей 
+	--fetchonly - загрузка пакета без установки
+	--oneshot - установка без занесения в world-file
+
+
+== Uninstall
+emerge --unmerge - удалить пакет без зависимостей
+
+
+== Update
+emerge --sync - обновляет дерево Portage
+emerge-webrsync - также обновляет Portage
 
 emerge --update @world - позволяет обновить систему.
 emerge --update --deep @world - обновляет вместе с зависимостями
 emerge --update --deep --with-bdeps=y @world - обновление с зависимостями и программами компиляции.
 emerge --update --deep --with-bdeps=y --newuse @world - также подтягивает и дополнительные пакеты.
 
-После полного обновления хорошо бы сделать очистку метаданных 
-emerge --depclean
+emerge --ask --emptytree --usepkg=n @world - пересобрать все
+emerge --ask --emptytree --usepkg=n @system - пересобрать систему
+
+== Clean
+etc-update - обновить конфиг файлы
+emerge --depclean - удалить старые пакеты
 revdep-rebuild
+	--ask - спрашивать подтверждение
+	--pretend
+
+eclean packages - удалить бинарники
+eclean distfiles - удалить сорцы
+eclean-dist -d - оставляет последнюю версию пакета
 
 
-	--ask - спрашивать потверждение
-	--deep 
-
-
-
-Portage позволяет устанавливает разные версии одного пакет вместе,
-для этого он использует слота.
-
-
-
-
-
-emerge --info - показывает используемы параметры USE
-/usr/portage/profiles/use.desc посмотреть возможные USE флаги
-
-Просмотреть все возможные значения ключей можно:
-	
-	/usr/portage/profiles/use.desc
-
-
-
-etc-update - исправить и обновить конфиг файлы
-
-____________________________
-
-gentoolkit утилитка для управления пакетами
-	eclean packages
-	eclean distfiles
-	eclean-dist -d - оставляет последню версию пакета
-	redpep-rebuild -p
-equery d package - покажет какие пакеты зависят от этого пакета
-
-	
-qlist -IUv - список всех установленных пакетов
-
-_____________________________
-
+== Other
 gentoo binary packages 
 http://packages.gentooexperimental.org/packages/amd64-stable/
-
-
-
-### config file
-
-/var/lib/portage/world - список всех установленных пакетов в мире. Пакеты
-удаленные не будут обновляться
-
-
-### key
-
---oneshot - обычная установка без занесения в world-file
