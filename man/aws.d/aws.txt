@@ -57,7 +57,7 @@ QuickSight - визуализация данных
 
 API Gateway - предоставление Api для автоматизации запуска lambda, ec2
 Step Functions - координация микросервисов
-Simple Workflow Service (SWF) - координация в распределенных системах
+Simple Workflow Service (SWF) - координация в распределенных системах (хз)
 Elastic Transcoder - конвертация видео и аудио
 
 Сodecommit - работа с git
@@ -222,4 +222,122 @@ Advanced Computing (P3, P2) - GPU, FPGA
 Резервирование - до 75% скидки, сколько нужно ресурсов и когда. От года.
 Spot pricing - до 90%, но в любое время мощности могут забрать
 
+Виды инстансов:
+Shared Tenancy - на разном железе
+dedicated host - отдельная железка - вроде дешевле
+dedicated instances - инстанс на желеке
+
+AMI - amazon machine image
+
+ECS - Elastic Container Service
+
+
+=== Identity and Acces Management and Security (IAM)
+
+управление пользователями или группами
+Доступ к отдельным компонентам, базам
+Токен для одноразового использования
+
+
+=== Autoscalling
+
+DynamoDB
+ECS - container elastic
+EC2 spot instances
+EMR 
+
+
+Elastic Load Balancing - база для скейлинга
+
+Типы балансировщиков:
+Network load Balancer - 4 layer
+Application Load Balancer - 7 layer
+Classical Balancer - балансорвка для ec2 только крутая
+
+Listener - для разделения site/ex site/ex2
+
+Балансировка на базе мултизон
+
+Failover - стартует новый инстанс когда старый упал
+
+
+=== AWS lambda
+Код который запускается по событию upload s3, dynamodb
+Имеет малую стоимость
+
+=== API Gateway 
+=== Kinesis - apache kafka
+Firehouse - хранилище сообщений, которые можно потом отправить в s3, redshift
+Прикрутить сжатие
+
+== Route53
+round robin
+latency routing
+failover
+geo DNS
+
+=== SQS - simply queue service
+=== SNS - simple notification service
+=== Elastic Beanstalk 
+Пишем код и незаботимся о его отказоустойчивости
+
+=== Elastic MapReduce - реализация Hadoop
+
+
+== RDS 
+Если вы не хотите крутить и обслуживать базу
+
+== Redshift - хранилище данных для подготовки к отчетности.
+На базе Postgresql
+
+== ElastiCache - in-memory storage
+
+
+== 
+део и аудио
+
+Сodecommit - работа с git
+
+=== AWS lambda
+Код который запускается по событию upload s3, dynamodb
+Имеет малую стоимость
+
+=== API Gateway
+=== Kinesis - apache kafka
+Firehouse - хранилище сообщений, которые можно потом отправить в s3, redshift
+Прикрутить сжатие
+
+== Route53
+round robin
+latency routing
+failover
+geo DNS
+
+=== SQS - simply queue service
+=== SNS - simple notification service
+=== Elastic Beanstalk
+Пишем код и незаботимся о его отказоустойчивости
+
+=== Elastic MapReduce - реализация Hadoop
+
+
+== RDS
+Если вы не хотите крутить и обслуживать базу
+
+== Redshift - хранилище данных для подготовки к отчетности.
+
+=========================================
+=== TOTAL
+
+Amazon S3 Large objects
+Amazon Glacier Archive data
+Amazon CloudFront Content distribution
+Amazon DynamoDB Simple nonrelational data
+Amazon EC2 Ephemeral Storage Transient data
+Amazon EBS Persistent block storage with snapshots
+Amazon RDS Automated, managed MySQL, PostgreSQL, Oracle, Maria DB,
+Amazon Aurora Cloud-optimized flavors of MySQL and PostgreSQL
+Amazon Redshift Data warehouse workloads
+
+AWS Organizations - управление группой аккаунтов
 
