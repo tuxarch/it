@@ -157,3 +157,5 @@ gitcracken - ui для git
 lustre - распределенная ФС для параллельных вычеслений
 rocket.chat
 mattermost - корпоротивные месенджеры
+edb-debugger - ollydbg приемник
+crunch - генерация словаря паролей
