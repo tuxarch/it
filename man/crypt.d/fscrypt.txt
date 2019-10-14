@@ -1,0 +1,20 @@
+Нативная поддержка шифрования на ext4
+Написана на go.
+
+Смотрим включено ли шифрование
+tune2fs -l /dev/device | grep 'Block size' = 4096
+
+Включаем поддержку:
+tune2fs -O encrypt /dev/device
+
+fscrypt setup - создает /etc/fscrypt.conf b /.fsctypt
+fscrypt status
+
+fscrypt encrypt /mnt/private/ - шифруем папку
+Можно использовать PAM расшифровку
+
+Ручное разблокирование
+fscrypt unlock dir
+
+При подключении флешки автомотически расшифровывает в случаее PAM. 
+Шифрованные файлы никак не отображаются на диске

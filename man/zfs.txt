@@ -92,3 +92,70 @@ echo 1073741824 > /sys/module/zfs/parameters/zfs_arc_max
 update-initramfs -u
 
 echo "options zfs zfs_arc_max=4294967296" | tee -a /etc/modprobe.d/zfs.conf
+
+
+### zfs on usb
+Создаем пул:
+zpool create -O compression=lz4 tank /dev/sdb1
+
+Отмонтируем:
+zpool export tank
+
+Смонтировать:
+zpool import zroot02 -d /dev -o readonly=on -R /mnt/my-fun-mountpoint
+
+
+### Gentoo
+Ставим модулем
+Прописываем демоны:
+/etc/init.d/zfs-import
+/etc/init.d/zfs-mount
+
+Удалить историю с пулами:
+rm -rf /etc/zfs/zpool.cache
+
+Удалить метки zfs c диска, а также удаляем mbr:
+dd if=/dev/zero of="/dev/sdb" seek=$(( $(blockdev --getsz "/dev/sdb") - ( ( 256 * 1024 * 2) / $(blockdev --getpbsz "/dev/sdb") ) ))
+
+### Crypt dm-crypt
+
+Генерируем ключ:
+dd bs=512 count=4 if=/dev/random of=/etc/mykeyfile iflag=fullblock
+
+Создаем открытое шифрование и подключаем файл с паролем:
+cryptsetup --cipher=twofish-xts-plain64 --offset=0  --key-file=/etc/mykeyfile --key-size=512 open --type=plain /dev/sdb enc
+
+Создаем пул:
+zpool create zroot /dev/mapper/enc
+
+Посмотреть подключеные шифрованные разделы:
+sudo lsblk -p
+
+Отключаем диск zfs:
+sudo zpool export zroot
+
+Отключить шифрованный диск:
+sudo cryptsetup close enc
+
+Подключить шифрованный диск (таже команда что и для создания)
+
+Перемонитровать:
+sudo zpool import zroot -d /dev/mapper
+
+
+### Native crypt
+
+Создаем обычный пул:
+zpool create -O compression=lz4 zcrypt /dev/sdb
+
+Создаем раздел на пуле:
+zfs create -o encryption=on -o keyformat=passphrase -o mountpoint=none zcrypt/enc
+
+Cмотрим, монтируем, перемонтируем
+zfs list
+zfs get encryption
+zfs set mountpoint=/mnt/usb zcrypt/enc
+zfs mount -l -a
+zfs unmount zcrypt/enc
+zpool import -l zcrypt -d /dev
+
