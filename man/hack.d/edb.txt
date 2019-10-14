@@ -1,0 +1,3 @@
+Дебагер для риверс инженеренга
+
+https://github.com/eteran/edb-debugger

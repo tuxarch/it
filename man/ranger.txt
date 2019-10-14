@@ -59,3 +59,11 @@ bookmarks
 history 
 
 _____________________
+
+Отключаем предзагрузку
+zi, zP and zp respectively.
+
+~/.config/ranger/rc.conf
+set preview_images false
+set preview_directories false
+set preview_files false
