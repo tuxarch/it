@@ -157,3 +157,9 @@ gitcracken - ui для git
 lustre - распределенная ФС для параллельных вычеслений
 rocket.chat
 mattermost - корпоротивные месенджеры
+contour - ingress kubernetes
+Fscrypt - шифрование диска на уровне ext4
+kdb - отладчик для ядра
+tomsrtbt - дистрибьютив linux помещающийся на дискету в 1.5 мб
+Toybox - альтернатива busybox
+kubeflow - запуск машинного обучения в kubernetes

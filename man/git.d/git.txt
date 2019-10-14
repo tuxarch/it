@@ -189,3 +189,9 @@ $ git fetch upstream                 # update local with upstream
 $ git diff HEAD..upstream/master     # see diffs between local and upstream/master (if there is no diff then both are in sync)
 $ git pull upstream master           # pull upstream's master into local branch
 $ git push origin HEAD               # push to your forked repo's remote branch
+
+
+
+
+= Генерация патча
+git format-patch -o /tmp/ 

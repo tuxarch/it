@@ -36,3 +36,6 @@ cgdelete subsystems:path
 systemctl status 3378 | grep CGroup
 cat /proc/3378/cgroup
 
+
+=== Utils
+cgset - утилита которая есть только в RHCE?
