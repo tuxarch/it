@@ -92,7 +92,3 @@ ___________________________________________________
    fsarchiver restdir /data/linux-sources.fsa /tmp/extract
  * show information about an archive and its filesystems:
    fsarchiver archinfo /data/myarchive2.fsa
-
-
-
-

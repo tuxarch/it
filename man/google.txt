@@ -8,3 +8,6 @@ ext:pwd (administrators | users | lamers | service)
 inurl:"[FFFTP]" ext:ini - поиск в файле
 inurl:"img/main.cgi?next_file"
 
+== Example
+Поиск поддоменов
+site:site.ru

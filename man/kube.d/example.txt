@@ -1,12 +1,13 @@
 Install and run container:
 kubectl run busybox -it --image=busybox --restart=Never --rm
+kubectl delete pod busybox
 
 Create deployment
 kubectl run alpine --image=alpine:latest --command -- sleep 3600
 kubectl exec -ti alpine-9b94c4778-5q2xf sh
 
 
-= Узнать кто мастер:
+= Посмотреть конфиг .kube/config / Узнать кто мастер:
 kubectl config view
 
 = Подключиться к API-server
