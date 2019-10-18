@@ -18,6 +18,8 @@ ctrl+j - размер папок
 Y - выбрать все
 ctrl+y-(сtrl+k/space)-ctrl+y - все сохраняется в файл select
 
+ctrl+j - групповое выделение
+
 ##### Plugin
 
 cpg/mvg -g

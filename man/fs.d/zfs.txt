@@ -151,11 +151,18 @@ zpool create -O compression=lz4 zcrypt /dev/sdb
 Создаем раздел на пуле:
 zfs create -o encryption=on -o keyformat=passphrase -o mountpoint=none zcrypt/enc
 
-Cмотрим, монтируем, перемонтируем
+Cмотрим, монтируем:
 zfs list
 zfs get encryption
+
 zfs set mountpoint=/mnt/usb zcrypt/enc
 zfs mount -l -a
-zfs unmount zcrypt/enc
-zpool import -l zcrypt -d /dev
 
+Отмонтируем:
+zfs unmount zcrypt/enc
+zpool export zcrypt
+
+Перемонтируем:
+Смотрим название zfs пула:
+lsblk -fs
+zpool import -l zcrypt -d /dev
