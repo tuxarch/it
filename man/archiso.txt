@@ -6,9 +6,26 @@
 - Запуск скрипта
 
 
-Установка скриптов:
+Установка скриптов для сборки:
 
 git clone git://git.archlinux.org/archiso.git
 pacman -S archiso
 
+
+====
+Две основные ветки для установки releng, baseline
+
+baseline - дефолтная установка
+cp -r /usr/share/archiso/configs/baseline/ /mnt/trash/archlive && mkdir /mnt/trash/archlive/out/
+cd /mnt/trash/archlive && sudo ./build.sh -v
+
+
+====
+releng:
+
+cp -r /usr/share/archiso/configs/releng/ /mnt/trash/archlive && mkdir /mnt/trash/archlive/out/
+
+packages.x86_64 - файл содержащий пакеты
+airootfs - конфиги запихиваем сюда
+archlive/airootfs/root/customize_airootfs.sh
 

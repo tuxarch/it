@@ -2,13 +2,16 @@
 
 init {id-key} - создать хранилище для пользователя
 insert google/username - создаем учетку и задае пароль
+
 generate -n -c google/username 16 - создаем учетку и генерим пароль и копируем
-ls google - просмотр
 -c username - скопировать пароль в буфер
 -n упрощенный пароль
+16 - длина пароля
+
 rm - удалить
 rm -rf - удаление с рекурсией и форсом
 edit - редактирование
+ls google - просмотр
 
 git 
 
@@ -22,4 +25,8 @@ pass git pull
 
 gpg --edit-key <key> 
 trust - делаем ключ доверенным
+
+
+Домашний каталог:
+PASSWORD_STORE_DIR=/path/to/store
 

@@ -167,3 +167,4 @@ edb-debugger - ollydbg приемник
 crunch - генерация словаря паролей
 foliate - просмотр epub .mobi, .azw, and .azw3
 ffsend - сторадж для хранения и передачи файлов, firefox, поддержка паролей
+darkhttpd - http сервер очень мальнький

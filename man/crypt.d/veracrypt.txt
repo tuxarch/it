@@ -1,4 +1,5 @@
-Создать образ через veracrypt?
+TrueCrypt / VeraCrypt
+Для открытия образа не нужно ставить 
 
 Монтируем veracrypt с помощью cryptsetup:
 sudo cryptsetup open file.crypt --type tcrypt --veracrypt veracrypt
