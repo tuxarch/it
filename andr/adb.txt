@@ -1,0 +1,45 @@
+Включаем отладку по usb.
+Жмем на версию сборки в android 9.
+Система - для разработчиков - Отладка по usb
+
+Жмем разрешение на сообщение при коннекте
+
+
+Запускаем adb:
+sudo adb kill-server
+sudo adb start-server
+adb list devices
+
+
+=== Работа с командами
+
+Выполнение одиночной команды:
+adb shell ls /system/bin
+adb shell whoami
+
+Интерактивный режим:
+adb shell
+
+для команды su - требуется дополнительная настройка
+com.android.shell - расшарить в magisk
+su -c ls
+
+==== Работа с файлами:
+
+Пользовательские данные находятся
+/storage/emulated/0/
+/sdcard/
+
+Передача файлов:
+adb push <what-to-copy> <where-to-place>
+adb pull <what-to-pull> <where-to-place>
+
+
+=== Дополнительные команды:
+Узнать состояние шифрования
+adb shell getprop ro.crypto.state
+
+Как расшифровать диск:
+загрузить twrp или через vol+
+fastboot boot twrp.img
+adb shell twrp decrypt 234856
