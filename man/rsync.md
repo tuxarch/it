@@ -17,6 +17,8 @@
 
 Синхронизация библиотеки
 rsync -rv --size-only /mnt/data/book/ /mnt/allsync/book/ --temp-dir=/tmp --no-owner --no-group --progress --delete
+Забрать все с сервера и удалить расхождения с приемника:
+rsync -rv --delete --progress --size-only --temp-dir=/tmp --no-owner --no-group /mnt/allsync/book/ /mnt/data/book/
 
 Быстрая передача:
  rsync -aHAXxv --numeric-ids --delete --progress -e "ssh -F /dev/null -T -c aes128-gcm@openssh.com -o Compression=no -x" /backups/mysql/daily/2019-05-07-2003_full/ root@46.

@@ -168,3 +168,7 @@ crunch - генерация словаря паролей
 foliate - просмотр epub .mobi, .azw, and .azw3
 ffsend - сторадж для хранения и передачи файлов, firefox, поддержка паролей
 darkhttpd - http сервер очень мальнький
+rss - recursive shell с поддержкой ssl
+rssh - ssh c возможностью только заливки файлов
+aerospike - быстрее redis в 3 раза
+innotop - top для mysql

@@ -1,1 +1,8 @@
- mkisofs -o crack.iso /path/dir
+Создать iso:
+mkisofs -o crack.iso /path/dir
+
+Смонтировать iso (нужно включить поддержку в ядре):
+sudo modprobe isofs
+
+mount -o loop /path/to/disk1.iso /mnt/disk
+mount -t iso9660 -o loop path/to/image.iso /mnt/iso

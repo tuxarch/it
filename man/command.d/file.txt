@@ -4,3 +4,12 @@ du -sh directory/
 Копирование с заменой:
 yes | cp -rf xxx yyy
 
+Записать в файл командой сat:
+cat > script.py
+blabla
+CTRL+D
+
+cat <<EOF >> script.py
+> #!/bin/bash
+> print("hello")
+> EOF

@@ -14,3 +14,9 @@ cd yaourt
 makepkg -si
 __________________________
 pacman -Ss - поиск пакетов
+
+
+Сhroot 
+
+
+
