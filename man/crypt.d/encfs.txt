@@ -40,3 +40,15 @@ ash           /home/.encfs/ash      /home/ash     -v                      allow_
 
 
 
+++++++++++++++++++++++++++++++++
+Extended
+
+Сменить пароль:
+encfsctl passwd ~/encfs.encfs
+
+Экспортируем, но сначало нужно размонтировать
+encfsctl export  /home/.encfs /home/export
+
+Информация по директории:
+encfsctl info ~/.encfs
+
