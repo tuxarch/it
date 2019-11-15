@@ -1,6 +1,4 @@
-## notebook base 
-# База подключается и управляется через bash-комплит
-
+## main notebook 
 
 complete to .bashrc:  
 ```bash
