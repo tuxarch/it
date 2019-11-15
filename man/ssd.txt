@@ -1,1 +1,15 @@
 Trim - настраиваем на запуск раз в неделю с низким приоритетом
+
+
+Смотрим есть ли поддержка
+# hdparm -I /dev/sda | grep TRIM
+        *    Data Set Management TRIM supported (limit 1 block)
+
+Три пути подключить данную функцию:
+
+fstrim -v / - кидаем в крон
+
+tune2fs -o discard /dev/sdXY - статический способ
+
+/etc/fstab ext3 не поддерживается:
+/dev/sda2  /home   ext4   ..,..,discard   0  2
