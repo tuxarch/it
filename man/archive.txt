@@ -21,12 +21,11 @@ zip -r zipfile.zip directory - создать с рекурсией
 unrar e archive.rar file.exe - извлечь один файл из архива
 
 ## zstd
-compress
+compress:
 tar -C ccrs -cvf - . | zstd -T4 -8 > /mnt/usb/ccrs.tar.zst
 tar --zstd -cf directory.tar.zst directory/
 for old version:
 tar --use-compress-program zstd -cf directory.tar.zst directory/ 
-
 decompress:
 tar -I zstd -xvf archive.tar.zst
 

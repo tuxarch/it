@@ -98,8 +98,15 @@ eom - последняя дата месяца
 task end.after:2015-05-01 and end.before:2015-05-31 completed - сортировка
 задач
 
-
+=Работа с рекурсией
+Каждый месяц первого числа в течении следующего года 
+task add Pay rent due:28th recur:monthly until:now+1yr
 task add Pay the rent due:1st recur:monthly until:2015-03-31
+
+task 6 recur:(weekly, monthly, early) - сделать задачу рекурсивной
+
+Каждодневное выполнение
+task add "a [daily,weekly,monthly] task" recur:[daily,weekly,monthly] due:[eod,eow,eom]
 
 
 =======================================================================

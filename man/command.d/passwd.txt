@@ -1,2 +1,5 @@
 openssl rand -base64 9
 pwgen - генерация паролей
+
+генерируем пароль
+head -c 32 /dev/urandom | base64
