@@ -26,3 +26,8 @@ sudo mount /mnt/usb
 sudo umount /mnt/usb
 sudo cryptsetup close dm_dev
 
+Проблемы с отмонтированием:
+cryptsetup --debug -v luksClose dm_dev
+sudo dmsetup info -C
+sudo dmsetup table
+
