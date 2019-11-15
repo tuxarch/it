@@ -1,0 +1,7 @@
+Удалить тэги:
+
+In the sidebar of the desktop app, click the tag you want to delete.
+Highlight all of the cards with that tag.
+Click "Remove tags". Enter the tag you wish to remove.
+Note that nothing seems to change; the tag is still in the sidebar. One more step to make it go away.
+Leave the Browser window and go back to main window. In the menu, select "Check database..."
