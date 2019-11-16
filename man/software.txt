@@ -172,3 +172,5 @@ rss - recursive shell с поддержкой ssl
 rssh - ssh c возможностью только заливки файлов
 aerospike - быстрее redis в 3 раза
 innotop - top для mysql
+phabricator - управление разработкой от facebook
+jmeter - нагрузочное тестирование jdbc, ldap, tcp

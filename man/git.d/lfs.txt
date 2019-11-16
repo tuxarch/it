@@ -1,0 +1,6 @@
+Позволяет не тащить большие бинарники в историю гит, а ссылаться на них
+
+Ставим модуль:
+https://github.com/git-lfs/git-lfs/releases
+
+git lfs track "*.jpg"
