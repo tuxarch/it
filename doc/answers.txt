@@ -8,9 +8,6 @@ git/ansible/jenkins
 
 скрипты
 
-
-
-
 ----NETWORK
 
 ----ADMIN
@@ -144,5 +141,3 @@ hostnamectl -
 
 Как посмотреть состояние ввода-вывода
 sar, iostat, vmstat
-
-

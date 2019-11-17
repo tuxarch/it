@@ -99,9 +99,5 @@ etc....
 
 Drill down - кто жрет ресурсы:
 по namespace, deployment, pod, container
-
-
-
-
-
+Настройка graphana для сворачивания по селекторам
 

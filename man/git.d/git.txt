@@ -192,6 +192,12 @@ $ git push origin HEAD               # push to your forked repo's remote branch
 
 
 
-
 = Генерация патча
 git format-patch -o /tmp/ 
+
+= Клонировать последний коммит:
+git clone --depth=1 https://github.com/flant/werf.git
+
+= Клонировать только определенную ветку
+git clone --depth=1 -b docs_ru https://github.com/flant/werf.git werf_2
+
