@@ -1,0 +1,25 @@
+Перед началом обязательно добавляем в /etc/ansible/ansible.cfg:
+[ssh_connection]
+ssh_args = -C -o ControlMaster=auto -o ControlPersist=60s
+control_path = /dev/shm/cp%%h-%%p-%%r
+
+Быстрая работа с любым ip:
+ansible all -i "35.28.11.59," -c ssh -u ash -m shell --private-key=~/id-rsa -a "uptime" -vvv
+
+Быстрая работа с localhost:
+ansible all -i "localhost," -m ping
+ansible all -i "localhost," -c local -m shell -a 'uptime'
+
+
+
+=== Запуск плейбука локально:
+
+создаем файл hw.yml:
+---
+- hosts: all
+  tasks:
+    - shell: echo "hello world" >> ~/file.ansible
+
+Запускаем:
+ansible-playbook -i "localhost," -c local hw.yml
+

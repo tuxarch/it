@@ -1,3 +1,20 @@
-Install
-go get github.com/flant/werf/cmd/werf
+=== multiwerf
+- для работы с несколькими версиями
+
+source <(multiwerf use 1.0 beta)
+
+=== base
+
+Собрать проект:
+werf build --stages-storage :local
+
+Запустить:
+werf run --stages-storage :local --docker-options="-d -p 80:80"
+
+Пушим собранное в регистри:
+docker run -d -p 5000:5000 --restart=always --name registry registry:2
+werf publish --stages-storage :local --images-repo localhost:5000/g-started --tag-custom v0.1.0
+
+Собираем и пушим в регестри:
+werf build-and-publish --stages-storage :local --tag-custom myapp --images-repo :minikube
 

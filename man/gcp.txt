@@ -35,6 +35,9 @@ gcloud projects create kube-learn-45653
 Переключиться на проект
 gcloud config set project kube-learn-45653
 
+Получить список запущенных инстансов:
+gcloud compute instances list
+
 Создание инстанса
 gcloud compute instances create my-instance
 
@@ -58,8 +61,31 @@ gcloud compute disks resize example-disk --size 250 - ресайз
 gcloud compute instances start/reset/stop/reset centos --zone=europe-west1-b
 
 
+===
+Работа с ssh ключом
 
-== Kubernetes
+Узнать доступные ключи на проекте:
+gcloud compute project-info describe
+
+Генерируем ключ:
+ssh-keygen  -t rsa -f ./gcloud-key
+
+Правим gcloud-key.pub и после синка меняем обратно :
+ssh-rsa => user:ssh-rsa
+
+Добавить публичный ключ к проекту:
+gcloud compute project-info add-metadata --metadata-from-file ssh-keys=gcloud-key
+
+Разрешить доступ к инстансу по ключам проекта:
+gcloud compute instances add-metadata instance-1 --zone=europe-north1-b  --metadata block-project-ssh-keys=FALSE
+
+Есть смысл посмотреть привязанные ключи и разрешения на инстансе:
+gcloud compute instances describe instance-1
+
+
+
+
+=== Kubernetes
 
 Запуск kuber кластера:
 wget -q -O - https://get.k8s.io | bash

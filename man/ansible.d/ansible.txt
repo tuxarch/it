@@ -1,55 +1,34 @@
-ansible docker -m copy -a 'src=~/file.file dest=/tmp/' - копировать конфиг с
-сервера на машину
-ansible all - запустить команду на всех машинах
+==== ansible 
 
-ansible all -m shell -a 'grep DISTRIB_RELEASE /etc/lsb-release' - может
-вывести номер версии дистра.
+ansible all - запустить команду на всех машинах hosts
+
+-m copy -a 'src=~/local.file dest=/tmp/' - копировать конфиг на сервер
 
 -m setup - выводит статистику по железу
+-m setup -a 'filter=ansible_memtotal_mb - посмотреть количество  памяти
+-m setup -a 'filter=ansibansible all -m setup -a 'filter=ansible_distribution'le_distribution' - посмотреть ОС
 
- ansible all -m setup -a 'filter=ansible_memtotal_mb - посмотреть количество
- памяти
 
- ansible all -m setup -a 'filter=ansibansible all -m setup -a 'filter=ansible_distribution'le_distribution' - посмотреть ОС
-
- ansible-playbok --limut 10.5.5.40 - обработать только указынный хост
+ansible-playbok --limut 10.5.5.40 - обработать только указынный хост
  		 --remote-user=rise -выбрать пользователя
 		 --sudo
 		 --ask-pass
 
-___________________________
-Работа с паролями
-ansible-vault encrypt file - зашифровать
+==== ansible-vault 
+encrypt file - зашифровать
 	      edit
 	      view
 	      decrypt
 
 Для получения доступа можно использовать файл для расшифровки с ключем
 --vault-password-file либо через конфиг
-______________________________
 
-ansible docker -m ping --limit=17.17.0.4,17.17.0.3 - работаем только с
-указанными ip из группы докер
+
+ansible docker -m ping --limit=17.17.0.4,17.17.0.3 - работаем только с указанными ip из группы докер
 
 neinfile: dest=/tmp/sshd_config regexp="^PermitRootLogin"
 line="PermitRootLogin no" - изменить значение в конфиге
 
-
-____________________________
-
-Простая работа с локал хостом
-простое подключение (требуется ssh, python)
-ansible all -i "182.28.22.0" -c ssh -u root -m shell -a "echo hello"
-ansible all -i "localhost," -c local -m shell -a 'echo hello world' 
-ansible all -i "localhost," -m ping - просто ping локального хоста
-
-ansible-playbook -i "localhost," -c local helloworld.yml
-создаем конфиг файл и запускаем
-
----
-- hosts: all
-  tasks:
-    - shell: echo "hello world" >> ~/file.ansible
 
 __________________
 galaxy

@@ -2,17 +2,13 @@ KEYS:
 -i private-key.rsa - подключаемся с приватным ключом
 
 
-Заново конфигурировать ключи аутентификации можно:
-
-/usr/bin/ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key -N "" 
+Генерация (тип, путь, беспароля)
+ssh-keygen -t rsa -f /etc/ssh/ssh_host_dsa_key -N "" 
 
 
 Ключи хранятся в:
 	~/.ssh/config
 	/etc/ssh/ssh_config
-
-Генерируем ключ для беспарольного подключения:
-	ssh-keygen -t rsa 
 
 Копируем ключ на сервер:
 	 scp /home/nevernew/.ssh/id_rsa.pub orca@192.168.1.242:~/.ssh/authorized_keys
@@ -98,7 +94,4 @@ ssh -F /dev/null
 _____________________________________________________
 
 pdsh - тулза для запуска команд на нескольких серверах
-
-
-
 

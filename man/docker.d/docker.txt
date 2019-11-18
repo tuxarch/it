@@ -1,16 +1,31 @@
-docker run -t centos:latest /bin/bash - запуск терминала
+=== Основные команды
+
+docker pull - простое скачивание
+docker ps - смотрим запущенное
+docker history nginx - история создания слоев
+
+docker inspect - посмотреть информацию о запущенном контейнере.
+docker info
+docker logs - позволяет посмотреть системные сообщения 
+
+docker commit ID-контейнера ubuntu-nginx - коммит контейнера
+
+
+= docker run -ti centos:latest /bin/bash - запуск терминала
 --name - меняет идентификатор контейнера
 --hostname - меняем имя хоста
 -search поиск пакетов
-pull - простое скачивание
+-d (detach) - отвязаться от запущенного контейнера
+-dt - флаги для запуска контейнера в фоне
+--rm  удалить контейнер при выходе
+-p 80:80 - прокинуть порт
+-v /file_host:/file/transfet - пробросить файл на контейнер
 
-docker ps - смотрим id
-$ sudo docker commit ID-контейнера ubuntu-nginx - коммит контейнера
-$ sudo docker history ubuntu-nginx - история создания слоев
 
-Существует концепиция образов и контейнеров
-сохранить и закоммитить контейнер можно с помощью save/load
-перенос образа происходит с помощью команды
+docker exec -it ubuntu_bash bash - подключится к консоли контейнера
+
+
+= import/export
 
 docker export 0 > /mnt/trash/ubuntu.tar
 docker export defc | gzip > ubuntu.tar.gz
@@ -18,18 +33,10 @@ docker export defc | gzip > ubuntu.tar.gz
 cat mnt/ubuntu.tar | docker import - ubuntu
 zcat ubuntu.tar.gz | docker import - ubuntu-alice
 
-docker run -t -i ubuntu-alice /bin/bash - первый запуск
-______________________
 
-Создаем каталог для конфигов и Dockerfile
-в который пишем конфиги для сборки контейнера
-FROM ubuntu-apache
-ENTRYPOINT service apache2 start && service mysql start && bash
 
-Затем собираем контейнер и запускаем его
-
-docker build -t name_container ~/dir_config
-docker run -p 80:80 & etc
+= build
+docker build -t name:v0.1 ~/docker/dir/
 
 RUN CMD - последняя выполняет команду в запущенном контейнере
 ADD - добавляет файлы и папки в образ из нашего окружения
@@ -38,44 +45,36 @@ ENV - назначает переменные среды
 Соединение за счет портов и линьковке (переменных окружения)
 
 _____________________
-Удалить все имиджы
+Остановить все контейнеры:
+docker stop $(docker ps -a -q)
+
+Удалить все имиджи
 docker rmi $(docker images -a -q)
 
 Сохранить контейнер можно также 
-docker save -o /mnt/data/video/ubuntu.tar ubuntu
+docker save -o /mnt/data/video/ubu удалить контейнер при выходеntu.tar ubuntu
 docker load -i file.tar - загрузить
 
-docker inspect - посмотреть информацию о запущенном контейнере.
-docker info
-docker logs - позволяет посмотреть системные сообщения 
 
 ctrl+P+Q - dettach in container
 
-__________________________
-
--v /file_host:/file/transfet - пробросить файл на контейнер
 docker cp mycontainer:/foo.txt foo.txt - копировать файл
 Используем монтирование и смотрим результат через docker inspect
 --mount type=bind,source="$(pwd)"/target,target=/app,readonly \
 Если необходимо запустить службу то можно сделать через простой старт
-____________________________
 
-docker может занимать много места, 
-поэтому можно создать символьную ссылку на /var/lib/docker
+=== Other:
+
+rm -rf /var/lib/docker
 
 docker tag 42917 jira - переименовать образ
 docker rename - переименовать контейнер
-_________________
+
+
 
 DOCKER_OPTS="--dns 8.8.4.4 --bip=10.11.12.1/24" ищем в /etc/conf.d/docker
 Позволяет запускать с кастомными параметрами
 
-docker exec -it ubuntu_bash bash - подключится к консоли контейнера
-
-_______________________
-
-bashrc - добавить service mysql start && service apache start
-для запуска приложений при старте контейнера
 
 restart=always - добавить эту опцию к docker run - для автозапуска контейнера
 /var/lib/docker/containers/{{.Id}}/hostconfig.json - идем в файл и меняем
@@ -83,4 +82,3 @@ RestartPolicy=always на no
 
 для получения привелигированного режима нужно добавить 
 docker run -privileged
--dt - флаги для запуска контейнера в фоне
