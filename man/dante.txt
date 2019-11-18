@@ -1,0 +1,22 @@
+SOCKS v4 and v5 compatible proxy server and client
+
+/etc/sockd.conf:
+
+internal: eth0 port = 1080
+external: eth0
+
+socksmethod: username # метод доступа
+#socksmethod: none
+user.privileged: root # от кого запускать
+user.unprivileged: nobody
+
+client pass {
+from: 0/0 to: 0/0
+log: error
+}
+
+socks pass {
+from: 0/0 to: 0/0
+log: error
+}
+

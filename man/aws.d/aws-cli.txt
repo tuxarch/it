@@ -15,6 +15,12 @@ aws configure
 
 ===============================
 == EC2
+AMI - образы конфигуруемые для своего региона и железа
+amazon linux ami - образа оптимизированные 
+
+Посмотреть доступные имиджи:
+aws ec2 describe-images --owners self amazon
+
 Посмотреть запущенные инстансы
 aws ec2 describe-instances
 
