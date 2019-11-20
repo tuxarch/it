@@ -63,3 +63,36 @@ tmux new "command && command" - Запустить команду в терми�
 Ctrl+b :set synchronize-panes on
 
 CTRL+B ! - перенос активного окна на другую вкладку
+
+
+=== plugin
+
+tpm - менеджер плагинов
+set-environment -g TMUX_PLUGIN_MANAGER_PATH '~/.tmux/plugins' #whyired
+set -g @plugin 'tmux-plugins/tpm'
+
+С-b I - установить плагины
+С-b U - обновить плагины
+C-b + alt + u - удалить плагины которых нет в конфиге
+
+=
+
+set -g @plugin 'tmux-plugins/tmux-sensible' - плагин с базовыми настройками
+=
+
+set -g @plugin 'seebi/tmux-colors-solarized' - тема
+
+=
+set -g @plugin 'thewtex/tmux-mem-cpu-load' #бар sysinfo 
+set -g status-interval 20
+set -g status-left "#[fg=colour136,bg=colour235]#(tmux-mem-cpu-load -t 1 -m2 -g 0 --interval 5) | #[default]"
+set -g status-left-length 60
+Нужно собрать и прописать в /usr/bin - делается сборщиком make install
+=
+wemux - multiuser session
+
+=== tmux.conf
+
+set-window-option -g mode-keys vi
+
+
