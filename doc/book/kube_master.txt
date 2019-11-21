@@ -18,6 +18,40 @@ kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl versio
 
 kubectl get po --all-namespaces
 
-w
 etcd-operator - позволяет создавать кластер etcd
+
+Учетные записи - system/user
+Разные права на разные пространства имен
+
+Аутентификация - ключ, сертификат
+Авторизация - 
+	ABAC -  на основе атрибутов
+	RBAC - на основе ролей
+Обработка запросов - вплоть для отклонения
+
+AppArmor - поддерживается kubernetes
+cat /sys/module/apparmor/parameters/enabled
+
+Узнать версию запущенного контейнера:
+kubectl get pods -o json | jq .items[0].spec.containers[0].image
+
+kube apply -f Deployment.yml 
+заменяет старую версию на новую
+
+Вывести переменные кластера проброшенные в контейнер:
+kubectl exec -ti hue-learn-6878f75555-6jbhr -- printenv
+
+
+kubectl config set-context restricted –namespace=restricted –cluster=minikube –user=minikube
+
+emptyDir - непостоянное хранилище между контейнерам
+HostPath - постоянное в рамках узла
+
+Постоянные хранилища регистрируются в Api kube
+
+
+ConfigMap - хранение конфигурации отедльно от контейнера
+Autoscaling - прописываем необходимые параметры для масштабриования
+
+Kubemark - тулза для тестирования кластера
 

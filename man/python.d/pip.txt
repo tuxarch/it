@@ -4,4 +4,14 @@ yum -y install python-pip
 Обновить все пакеты:
 pip list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
 
+Удалить все пакеты:
+pip freeze --user | xargs pip uninstall -y
+
+
+=========================
+
+Поставить pip под любой питон
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python3.4 get-pip.py --user
+python3.4 -m pip install --user virtualenvwrapper
 

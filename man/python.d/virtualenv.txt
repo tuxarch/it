@@ -1,15 +1,22 @@
-Важно понимать что создаются символьные ссылки, а не приносятся бинари
+=== Virtualenv
+  
+более удобная обертка virtualenvwrapper
+pip install virtualenvwrapper
 
-Необходимые пакеты для сборки:
-apt install libffi-dev gcc zlib1g-dev make 
+bashrc:
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+source /usr/bin/virtualenvwrapper.sh
 
-Пакеты для ssl (скорее всего нужен один ): 
-sudo apt-get install libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev
+mkvirtualenv env-name
+workon - список проектов
+workon - заходим в окружение
+deactive
+rmvirtualenv env-name
 
-На проде потребуется поставить <100мб. Скорее всего 10м
+ставим пакеты через pip или спец файл
+pip freeze > requirements.txt
+pip install -r requirements.txt
 
-
----------------------------------------------
 
 Качаем питон и ставим его в общую папку для того чтобы создавать от него
 окружения:

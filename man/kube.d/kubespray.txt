@@ -17,6 +17,7 @@ ansible_ssh_pass=vagrant
 ansible_python_interpreter=/usr/bin/python3
 
 Cтавим
+ansible-playbook -i inventory/mycluster/hosts.yml --become --become-user=root cluster.yml
 ansible-playbook -i inventory/mycluster/hosts.ini cluster.yml
 
 Расширяем после изменения инвентори
@@ -37,8 +38,20 @@ __________________
 Чек на память:
 kubespray/roles/kubernetes/preinstall/tasks/0020-verify-settings.yml
 
+
 Поставить helm:
 inventory/sample/group_vars/k8s-cluster/addons.yml
 helm_enabled: true # устанавливаем helm на ноды
 local_volume_provisioner_enabled: true # активируем local volume provisioner
 ingress_nginx_enabled: true # активируем ingress controller
+
+
+
+===================
+Последний раз ставил на версиях:
+kubespray release-2.11
+python3.6
+ubuntu18.10 2.0.2 vagrant
+
+
+

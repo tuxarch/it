@@ -1,0 +1,7 @@
+Проверить диск при загрузке:
+sudo touch /forcefsck
+
+Узнать время последней проверки:
+sudo tune2fs -l /dev/sda1 | grep "Last checked"
+
+

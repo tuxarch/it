@@ -13,6 +13,7 @@ ansible-playbok --limut 10.5.5.40 - обработать только указы
  		 --remote-user=rise -выбрать пользователя
 		 --sudo
 		 --ask-pass
+		 --flush-cache - удалить кэш
 
 ==== ansible-vault 
 encrypt file - зашифровать

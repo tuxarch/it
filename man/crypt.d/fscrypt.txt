@@ -6,6 +6,8 @@ tune2fs -l /dev/device | grep 'Block size' = 4096
 
 Включаем поддержку:
 tune2fs -O encrypt /dev/device
+Выключаем:
+debugfs -w -R "feature -encrypt" /dev/sda2
 
 fscrypt setup - создает /etc/fscrypt.conf b /.fsctypt
 fscrypt status
