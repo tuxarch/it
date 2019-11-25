@@ -35,8 +35,9 @@ __________________
 Настройка kubectl
 копируем с мастера /etc/kubernetes/admin.conf ~/.kube/config
 
-Чек на память:
-kubespray/roles/kubernetes/preinstall/tasks/0020-verify-settings.yml
+Минимальное значение на память:
+roles/kubernetes/preinstall/defaults/main.yml 
+
 
 
 Поставить helm:
@@ -53,5 +54,4 @@ kubespray release-2.11
 python3.6
 ubuntu18.10 2.0.2 vagrant
 
-
-
+ansible-playbook -i inventory/mycluster/hosts.yml --become --become-user=root cluster.yml --flush-cache

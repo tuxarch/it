@@ -1,3 +1,15 @@
+# Установка helm2
+kubectl -n kube-system create serviceaccount tiller
+kubectl create clusterrolebinding tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller
+helm init --service-account=tiller
+helm install stable/prometheus-operator
+
+
+Обновить tiller-server
+helm init --upgrade
+
+
+
 ## helm
 Пакетный менеджер для kube
 Мощный шаблонизатор go. Поддерживает условия, циклы, функции, пайплайны
@@ -8,8 +20,13 @@ helm - клиент общается по gRPC (Удал.Вызов.Процед
 Tiller - сервер управляющий через kube REST API
 Написан на golang
 
-# Команды
-helm init 
+
+
+
+
+
+# Команды helm2
+helm init  - становка tiller
 helm search
 helm install - устанавливаем charts в кластер
 helm ls - смотрим что запущенно
@@ -71,3 +88,4 @@ helm repo update
 
 ## Search
 helm search github/ - поиск в репозитории
+
