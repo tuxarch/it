@@ -1,3 +1,21 @@
-Установка helm2
+Установка из helm2
 helm install --name prometheus-operator stable/prometheus-operator
+
+Пробрасываем порты prometheus & graphana:
+kubectl port-forward prometheus-operator-grafana-74c76f49-fcxz2 3000
+kubectl port-forward prometheus-prometheus-operator-prometheus-0 9090:9090
+
+Посмотреть какие метрики собираются:
+kubectl get servicemonitors.monitoring.coreos.com
+
+Узнать пароль graphana:
+kubectl get secret --namespace monitoring grafana-credentials -o yaml
+password: YWRtaW4=
+user: YWRtaW4=
+
+echo "YWRtaW4=" | base64 --decode
+admin
+
+Смотрим логи:
+kubectl logs -f prometheus-operator-grafana-74c76f49-fcxz2 grafana
 
