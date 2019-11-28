@@ -16,3 +16,28 @@ iptables -A POSTROUTING -t nat -j MASQUERADE
 
 iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
 iptables -t nat -A POSTROUTING -s 192.168.122.0/24 -o enp0s25 -j MASQUERADE
+
+
+------vagrant-libvirt
+
+
+Меняет пул libvirt
+.vagrant.d/Vagrantfile
+
+Vagrant.configure("2") do |config|
+  config.vm.provider :libvirt do |libvirt|
+    libvirt.storage_pool_name = "default"
+  end
+end
+
+
+Проблемы при смене образа:
+Удаляем все из пула
+
+sudo virsh list --all
+# get the machine name
+sudo virsh destroy <THE_MACHINE>
+sudo virsh undefined <THE_MACHINE>
+sudo virsh vol-list default
+# get the volume name
+sudo virsh vol-delete --pool default <THE_VOLUME>

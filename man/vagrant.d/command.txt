@@ -1,5 +1,17 @@
-Удалить образа с подтверждениeм:
-vagrant destroy -f
+vagrant init инициализируем образ
+
+vagrant box list - список установленных машин
+        box remove
+	box update
+
+vagrant up
+vagrant ssh
+
+vagrant global-status - посмотреть список запущенный машин
+
+vagrant halt 33 - выключить машину
+vagrant destroy -f - выключить и уничтожить без поддтверждения
+
 
 Выполнить команду на машине:
 vagrant ssh sql4 -c "cat /etc/hostname"
