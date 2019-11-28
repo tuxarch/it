@@ -1,0 +1,26 @@
+==== ansible 
+
+ansible all - запустить команду на всех машинах hosts
+
+-m copy -a 'src=~/local.file dest=/tmp/' - копировать конфиг на сервер
+
+-m setup - выводит статистику по железу
+-m setup -a 'filter=ansible_memtotal_mb - посмотреть количество  памяти
+-m setup -a 'filter=ansibansible all -m setup -a 'filter=ansible_distribution'le_distribution' - посмотреть ОС
+
+
+=== ansible-playbook
+
+--limut 10.5.5.40 		// обработать только указынный хост
+--remote-user=rise 		// выбрать пользователя
+--ask-pass
+--flush-cache  			// удалить кэш перед запуском
+--diff 				// показывает разницу при применении 
+--check			 
+--syntax-check 
+--become-user 			// запуск от рута или указанного юзера
+
+
+
+neinfile: dest=/tmp/sshd_config regexp="^PermitRootLogin"
+line="PermitRootLogin no" - изменить значение в конфиге

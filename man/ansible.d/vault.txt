@@ -1,0 +1,10 @@
+=== ansible-vault
+
+encrypt file - зашифровать
+              edit
+              view
+              decrypt
+
+Для получения доступа можно использовать файл для расшифровки с ключем
+--vault-password-file либо через конфиг
+

@@ -1,6 +1,5 @@
 ## ansible-container
 
-
 pip install ansible-container
 
 ansible-container init
