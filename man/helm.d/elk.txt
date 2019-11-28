@@ -1,0 +1,7 @@
+Установка:
+helm install --name elk stable/elastic-stack
+
+Пробрасываем порт:
+kubectl port-forward deployment/kibana-kibana 5601 
+
+

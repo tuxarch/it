@@ -51,3 +51,7 @@ ffmpeg -i 1.mp3 -i 1.PNG -c copy 1.avi
 Пережать видео mp4
 ffmpeg -i input.mp4 -vcodec h264 -acodec aac output
 
+Добавить ватермарк:
+ffmpeg -i test.mp4 -i watermark.png -filter_complex "overlay=10:10" test1.mp4
+
+

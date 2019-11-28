@@ -19,3 +19,4 @@ admin
 Смотрим логи:
 kubectl logs -f prometheus-operator-grafana-74c76f49-fcxz2 grafana
 
+Создаем ServiceMonitor - указываем откуда собирать метрики

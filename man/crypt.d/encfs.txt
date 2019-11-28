@@ -20,6 +20,7 @@ fuse
 /etc/pam.d/system-login - лучше сюда
 /etc/pam.d/common-auth    << auth sufficient pam_encfs.so (перед auth requisite pam_unix.so )
 /etc/pam.d/system-auth
+/etc/pam.d/su
 
 В группу добавляем:
 gpasswd -u user fuse
@@ -37,7 +38,8 @@ encfs_default --idle=1 - отмонтировать через минуту пр
 drop_permissions
 encfs_default
 fuse_default
-ash           /home/.encfs/ash      /home/ash     -v                      allow_other
+#ash           /home/.encfs/ash      /home/ash     -v                      allow_other
+ash           /home/.encfs/ash      /home/ash     -                      allow_other
 
 
 

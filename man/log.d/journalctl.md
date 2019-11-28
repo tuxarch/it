@@ -12,5 +12,9 @@ journalctl --until yesterday
 Удалить логи:
 journalctl --vacuum-time=1s
 
+
 Настроить уровень логирования можно /etc/systemd/journal.conf
+
+MaxLevelStore=warning #не записывать уровень warnings в лог
+MaxLevelSyslog=warning
 

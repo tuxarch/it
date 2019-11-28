@@ -1,3 +1,10 @@
-Файл с описанием сети.
 Может быть в двух форматах ini, yaml
+
+[storage-servers]
+dwarf ansible_host=dwarf.ru 
+
+
+[all:vars]
+ansible_python_interpreter = /usr/bin/python2
+ansible_port = 58319
 

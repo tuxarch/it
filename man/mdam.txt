@@ -10,3 +10,7 @@ cat /proc/mdstat
 mdadm -S /dev/md0
 mdadm --zero-superblock /dev/sd[a-e]1
 
+Уменьшить/увеличить скорость ребилда
+echo 1000 > /proc/sys/dev/raid/speed_limit_max
+echo 200000 > /proc/sys/dev/raid/speed_limit_max
+

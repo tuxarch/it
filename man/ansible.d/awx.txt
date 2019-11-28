@@ -1,0 +1,21 @@
+Tower & AWX
+============
+
+Установка через docker-compose:
+git clone https://github.com/ansible/awx.git
+
+Задаем рутовый пароль и директорию для базы:
+
+Ставим на localhost:
+cd installer && ansible-playbook -i inventory install.yml
+
+
+Ждем минут пять. Смотрим статус 
+docker logs -f awx_task
+
+=====================================
+
+Molecule должна подключаться отдельно и для каждой роли.
+Возможность настройки оповещения
+
+

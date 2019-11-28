@@ -17,3 +17,9 @@ jrnl -n 5 -and @pineapple @lubricant
 apt install clang libcrypt-dev python-dev openssl-dev 
 apt update && apt upgrade 
 pip install jrnl
+
+
+## Работа с тэгами
+jrnl --tags
+
+
