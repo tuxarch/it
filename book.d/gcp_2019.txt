@@ -1,0 +1,130 @@
+Associate Cloud Engineer. Study guide.
+Dan Sullivan 2019 year
+========================================
+
+
+Overview:
+VM vs Kubernetes
+Storage
+Deploy
+Networking
+Monigoring
+
+Основные виды ресурсов:
+Вычислительные ресурсы
+Хранилища
+Сети
+Специализированные сервисы (Машинное обучение и тп)
+
+
+Serverless computing:
+App Engine - аналог EBS
+Cloud Funciton - aws lambda
+
+Storage:
+Object - cloud storage
+file - 
+block
+caches
+
+
+Обьекты объединяются в бакет, бакеты без лимита
+
+Compute resources:
+Compute engine - создание, работа с  kvm
+Kubernetes engine 
+App engine - Paas (sandbox and docker)
+Cloud Functions - запуск кода по событию
+
+Storage resources:
+Cloud Storage - хранилище объектов
+Persisten Disk - attached disk VM
+Cloud Storage for Firebase - for mobile app
+Cloud Filestore - sharred filesystem
+Cloud SQL - MySQL 16gb, 500Gb
+Cloud Bigtable - NoSQL
+Cloud Spanner - распределенная Nosql for SQL
+Cloud Datastore - document database
+Cloud Memorystore 
+Cloud Firestore - NosQL
+
+Networking resources:
+Virtual Private Cloud 
+Cloud Load Balancing - работает с регионами
+Cloud Armor - Ddos guard
+Cloud CDN 
+Cloud Interconnect - on-premises connect on cloud
+Cloud DNS 
+
+
+Other resources:
+IAM
+Development tools 
+Stackdriver - collect metrics, logs
+API Platform 
+Data Analytics - streaming, analyzing bigdata
+
+
+
+Managment progect 
+Organisation - Folder - Folder - Project
+
+
+===
+Виртуальные машины
+Windows, linux (rche)
+
+===
+Kubernetes cluster
+
+===
+APP Engine - python, nodejs, java, go, php
+
+Хостинг для вэб-приложений
+
+Масштабирование на основе:
+макс-мин количество инстансов
+cpu utilization
+
+Разворачивается yml, где также указывается параметры масштабирования
+Cплит трафика, на разные инстансы которые могут иметь разные версии
+
+===
+Cloud Function
+Позволяет работать с функциями предоставлющими облаком.
+
+
+=== Storage
+
+Memorystore - In-memory хранилище (redis)
+Можно использовать с kubernetes
+
+Persistent disk 
+Может быть смонтирован на чтение на мултиноды
+
+Cloud Store - хранилище объектов
+Возможность хранения в мультирегионах
+
+Реляционные
+Cloud SQL - вертикальное масштабирование
+Cloud Spanner - sql запросы,распределенная больших размеров на базе Nosql
+BigQuery - реализация MapReduce, данные зазружаются через Storage 
+
+NoSQL
+Datastore - документо-ориентированная база
+Firestore - document-base, destributed, поддержка транзакций. Как альтернатива
+SQL.
+Bigtable - колоночная база-данных
+
+
+== Networking
+== DNS, Load balancing
+== AIM - access
+== Loging, Monitoring (Stackdriver)
+Cloud Trace
+
+
+
+
+
+
