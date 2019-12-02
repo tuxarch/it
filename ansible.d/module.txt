@@ -1,0 +1,16 @@
+== dev-sec.os-hardening
+ansible-galaxy install dev-sec.os-hardening
+version: 5.2.1
+
+
+Выключить эту опцию если не проходит arp-пинг если есть разные интерфейсы
+net.ipv4.conf.all.arp_ignore: 1
+
+Устанавливает модель pam_passwdqc для контроля качества пароля
+
+pam.d:
+min=disabled,disabled,16,12,8
+deny=5 onerr=fail unlock_time=600
+
+Разблокировать заблокированный пароль
+pam_tally --user<username> --reset или pam_tally2 --user<username> --reset.

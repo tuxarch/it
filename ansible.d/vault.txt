@@ -1,0 +1,38 @@
+=== ansible-vault
+
+
+encrypt зашифровать файл
+create - создать шифрованный файл
+edit 
+view
+decrypt
+rekey - перегенерировать ключи
+
+
+--vault-id - путь до ключа, имя учетки
+
+
+Цепочка паролей:
+ansible-playbook --vault-id dev@dev-password --vault-id prod@prompt site.yml
+
+
+====================
+Используем label для паролей
+
+Генерим пароль:
+head -c 100 /dev/urandom | base64 > vault.key
+
+
+Генерируем зашифрованную строку и вставляем ее потом в файл с var(!!!!):
+ansible-vault encrypt_string 'paSSwd' --name 'var_name' --vault-id vault.key
+ansible-vault encrypt_string '999' --name '- nginx_worker' --vault-id
+vault.key >> var.yml
+
+Запускаем плейбук с секретами:
+ansible-playbook --vault-id vault.key playbook_clear_oldd.yml --diff --check
+
+Прочитать зашифрованную переменную:
+ansible localhost -m debug -a var="nginx_worker_connections" -e "@host_vars/ubuntu.yml" --vault-id vault.key -vvvv
+
+
+

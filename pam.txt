@@ -1,0 +1,6 @@
+Разблокировать заблокированный пароль
+pam_tally --user<username> --reset или pam_tally2 --user<username> --reset.
+
+Отключить проверку пароля при создании в centos:
+password    sufficient    pam_unix.so sha512 shadow nullok try_first_pass #use_authtok
+

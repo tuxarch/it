@@ -1,0 +1,8 @@
+Для работы с credential ставим плагин ansible
+
+Добавляем ключ в credential,
+а затем цепляем его в разделе сборка
+Invoke Ansible Vault
+
+
+Также есть плагин Ansible Tower
