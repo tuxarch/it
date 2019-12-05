@@ -1,0 +1,98 @@
+=== Build rpm
+
+На убунте:
+apt install rpm
+
+Создаем структуру (rpmdevtools) :
+Генерим rpmdev-setuptree
+
+mkdir -p ~/rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}
+echo '%_topdir %(echo $HOME)/rpmbuild' > ~/.rpmmacros
+
+
+Закидываем наш бинарь:
+cd ~/rpmbuild/SOURCES && mkdir HelloWorld-1.0
+cat <<EOF >>  HelloWorld-1.0/HelloWorld.sh
+#!/bin/sh
+echo "hello_world"
+
+chmod 755 HelloWorld-1.0/HelloWorld.sh
+touch HelloWorld-1.0/configure
+chmod 755 HelloWorld-1.0/configure
+tar czvf HelloWorld-1.0.tar.gz HelloWorld-1.0
+
+Создаем spec-файл:
+cd ~
+
+rpmdev-newspec rpmbuild/SPECS/HelloWorld-1.0.spec
+vi ~/rpmbuild/SPECS/HelloWorld-1.0.spec
+###############
+
+Name: HelloWorld
+Version: 1.0                       <--- Version must be the same as the name of the
+                                         folder containing the package file(s)
+Release: 1%{?dist}                 <--- Release number, added to package's name
+Summary: Hello World Script
+Group: Miscellaneous               <--- For general purposes use 'Miscellaneous'
+License: License text
+# URL:
+Source0: HelloWorld-1.0.tar.gz     <--- Pay attention to the name of tar file
+BuildArch: noarch                  <--- If nothing specified, current architecture
+                                           is used [ i386 | x86_64 | noarch ]
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+# BuildRequires:                   <--- Required packages to build this one
+# Requires:                        <--- Required packages for installing this one
+%description
+This is a text describing what the Package is meant for
+%prep
+%setup -q
+%build
+# %configure                       <--- We have nothing to configure or compile
+# make %{?_smp_mflags}                   so we comment these two lines out
+%install
+rm -rf $RPM_BUILD_ROOT
+# make install DESTDIR=$RPM_BUILD_ROOT    <--- We have nothing to compile
+install -d -m 0755 $RPM_BUILD_ROOT/opt/HelloWorld
+install -m 0755 HelloWorld.sh $RPM_BUILD_ROOT/opt/HelloWorld/HelloWorld.sh
+^ These two directives indicate where folders and files will be
+    created/installed and their effective rights
+%clean
+rm -rf $RPM_BUILD_ROOT
+%files
+%defattr(-,root,root,-)
+# %doc
+/opt/HelloWorld/HelloWorld.sh       <--- We confirm the file(s) to install
+%changelog
+
+################
+Name: HelloWorld
+Version: 1.0
+Release: 1%{?dist}
+Summary: Hello World Script
+Group: Miscellaneous
+License: License text
+Source0: HelloWorld-1.0.tar.gz
+BuildArch: noarch
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+%description
+%prep
+%setup -q
+%build
+%install
+rm -rf $RPM_BUILD_ROOT
+install -d -m 0755 $RPM_BUILD_ROOT/opt/HelloWorld
+install -m 0755 HelloWorld.sh $RPM_BUILD_ROOT/opt/HelloWorld/HelloWorld.sh
+%clean
+rm -rf $RPM_BUILD_ROOT
+%files
+%defattr(-,root,root,-)
+/opt/HelloWorld/HelloWorld.sh
+%changelog
+#################
+
+Сборка пакета
+rpmbuild -ba rpmbuild/SPECS/HelloWorld-1.0.spec
+
+Проверка и установка:
+rpm -qpl HelloWorld-1.0-1.el6.noarch.rpm
+sudo rpm -ihv hello.rpm

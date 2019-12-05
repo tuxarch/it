@@ -1,19 +1,50 @@
 checkinstall - сборка deb пакета
 alien - конвертация в rpm
 
-сборка пакетов
-дебианизация - пишем конфиги д
-
-создаем директорию debian - куда пишем параметры сборки
-
-зависимость, требования для сборки, контрольные суммы, пишем скрипты для
-сборки
-
 lintian - проверка пакета deb
 
 dh_make - сборщик deb-пакета
 
 
-=========================================================
+==== Simply Build package
+Кидаем бинарь, systemd-юнит, их содержимое обновляется каждый раз после установки
 
-mysqlcheck --database express --tables disids
+mkdir -p helloworld_1.0-1/usr/local/bin
+cp helloworld helloworld_1.0-1/usr/local/bin
+
+vi helloworld_1.0-1/DEBIAN/control
+----
+Package: helloworld
+Version: 1.0-1
+Section: base
+Priority: optional
+Architecture: amd64
+Depends: vim (>= 1.2.13), python3 (>= 1.2.6)
+Maintainer: Your Name <you@email.com>
+Description: Description your appp
+ .
+----
+
+vi helloworld_1.0-1/etc/systemd/system/helloworld.service
+----
+[Unit]
+Description=Hello_world
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/helloworld >> /var/log/blah
+
+[Install]
+WantedBy=multi-user.target
+----
+
+dpkg-deb --build helloworld_1.0-1
+sudo dpkg -i helloworld_1.0-1.deb
+sudo systemctl daemon-reload
+sudo systemctl start helloworld.service
+journalctl -xe
+
+
+
+
+

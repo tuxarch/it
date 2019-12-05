@@ -1,0 +1,26 @@
+timestamps {
+
+node () {
+
+	stage ('ansible_stage - Checkout') {
+ 	checkout([$class: 'GitSCM', branches: [[name: '*/test']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/chetnuy/jenkins_ansible.git']]]) 
+	}
+
+
+	stage ('ansible_stage - Build') {
+ 			// Shell build step
+		sh """ 
+		
+		chmod 400 vagrant.key && /usr/local/bin/ansible-playbook playbook.yml --diff --check --vault-id vault.key 
+ 		""" 
+	}
+
+	stage (‘Deploy’) {
+	#Предварительно генерим и раскладываем ключи ssh
+		sh ‘ssh user@server rm -rf /var/www/temp_deploy/dist/’
+		sh ‘ssh user@server mkdir -p /var/www/temp_deploy’
+		sh ‘scp -r dist user@server:/var/www/temp_deploy/dist/’
+		sh ‘ssh user@server “rm -rf /var/www/example.com/dist/ && mv /var/www/temp_deploy/dist/ /var/www/example.com/”’
+	}
+}
+}

@@ -1,0 +1,4 @@
+== Qemu
+Включить отобржаение vnc в json:
+"headless": false,
+

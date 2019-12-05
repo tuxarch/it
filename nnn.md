@@ -1,5 +1,7 @@
 ### nnn -file manager
 
+] - выполнить одну команду shell
+A - используем для опредеения размера 
 X - delete
 e - edit file
 p - pager
@@ -27,6 +29,3 @@ cpg/mvg -g
 Ставим отсюда, требуется компилятор
 yaourt advcp
 https://github.com/jarun/advcpmv
--
-
-
