@@ -18,4 +18,5 @@ terraform destroy
 Прописываем переменную в конфиге, а зачем стучимся через нее
 ssh `terraform output ip`
 
+terraform11 output ssh - получить доступ к переменной
 
