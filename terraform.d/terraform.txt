@@ -1,22 +1,23 @@
-создаем файл main.tf
-
-// Configure the Google Cloud provider
-provider "google" {
- credentials = "/home/usr/.config/gcloud/creds/terraform_creds.json"
- project     = "kube-45653"
- region      = "europe-west2-b"
-}
-
-
-terraform init - подсасываем конфиг
-terraform plan - проверяем 
+= Команды
+terraform init - ставим плагины
+terraform plan - смотрим текущее состояние
 terraform apply - запускаем
+terraform destroy 
+
+export TF_LOG=0 - вывести отладочную информацию
 
 
-terraform destroy
+= Работа с переменными:
+Прописываем переменную в конфиге:
+output "ssh" {} output "public_ip" {}
+Получить доступ к ней:
+terraform11 output ssh
+Коннектимся:
+terraform output ssh > sec.key && chmod 600 && ssh ec2-user@$(terraform output
+public_ip) -i sec.key
 
-Прописываем переменную в конфиге, а зачем стучимся через нее
-ssh `terraform output ip`
 
-terraform11 output ssh - получить доступ к переменной
+= Обновление:
+terraform11 0.12checklist
+terraform 0.12upgrade
 
