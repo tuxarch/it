@@ -14,3 +14,19 @@ docker push localhost:5000/my-ubuntu
 
 Список образов получить:
 http://localhost:5000/v2/_catalog
+
+
+== Service registry
+Бесплатное публичное registry:
+Quay.io от coreos
+dockerhub.com
+
+AWS ECR
+Google container registry - платишь за трафик и размер
+
+== On-premise
+Docker Registry2.0 - собственный сервис на базе dockerhub, без ui
+Atomic Registry - решение от Redhat
+Portus(SUSE) - несложное решение и поддержкой аутентификации
+Sonatype Nexus - позволяет также хранить репозитории npm, ruby
+

@@ -1,0 +1,22 @@
+== Установка 
+
+#!/bin/bash
+apt-get update
+apt-get -y install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+apt-key fingerprint 0EBFCD88
+add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+apt-get update
+apt-get -y install docker-ce
+usermod -G docker ec2-user
+###
+
+docker run -d --restart=unless-stopped   -p 80:80 -p 443:443   rancher/server:preview
+
+sudo docker run -d --privileged --restart=unless-stopped --net=host -v /etc/kubernetes:/etc/kubernetes -v /var/run:/var/run rancher/rancher-agent:v2.0.0 --server https://185.12.29.129 --token f7g8f4kccl4ngs4bv5w6jghkfggqbrv2h4rvm6t8mssxv4527ttgt2 --ca-checksum 93d860f6fd1e555975d955b71e2110f40523944e9e1676a7af861ee00bdc5a9e --etcd --controlplane --worker
+
+
+Запуск с сертификатом lets-encrypt, монтированием и перезапуском
+docker run -d --restart=unless-stopped -p 80:80 -p 443:443 -v /host/rancher:/var/lib/rancher rancher/rancher --acme-domain example.com
+
+

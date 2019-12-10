@@ -41,3 +41,6 @@ docker service create --name web --network mynetwork --replicas 3 -p 5001:80
 francois/apache-hostname - создаем сервис
 docker service ls
 docker service ps web
+
+## Web-ui
+Portainer

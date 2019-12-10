@@ -7,6 +7,9 @@ pacman -Syu --noconfirm  - подтверждение
 
 pacman -S --force - принудительное удаление  
 
+pacman -Rns $(pacman -Qtdq) - удалить пакеты сироты
+
+
 
 cache: 
 /var/cache/pacman/pkg
