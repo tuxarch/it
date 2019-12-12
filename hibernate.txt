@@ -32,3 +32,5 @@ use:
 systemctl hibernate
 pm-hibernate 
 ------------------------------------------------
+
+Черный экран - ставим pm-suspend
