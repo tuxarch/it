@@ -7,3 +7,5 @@ find . -type f -not -path "./.git/*"
 
 Подсчитать количество файлов в директории it
 ls -laR main/it/ | grep ^-
+find it -type f | wc -l
+

@@ -1,3 +1,28 @@
 В данное время есть два скрипта для weechat
 на lua и python.
 Ставиться кастомная библиотека olm для криптографии
+
+
+
+
+
+=== Riot
+= Подключение к freenode
+Пишем на @appservice-irc:matrix.org для смены nickname
+!nick chat.freenode.net <IRC nick>
+
+Получаем ответ из NickServ и пишем:
+IDENTIFY <username> <password>
+
+Чтобы сохранить пароль от фриноды на matrix серверах:
+Пишем на @appservice-irc:matrix.org 
+!storepass chat.freenode.net <username>:<password>
+
+Чтобы добавиться в чат freenode:
+#freenode_#archlinux:matrix.org
+
+= Подключение к telegram
+Invite @telegram:t2bot.io to a private chat.
+Send the message !tg login, ждем инвайта
+
+Выйти: !tg logout
