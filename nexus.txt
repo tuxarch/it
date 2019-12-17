@@ -1,0 +1,65 @@
+=== nexus sotantype
+
+
+== docker
+Чтобы запушить без https:
+echo "{ "insecure-registries":["nexus.me:8123"] }" > /etc/docker/daemon.json
+docker tag ubuntu:latest nexus.me:8123/ubuntu:latest
+docker push nexus.me:8123/ubuntu:latest
+
+
+Чтобы вытащить из репо:
+echo "{ "insecure-registries":["nexus.me:8123"] }" > /etc/docker/daemon.json
+
+= Чтобы включить доступ на pull docker
+Убираем галку "Disable to allow anonymous pull"
+Under Security > Realms, enable the “Docker Bearer Token Realm”
+
+== docker https:
+
+= nginx conf
+http {
+
+  upstream docker_server{
+    server localhost:8123;
+  }
+
+  server {
+    listen 443 ssl http2;
+    server_name ash-devops.com;
+
+    # SSL
+    ssl_certificate /etc/letsencrypt/live/ash-devops.tk/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/ash-devops.tk/privkey.pem;
+    ssl_session_cache shared:SSL:20m;
+    ssl_session_timeout 1d;
+    ssl_prefer_server_ciphers       on;
+    ssl_protocols  TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers    'EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH';
+    ssl_dhparam    /etc/nginx/ssl/dhparam.pem;
+
+    ssl_buffer_size 8k;
+
+    ssl_stapling on;
+    resolver 8.8.8.8;
+    ssl_stapling_verify on;
+
+    proxy_max_temp_file_size 0;
+
+
+
+
+
+        location / {
+        proxy_redirect off;
+        proxy_pass http://docker_server;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_read_timeout 90;
+         }
+}
+
+}
+

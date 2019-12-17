@@ -1,3 +1,25 @@
+=== Начало работы
+Сначалa нужно создать проект и terraform-учетку
+
+gcloud projects create pipe-in-action
+gcloud projects list
+gcloud config set project pipe-in-action - переключаемся на проект
+
+
+Включаем API (Нужно пробывать):
+gcloud services enable cloudbilling.googleapis.com
+gcloud services enable iam.googleapis.com
+
+Тестим есть ли API и получаем запрос на подключение
+gcloud compute instances list
+
+Идем и включаем API на проекте
+https://console.developers.google.com/project/37/settings
+
+= создание акканта
+
+gcloud iam service-accounts list
+
 Создать сервисный акаунт:
 gcloud iam service-accounts create terraform --display-name "Terraform admin account"
 
@@ -17,7 +39,4 @@ gcloud projects add-iam-policy-binding terraform-2018 \
 Включаем API:
 gcloud services enable cloudbilling.googleapis.com
 gcloud services enable iam.googleapis.com
-
-Создаем конфиг compute_instance.tf
-
 

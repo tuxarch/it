@@ -1,7 +1,30 @@
 certboot --nginx  - найдет домент в конфиге nginx
-Сгенерируем 
 
 Сертификаты выдаются на 90 дней
 
 Добавляем cron
 certboot renew
+
+
+
+
+== Ручная генерация
+certbot certonly -d ash-devops.com (жмем да.да)
+
+Ключи падают на:
+/etc/letsencrypt/live/devops.com/
+
+Добавляем их в nginx:
+ssl_certificate /etc/letsencrypt/live/devops.com/fullchain.pem;
+ssl_certificate_key /etc/letsencrypt/live/devops.com/privkey.pem;
+
+Проверка срока:
+openssl x509 -in /etc/letsencrypt/live/devops.com/fullchain.pem -text -noout
+
+Продление ключа кидаем в cron (обновиться ближе к истичению):
+30 3 * * * certbot renew --quiet --no-self-upgrade
+
+
+
+
+

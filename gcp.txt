@@ -1,6 +1,8 @@
-== Gcloud 
-ставим консоль из аура
+=== Gcloud 
 
+== Настройка консоли
+
+ставим консоль из аура
 
 gcloud init
 gcloud login auth
@@ -24,7 +26,7 @@ gcloud config list compute/region
 
 
 
-== Работа с instance
+== Работа с project
 
 Список проектов
 gcloud projects list 
@@ -34,6 +36,20 @@ gcloud projects create kube-learn-45653
 
 Переключиться на проект
 gcloud config set project kube-learn-45653
+
+Задать дефолтную зону:
+gcloud compute project-info add-metadata \
+    --metadata google-compute-default-region=europe-west1,google-compute-default-zone=europe-west1-b
+
+Посмотреть зону:
+gcloud compute project-info describe | grep google-compute-default-region
+
+Удалить проект:
+gcloud projects delete kube-learn-45653
+
+
+
+== Работа с instance
 
 Получить список запущенных инстансов:
 gcloud compute instances list

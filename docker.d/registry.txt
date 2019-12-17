@@ -30,3 +30,9 @@ Atomic Registry - решение от Redhat
 Portus(SUSE) - несложное решение и поддержкой аутентификации
 Sonatype Nexus - позволяет также хранить репозитории npm, ruby
 
+
+== Поиск по кастомному репо:
+Что есть:
+curl -X GET https://ash-devops.com/v2/_catalog
+Узнать тэги:
+curl -X GET https://ash-devops.com/v2/ubuntu/tags/list
