@@ -1,0 +1,4 @@
+gitub action 
+Запуск команд linux
+
+.github/workflows/my-pipeline.yml

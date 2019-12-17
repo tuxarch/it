@@ -1,8 +1,8 @@
 === nexus sotantype
 
 
-== docker
-Чтобы запушить без https:
+== docker registry (no https)
+
 echo "{ "insecure-registries":["nexus.me:8123"] }" > /etc/docker/daemon.json
 docker tag ubuntu:latest nexus.me:8123/ubuntu:latest
 docker push nexus.me:8123/ubuntu:latest
@@ -15,9 +15,8 @@ echo "{ "insecure-registries":["nexus.me:8123"] }" > /etc/docker/daemon.json
 Убираем галку "Disable to allow anonymous pull"
 Under Security > Realms, enable the “Docker Bearer Token Realm”
 
-== docker https:
+== docker https через nginx:
 
-= nginx conf
 http {
 
   upstream docker_server{
@@ -44,11 +43,7 @@ http {
     resolver 8.8.8.8;
     ssl_stapling_verify on;
 
-    proxy_max_temp_file_size 0;
-
-
-
-
+    proxy_max_temp_file_size 0; #Основной ключ при передаче
 
         location / {
         proxy_redirect off;
