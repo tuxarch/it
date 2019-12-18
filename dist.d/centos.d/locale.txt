@@ -1,0 +1,10 @@
+== Установка timezone:
+timedatectl set-timezone Europe/Moscow
+Текущая timezone:
+ls -l /etc/localtime
+
+== Установка системной локали:
+localectl status
+
+localectl set-locale LANG=en_GB.utf8
+
