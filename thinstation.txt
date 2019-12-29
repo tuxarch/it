@@ -1,0 +1,9 @@
+## Thinstation
+
+Основная инструкция:
+https://github.com/ThinStation/thinstation/wiki/Getting-Started-with-ThinStation
+
+Создаем виртуалку на на базе DevStation:
+https://sourceforge.net/projects/thinstation/files/latest/download
+
+от 2гб и 30гб память и диск

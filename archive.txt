@@ -1,4 +1,5 @@
 ## tar
+tar cvf arch.tar file/* - тарбол без сжатия
 mkdir pp && tar xvf puppet_srg_clear.tar.gz -C pp - в папку все извлечь
 tar czvf file.tar.gz file1 flie2 - создать gzip тарбол архив
 tar -tvf my-data.tar.gz - список файлов в архиве
