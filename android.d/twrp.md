@@ -19,3 +19,17 @@ settings_fingerprint.xml
 по пути data/system/users/0/fpdata/ следующий файл:
 user.db
 
+
+## Бэкап 
+System или system image (образ, а не файлы)
+Data, Boot, Recovery, Firmware, Bootloader, Modem, EFS
+
+
+## Шифрование
+
+Пароль на расшифровку данных и ключ первоначально совпадают. 
+Чтобы изменить пароль на фс, делаем 
+su -c vdc cryptfs changepw пароль
+EncPassChanger - приложение
+После смены Pin пароль на фс также изменится
+
