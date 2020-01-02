@@ -1,14 +1,28 @@
+=== CYQWIN
+
+== Менеджеры
 apt-cyg - менеджер пакетов
 	Устанавливаем wqet 
 	качаем rawgit.com/transcode-open/apt-cyg/master/apt-cyg
 	устанавливаем install apt-cyg /bin
+cyg-get.bat - обвязка вокруг официального установщика
+		ставиться чере choco
+                 cyg-get openssh
 
+== Пакеты
 nmap - ставится отдельно
+sshd - описан в файлах win.d/shell
+
+
+== Настройки
+PATH в windows добавляем
+Проблемы с путями для решения добавляем строку в bashrc
+PATH=$PATH:$HOME/bin:/sbin:/usr/sbin
 
 Ключевой файл запуска /bin/minitty -
 
-Проблемы с путями для решения добавляем строку в bashrc
-PATH=$PATH:$HOME/bin:/sbin:/usr/sbin
+Добавить строку в cygwin.bat
+
 
 
 Для работы с дисками использовать

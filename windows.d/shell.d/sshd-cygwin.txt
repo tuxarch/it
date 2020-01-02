@@ -1,0 +1,42 @@
+=== Установка и конфигурирование sshd
+
+Добавляем предпоследнюю строчку в c:\\tools\cyqwin\cyqwin.bat
+set CYGWIN=binmode ntsec
+
+Ставим openssh, openssl (zip, unzip):
+cyg-get.bat openssh openssl
+apt-cyg install openssh openssl
+
+
+Прокидываем учетные записи:
+mkpasswd -l > /etc/passwd
+mkgroup.exe > /etc/group
+
+Настраиваем PATH в окружении win:
+C:\tools\cygwin\usr\sbin;C:\tools\cygwin\bin
+
+
+Конфигурируемся:
+ssh-host-config -y
+
+Запускаемся:
+cygrunsrv -S sshd
+
+
+
+Настраиваем и смотрим сервисы в win:
+CYGWIN cygsshd - наш сервис
+SSH Daemon/MKS Secure Shell service - отключить, так как весит на порте?
+
+
+Проверить запущена ли служба:
+netsh advfirewall set allprofiles state off - отключаем фаервол от рута
+netstat -an | findstr :22 - открыт ли сокет
+/var/log/cygsshd.log - нужно настраивать отдельно
+
+
+Частые проблемы:
+Нет sshd, sshd_config
+Неверные права доступа на файлах
+На порте другая служба
+Не настроен фаервол
