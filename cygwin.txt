@@ -1,16 +1,38 @@
+=== CYQWIN
+
+== Менеджеры
 apt-cyg - менеджер пакетов
 	Устанавливаем wqet 
 	качаем rawgit.com/transcode-open/apt-cyg/master/apt-cyg
 	устанавливаем install apt-cyg /bin
 
+cyg-get.bat - обвязка вокруг официального установщика
+		ставиться чере choco
+                 cyg-get openssh
+
+== Пакеты
 nmap - ставится отдельно
+sshd - описан в файлах win.d/shell
 
-Ключевой файл запуска /bin/minitty -
+Пинтестерское зеркало 
+http://mirror.switch.ch/ftp/mirror/cygwin/x86_64/release/
 
+
+== Настройки
+PATH в windows добавляем
 Проблемы с путями для решения добавляем строку в bashrc
 PATH=$PATH:$HOME/bin:/sbin:/usr/sbin
 
+minnity - в свойствах настраивается кодировка и принтеры
+Ключевой файл запуска /bin/minitty -
 
+Добавить строку в cygwin.bat
+
+== Пользовательские настройки
+PS1='\033]0;${PWD}\n\033[32m${USER}@${HOSTNAME}\033[33m${PWD/${HOME}/~}\033[0m$ ' 
+
+
+== Tricks
 Для работы с дисками использовать
 	cat /proc/partitions
 
@@ -18,30 +40,14 @@ PATH=$PATH:$HOME/bin:/sbin:/usr/sbin
 Отваливается постоянно при перезагрузке, ничего лучше не нашел, чем добавить в
 автозагрузку.
 
-Программа ругнется на права доступа файловой системы!!! В частности, это может
-случиться при работе ssh.
-
-chmod 700 /home/your_user/.ssh
-chmod 600 /home/your_user/.ssh/authorized_keys
-
-StrictModes no - позволяет убрать проверку целостности ssh.
-_________________
-
-Пинтестерское зеркало 
-http://mirror.switch.ch/ftp/mirror/cygwin/x86_64/release/
-
-___________________
-
-minnity - в свойствах настраивается кодировка и принтеры
-_______________________
-PS1='\033]0;${PWD}\n\033[32m${USER}@${HOSTNAME}
-\033[33m${PWD/${HOME}/~}\033[0m$ ' 
-________________________
-
-ps -W - просмотр процессов
-
-____________________________
 Создать ярлык 
 %windir%\system32\cmd.exe /C start /B /D .\cygwin .\bin\mintty.exe -
 было использованно для g:\cygwin\bin\mintty.exe
+
+
+== Команды
+
+apt-cyg install shutdown  - ставим отдельно при желании
+ps -W - просмотр процессов
+nnn - компилируется легко из исходников
 
