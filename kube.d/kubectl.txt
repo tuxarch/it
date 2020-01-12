@@ -108,3 +108,16 @@ kubectl get configmaps game-config -o yaml\
 ### Configure
 Настроить параметры ядра на нодах
 kubelet --allowed-unsafe-sysctls 'kernel.msg*,net.ipv4.route.min_pmtu'
+
+
+### Credentials
+# Создаем файл конфигурации на базе пароля и пользователя
+kubectl config set-credentials user/ash-kube.tk --username=user --password=kubepassword
+kubectl config set-cluster ash-kube.tk --insecure-skip-tls-verify=true --server=https://3.246.3.4
+kubectl config set-context default/ash-kube.tk/user --user=user/ash-kube.tk --namespace=default --cluster=ash-kube.tk
+kubectl config use-context default/ash-kube.tk/user
+
+# Создаем секрет для приватного репо, который затем подключаем при пулах
+kubectl create secret docker-registry regcred --docker-server=ash-devops.tk
+--docker-username=admin --docker-password=passwd --docker-emal=name@mail.ik
+

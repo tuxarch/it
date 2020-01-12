@@ -23,3 +23,11 @@ openssl x509 -in /etc/letsencrypt/live/devops.com/fullchain.pem -text -noout
 
 Продление ключа кидаем в cron (обновиться ближе к истичению):
 30 3 * * * certbot renew --quiet --no-self-upgrade
+
+== Генерация для гитлаб, через web-root
+Добавляем /etc/gitlab/gitlab.rb
+nginx['custom_gitlab_server_config'] = "location ^~ /.well-known { root /var/www/letsencrypt; }"
+
+certbot certonly --webroot --webroot-path=/opt/cert -d ash-gitlab.tk
+
+gitlab-ctl reconfigure

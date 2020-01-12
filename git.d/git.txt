@@ -26,6 +26,7 @@ git config --global merge.tool - позволяет подключать доп�
 git config --global alias.l "log --oneline --graph" - создание алисы
 
 git config credential.helper store - сохранить пароль
+git config --global http.sslVerify false - отключить проверку https
 
 
 === Параметры запуска
