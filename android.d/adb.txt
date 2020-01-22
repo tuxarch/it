@@ -8,7 +8,7 @@
 Запускаем adb:
 sudo adb kill-server
 sudo adb start-server
-adb list devices
+sudo adb devices -l
 
 
 === Работа с командами
