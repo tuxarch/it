@@ -1,0 +1,20 @@
+Узнать архитектуру команд:
+gcc -march=native -Q --help=target|grep march
+
+Клонировать дерево portage:
+ego sync
+
+Обновить grub:
+ego boot update
+
+Размонтировать систему
+umount -lR funtoo
+
+Настроить флаги:
+epro show
+epro flavor desktop
+epro mix-in +gfxcard-nvidia-legacy +gnome
+
+
+Дерево:
+/var/cache/portage/distfiles

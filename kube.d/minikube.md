@@ -30,3 +30,7 @@ minikube start --vm-driver kvm2
 Запуск на cri-o
 --container-runtime=cri-o
 
+Рабочий конфиг:
+minikube start --vm-driver=kvm2 --container-runtime=crio  --cpus=8 --memory='6000mb' --kvm-network='default'
+
+
