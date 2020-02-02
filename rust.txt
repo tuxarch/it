@@ -1,0 +1,9 @@
+Установка cert-machine
+git clone https://github.com/nkmazur/cert_machine.git
+
+Ставим rust, cargo, openssl-devel, openssl
+
+cargo build 
+
+cargo install --root /usr/
+

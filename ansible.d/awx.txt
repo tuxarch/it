@@ -17,3 +17,5 @@ Molecule должна подключаться отдельно и для каж
 Возможность настройки оповещения
 
 
+Команда выполняющаюся при импорте ролей
+ansible-galaxy install -r roles/requirements.yml -p ./roles/ --force
