@@ -38,6 +38,10 @@ helm repo index ./ --url https://name.github.io/mychart - создать index.y
 для дальнейшей публикации чарта
 helm inspect package - информация о пакете
 
+helm ls --tls - список запущенных билдов
+helm del --purge nfs-provisioner --tls - удалить с мастера
+
+
 ## Flags
 -h юзаем после подкоманды
 --untar - разархивировать скаченный образ
