@@ -1,6 +1,6 @@
-== Tower & AWX
+=== Tower & AWX
 
-Установка через docker-compose:
+== Установка через docker-compose:
 git clone https://github.com/ansible/awx.git
 
 Задаем рутовый пароль и директорию для базы:
@@ -8,18 +8,27 @@ git clone https://github.com/ansible/awx.git
 Ставим на localhost:
 cd installer && ansible-playbook -i inventory install.yml
 
-
 Ждем минут пять. Смотрим статус 
 docker logs -f awx_task
 
 
+== Перезагрузка/выключение
+docker stop con1 con2 con3 - выключаем
+docker restart con1 con2 con3 - перегружаем
+
+== backup/restore
+docker stop - контейнеры кроме базы (4 шт)
+docker exec -t awx_postgres pg_dumpall -U awx -c > awx_backup_db.sql
+more awx_backup_db.sql - просмотр бэкапа
+docker restart - перезапускаем после бэкапа
+
+docker stop - все кроме базы
+cat awx_backup_db.sql | docker exec -i id_name psql -Uawx(postgres)
+
+== other
 Molecule должна подключаться отдельно и для каждой роли.
 Возможность настройки оповещения
 
-
 Команда выполняющаюся при импорте ролей
 ansible-galaxy install -r roles/requirements.yml -p ./roles/ --force
-
-Backup
-docker exec -t awx_postgres pg_dumpall -U awx -c > awx_backup_db.sql
 
