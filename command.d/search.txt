@@ -9,3 +9,6 @@ find . -type f -not -path "./.git/*"
 ls -laR main/it/ | grep ^-
 find it -type f | wc -l
 
+
+Нужно было в логах nginx посчитать количество запросов по уникальным ip
+for i in {1..51}; do echo log.$i; awk '{ print $1}' geocoder_master.access.log.$i | sort | ^Ciq -c; done 

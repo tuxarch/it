@@ -25,8 +25,9 @@ ignote update /etc/pacman.conf
 IgnorePkg = package
 -------
 
-при возникновении проблем с ключами обновляем
+при возникновении проблем с ключами cтавим и обновлем
 archlinux-keyring
+sudo pacman-key --refresh-keys - запускаем
 
 В случаее блокировки удалить:
  /var/lib/pacman/db.lck

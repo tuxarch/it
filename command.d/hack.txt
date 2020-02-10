@@ -1,0 +1,22 @@
+== Расшарить файл до 100mb
+curl -F "file=@vmware.zip" https://file.io 
+curl https://file.io/fMXwnd --output wmware.zip
+
+
+== Расшарить картинку, лог-файл
+
+Отправить вывод команды на сервак
+dmesg | curl -F c=@- https://ptpb.pw/?u=1
+curl -F c=@- https://ptpb.pw/?u=1 < encouner.jpg
+
+
+== Выключить компьютер по завершении процесса
+su -c 'while [[ -d /proc/21528 ]]; do sleep 1; done; poweroff'
+
+
+== Простой таймер
+time cat + ctrl+c - простой таймер
+
+
+
+

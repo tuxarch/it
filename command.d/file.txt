@@ -1,8 +1,21 @@
+wc - подсчет строк
+
+
+Подсчитать количество файлов в папках и подпапках
+ls -laR \!mostread/ | grep ^- | wc
+
 Посмотреть размер папки:
 du -sh directory/ 
 
+Сравнение файлов
+vimdiff file1 file2
+
 Копирование с заменой:
 yes | cp -rf xxx yyy
+
+Cокращенное cp/mv
+cp /etc/samba{,.bb} 
+
 
 Записать в файл командой сat:
 cat > script.py
