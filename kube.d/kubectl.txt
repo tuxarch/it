@@ -121,3 +121,11 @@ kubectl config use-context default/ash-kube.tk/user
 kubectl create secret docker-registry regcred --docker-server=ash-devops.tk
 --docker-username=admin --docker-password=passwd --docker-emal=name@mail.ik
 
+
+# port-forwarding
+kubectl port-forward -n ingress-nginx svc/nginx-ingress-prometheus-discovery 10254
+
+### Auth
+
+Проверить першишен для пользователя
+kubectl auth can-i get pods --as nginx-ingress-role
