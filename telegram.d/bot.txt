@@ -6,12 +6,11 @@ Namebootforbot
 Работаем с хуками:
 
 Узнать статус:
-curl https://api.telegram.org/bot1051588071:AAG0F7dHJ4TzWlnHFfJRTVKQt93wgw1jSwE/getMe
+curl https://api.telegram.org/bot[key]/getMe
 
 Отправить сообщение в чат:
 curl
-https://api.telegram.org/bot10510:AA4TzWlnHFfJRTVKQwgw1jSwE/sendMessage\?chat_id=390920\&text='This
-lmessagess'
+https://api.telegram.org/bot[key]\?chat_id=[number]\&text='This messagess'
 
 
-proxychains curl -s -X POST https://api.telegram.org/bot10511:AAG0F7dRTVKQt93wgw1jSwE/sendMessage  -F chat_id='39920' -F text='test message'
+proxychains curl -s -X POST https://api.telegram.org/[key]/sendMessage  -F chat_id='99990' -F text='test message'
