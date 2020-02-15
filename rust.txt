@@ -3,7 +3,9 @@ git clone https://github.com/nkmazur/cert_machine.git
 
 Ставим rust, cargo, openssl-devel, openssl
 
+
+yum install rust cargo openssl-devel openssl git
+git clone https://github.com/nkmazur/cert_machine.git
+cd cert_machine
 cargo build 
-
 cargo install --root /usr/
-

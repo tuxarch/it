@@ -1,0 +1,6 @@
+Получить доступные команды:
+awx --conf.host http://10.206.9.118/ --conf.username admin --conf.password
+pass --help
+
+Посмотреть пользователей на машине
+awx --conf.host http://10.206.9.118/ --conf.username admin --conf.password passw users list

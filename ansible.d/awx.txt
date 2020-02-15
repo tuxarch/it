@@ -18,7 +18,16 @@ docker restart con1 con2 con3 - перегружаем
 
 == backup/restore
 docker stop - контейнеры кроме базы (4 шт)
+docker exec awx_postgres pg_dump -U awx -Fc awx > `date +%m.%d.%y_%H.%M.%S`_awx_db.dump
+docker exec awx_postgres psql postgres awx -c 'ALTER DATABASE "awx" RENAME TO "awx_backup"'
+docker exec awx_postgres psql postgres awx -c '\l'
+docker exec -i awx_postgres pg_restore -U awx -C -d postgres < 08.26.19_12.56.05_awx_db.dump
+docker exec awx_postgres psql postgres awx -c 'DROP DATABASE awx_backup'
+
+
 docker exec -t awx_postgres pg_dumpall -U awx -c > awx_backup_db.sql
+
+
 more awx_backup_db.sql - просмотр бэкапа
 docker restart - перезапускаем после бэкапа
 
