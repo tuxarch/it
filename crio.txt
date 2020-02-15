@@ -2,6 +2,8 @@
 
 kubeadm init --cri-socket=/var/run/crio/crio.sock --kubernetes-version $(kubeadm version -o short)
 
+
+Запускать следует от рута !
 crictl images
 crictl ps
 
