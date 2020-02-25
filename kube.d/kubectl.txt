@@ -129,3 +129,8 @@ kubectl port-forward -n ingress-nginx svc/nginx-ingress-prometheus-discovery 102
 
 Проверить першишен для пользователя
 kubectl auth can-i get pods --as nginx-ingress-role
+
+
+### Работа с cert-manager
+kubectl logs -l app=cert-manager -n kube-system --kubeconfig=admin.kubeconfig-pub
+kubectl describe challenges --all-namespaces --kubeconfig=admin.kubeconfig-pub
