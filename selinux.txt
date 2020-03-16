@@ -1,0 +1,8 @@
+sestatus - узнать статус
+
+sudo setenforce 0 - временно октлючить
+
+Постоянно
+echo "SELINUX=disabled" >> /etc/selinux/config
+
+

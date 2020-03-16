@@ -1,5 +1,11 @@
 etcdctl ls  - по идее должен вывести содержимое базы
 
+sudo etcdctl --endpoints "https://10.10.20.6:2379" --key-file "/etc/ssl/etcd/etcd.key" --cert-file "/etc/ssl/etcd/etcd.crt" --ca-file "/etc/ssl/etcd/etcd-ca.crt" member list
+
+ETCDCTL_API=3 etcdctl --endpoints=https://10.10.20.6:2379 --key=/etc/ssl/etcd/etcd.key --cert=/etc/ssl/etcd/etcd.crt --cacert=/etc/ssl/etcd/etcd-ca.crt get / --prefix --keys-only
+
+Удалить все из базы
+ETCDCTL_API=3 etcdctl del "" --from-key=true
 
 
 Подключаемся и смотрим
@@ -147,6 +153,30 @@ gcloud compute http-health-checks create kubernetes \
 Проверяем версию на kube
 curl --cacert ca.pem https://${KUBERNETES_PUBLIC_ADDRESS}:6443/version
 
+=== Настраиваем воркеры
 
 
+{
+  sudo apt-get update
+  sudo apt-get -y install socat conntrack ipset
+}
+
+
+
+wget -q --show-progress --https-only --timestamping \
+  https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.15.0/crictl-v1.15.0-linux-amd64.tar.gz \
+  https://github.com/opencontainers/runc/releases/download/v1.0.0-rc8/runc.amd64 \
+  https://github.com/containernetworking/plugins/releases/download/v0.8.2/cni-plugins-linux-amd64-v0.8.2.tgz \
+  https://github.com/containerd/containerd/releases/download/v1.2.9/containerd-1.2.9.linux-amd64.tar.gz \
+  https://storage.googleapis.com/kubernetes-release/release/v1.15.3/bin/linux/amd64/kubectl \
+  https://storage.googleapis.com/kubernetes-release/release/v1.15.3/bin/linux/amd64/kube-proxy \
+  https://storage.googleapis.com/kubernetes-release/release/v1.15.3/bin/linux/amd64/kubelet
+
+
+POD_CIDR=$(curl -s -H "Metadata-Flavor: Google" \
+  http://metadata.google.internal/computeMetadata/v1/instance/attributes/pod-cidr)
+
+
+
+== Настройка kube-adm
 

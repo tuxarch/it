@@ -41,3 +41,7 @@ Molecule должна подключаться отдельно и для каж
 Команда выполняющаюся при импорте ролей
 ansible-galaxy install -r roles/requirements.yml -p ./roles/ --force
 
+
+
+Перезагрузка контейнеров:
+docker restart awx_memcached awx_rabbitmq awx_task awx_web
