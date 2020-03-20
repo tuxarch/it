@@ -162,3 +162,16 @@ gcloud compute firewall-rules list
 
 Создать правило:
 gcloud compute firewall-rules create default-ssh --network=<network-name> --description "SSH allowed from anywhere" --allow tcp:22
+
+
+== Быстрое создание сингл-машины
+
+Создаем машину:
+gcloud compute instances create ubuntu --can-ip-forward --image-family ubuntu-1804-lts --image-project ubuntu-os-cloud --machine-type n1-standard-1
+
+Правила для сетки по дефолту:
+gcloud compute firewall-rules create for-gcp --allow
+tcp:22,tcp:80,tcp:443,tcp:636,tcp:389,tcp,icmp --network default --source-ranges 0.0.0.0/0
+
+Коннект:
+gcloud beta compute ssh ubuntu

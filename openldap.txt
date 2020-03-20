@@ -1,0 +1,24 @@
+== Установка в ubuntu
+
+Ставим:
+echo "127.0.1.1       hostname.example.com	hostname" > /etc/hosts
+sudo apt install slapd ldap-utils
+sudo dpkg-reconfigure slapd
+
+
+=== Работа с консолью
+
+Проверяем записи:
+ldapsearch -x -LLL -H ldap:/// -b dc=hostname,dc=example,dc=com dn
+
+Создаем запись из файла:
+ldapadd -x -D cn=admin,dc=example,dc=com -W -f add_content.ldif
+
+Информация по записи:
+ldapsearch -x -LLL -b dc=hostname,dc=example,dc=com 'uid=john' cn gidNumber
+
+Проверить пароль admin:
+ldapwhoami -vvv -h hostname.example.com -p 389 -D cn=admin,dc=hostname,dc=example,dc=com -x -w passwd
+
+Проверить пользователя:
+ldapwhoami -vvv -h 192.168.122.11 -p 389 -D uid=john,ou=People,dc=hostname,dc=example,dc=com -x -w johnldap

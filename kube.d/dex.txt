@@ -1,0 +1,8 @@
+
+Установка helm
+helm install -n dex --namespace kube-system --values values-dex.yml charts/dex
+helm install -n dex-auth --namespace kube-system --values values-auth.yml charts/dex-k8s-authenticator
+
+Удаление:
+helm del --purge dex --tls
+helm del --purge dex-auth --tls
