@@ -1,0 +1,27 @@
+=== XFCE4
+startxfce4 - команда для запуска
+
+
+== Настройка раскладки
+Ставим xfce4-xkb-plugin для отображение в треи и добавляем на панель
+Важно правильно выбрать тип русской клавиатуры
+
+
+== Автомонтирование usb
+Средствами thunhar, но нужно ставить gvfs, thunar-volman
+Для монтирование без открытия фм, добавляем юнит
+
+
+== Настройка lightdm для автоматического входа
+/etc/lightdm/lightdm.conf
+---
+run-directory=/run/lightdm
+pam-service=lightdm
+pam-autologin-service=lightdm-autologin
+session-wrapper=/etc/lightdm/Xsession
+user-session=xfce
+autologin-user=username
+autologin-user-timeout=0
+---
+systemctl enable lightdm.service && systemctl start lightdm.service
+
