@@ -34,6 +34,7 @@ cd && ./configure --prefix=/opt/ --with-ensurepip=install && make
 
 Создаем окружение:
 /opt/bin/python3 -m venv project
+python -m virtualenv python2
 
 заходим в окружение:
 source project/bin/activate  

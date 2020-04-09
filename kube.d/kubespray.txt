@@ -1,3 +1,11 @@
+== Чистим /tmp от фактов от старых установок
+== Удаляем лимиты memory_limit
+./roles/kubernetes/preinstall/defaults/main.yml
+== cri-o ubuntu
+Ставим по документации из гита, добавляем репо
+
+
+
 ставим requirements.txt через virtualenv
 
 Kопируем шаблон inventory/sample as inventory/mycluster

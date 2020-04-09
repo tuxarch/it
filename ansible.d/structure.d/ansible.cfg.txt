@@ -3,6 +3,7 @@ inventory = ./hosts
 remote_user = user
 private_key_file = ./id_rsa
 allow_world_readable_tmpfiles=True
+interpreter_python = python2
 host_key_checking=False
 forks = 10
 
