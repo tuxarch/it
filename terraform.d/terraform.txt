@@ -3,9 +3,24 @@ terraform init - ставим плагины
 terraform plan - смотрим текущее состояние
 terraform apply - запускаем
 terraform destroy 
+terraform graph - порядок создания ресурсов
+
+terraform state list - управление стейтом
+terraform state show
+terraform state rm
+terraform state mv
+terraform state pull/push
+
+== Ключи
+apply -parallelism=1 -auto-approve
+
+
 
 export TF_LOG=0 - вывести отладочную информацию
 
+= Удаление
+Удалить определенный элемент:
+terraform destroy -target=vcd_vm_internal_disk.node-worker-containers[4]
 
 = Работа с переменными:
 Прописываем переменную в конфиге:

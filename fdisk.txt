@@ -1,0 +1,5 @@
+== Делаем risize в скрипте:
+( echo d; echo 2; echo n; echo p; echo 2; echo  ; echo  ; echo w) | fdisk /dev/sda
+partprobe
+
+

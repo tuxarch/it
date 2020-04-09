@@ -1,0 +1,23 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubesite
+  labels:
+    app: kubesite
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: kubesite
+    spec:
+      containers:
+      - name: nginx
+        image: docker.io/nginx:latest
+        ports:
+        - containerPort: 80
+      - name: php-fpm
+        image: docker.io/php:7.2-fpm
+        ports:
+        - containerPort: 9000

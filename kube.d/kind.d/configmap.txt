@@ -1,0 +1,13 @@
+==Configmap
+Отделяем конфигурацию и бинарники от контейнера
+
+== Создание
+kubectl create configmap <map-name> <data-source>
+
+== Создание на основе нескольких файлов
+mkdir -p configure-pod-container/configmap/
+wget https://kubernetes.io/examples/configmap/game.properties -O configure-pod-container/configmap/game.properties
+wget https://kubernetes.io/examples/configmap/ui.properties -O configure-pod-container/configmap/ui.properties
+kubectl create configmap game-config --from-file=configure-pod-container/configmap/
+
+
