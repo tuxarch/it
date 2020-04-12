@@ -11,8 +11,8 @@ tar -cvz /mnt/folder | gpg -e -r myname@mail.com -o backup.tgz.gpg
 gpg -d backup.tgz.gpg | tar -xz
 
 
-# xz
-XZ_OPT="-9e --threads=3 tar cfJ <archive.tar.xz> <files> - xz archive
+## xz
+XZ_OPT="-9e --threads=3" tar cfJ <archive.tar.xz> <files> - xz archive
 6 - обычная степень сжатия
 
 ## zip
