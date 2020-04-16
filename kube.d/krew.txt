@@ -1,0 +1,31 @@
+Менеджер по управлению плагинами для kubectl
+
+Ставится череч yaourt
+
+kubectl krew update
+kubectl krew list
+kubectl krew search
+kubectl krew install whoami
+kubectl krew upgrade
+kubectl krew uninstall access-matrix
+
+=== Plugin
+
+Снифаем трафик работает только с докер (-p можно добавить)
+kubectl sniff pod -n ingress-nginx nginx-ingress-controller-b5lql
+
+Смотрим пермишены на действия
+kubectl who-can get pods
+
+Посмотреть структуру сервиса:
+kubectl tree deployment percona-xtradb-cluster-operator
+
+Дополнительное управление ingress:
+kubectl ingress-nginx ingresses --all-namespaces
+
+Посмотреть ресурсы
+kubectl view-utilization  -h
+kubectl resource-capacity -p
+
+Посмотреть используемые имиджи:
+kubectl images
