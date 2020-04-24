@@ -48,3 +48,5 @@ lstat - проверка настроек на безопасность
 ngxtop - nginx монитор
 Hammerdb - тестирование баз даных
 
+## Stress test
+https://github.com/flaviostutz/web-stress-simulator - от Сереги
