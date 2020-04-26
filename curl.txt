@@ -1,16 +1,26 @@
-curl ifconfig.co - внешний ip
-curl -4 wttr.in/Moscow - прогноз погоды 
+= Curl
 
---upload-file file.txt https://transfer.sh/file.txt - загрузить на сервер
-curl -O https://transfer.sh/Rf5pG/fadsf.dat - скачать файл
+=== Использование
 
-cheat.sh
-curl cheat.sh/vagrant
-curl cht.sh/go/http
+https и порт
+curl -s https://ya.ru:443 
 
 Используем прокси:
 curl -v --socks5-hostname 52.59.253.120:1080 -U user:pass https://2ip.ru
 
+Скачать файл:
+curl -O https://transfer.sh/Rf5pG/fadsf.dat 
 
-Используем для нажатия кнопки
-phantomjs, selenium
+Загрузить файл:
+--upload-file file.txt https://transfer.sh/file.txt 
+
+
+=== Ресурсы
+cheat.sh
+curl cheat.sh/vagrant
+curl cht.sh/go/http
+
+curl ifconfig.co - внешний ip
+curl 2ip.ru
+
+curl -4 wttr.in/Moscow - прогноз погоды 

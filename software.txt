@@ -175,4 +175,5 @@ innotop - top для mysql
 phabricator - управление разработкой от facebook
 jmeter - нагрузочное тестирование jdbc, ldap, tcp
 skypeforlinux-stable-bin - skype aur
+sky2 - skype for bussines
 postman - морда для тестирования API

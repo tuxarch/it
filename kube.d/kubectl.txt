@@ -5,6 +5,7 @@ cli control kubernetes cluster manager
 ===  Information and loging
 
 k cluster-info   Информация по кластеру и подключению
+k get all -n namespaces - все ресурсы в организации
 k get nods  - получить список машин в кластере 
 k get deployments  
 k get pods -w - интерактивный режим 
@@ -109,6 +110,10 @@ kubectl config set-credentials user/ash-kube.tk --username=user --password=kubep
 kubectl config set-cluster ash-kube.tk --insecure-skip-tls-verify=true --server=https://3.246.3.4
 kubectl config set-context default/ash-kube.tk/user --user=user/ash-kube.tk --namespace=default --cluster=ash-kube.tk
 kubectl config use-context default/ash-kube.tk/user
+
+Объединить несколько файлов в один:
+KUBECONFIG=file1:file2:file3 kubectl config view --merge --flatten > out.txt
+
 
 
 = работа с контекстами:

@@ -25,3 +25,7 @@ xset dpms force standby # немедленно устанавливает экр
 xset dpms force suspend # в режим сна
 xset dpms force off # выключает экран
 xset -q # посмотреть параметры
+
+
+Чтобы отключить тачпад добавляем команду в .xintirc
+syndaemon -i 2 -d -t

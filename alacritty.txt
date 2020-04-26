@@ -1,0 +1,7 @@
+== hotkeys
+ctrl+shift+v
+ctrl+shift+c
+
+== Определение терминала
+TERM=xterm-color
+TERM=xterm-256color

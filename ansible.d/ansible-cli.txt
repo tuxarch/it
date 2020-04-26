@@ -19,6 +19,7 @@ ansible all - запустить команду на всех машинах hos
 --check			 
 --syntax-check 
 --become-user 			// запуск от рута или указанного юзера
+-с paramico 			// использовать ssh бэкенд
 
 == ansible-config
 Узнать переменные при запуске

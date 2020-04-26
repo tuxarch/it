@@ -1,4 +1,6 @@
-﻿Управляющие команды
+﻿= I3wm
+
+=== Hotkeys
 mod-e - сплит моде
 mod-s - стаки (открытие вниз-внутрь)
 mod-w - табы (открытие в горизонталь)
@@ -29,48 +31,21 @@ Mod + Shift + K(jl;) - перемещение окна
 mod+r (j,k,l.h) - resize, изменить размер
 
 
-__________________________________________________________
 
-dmenu (mod4+d) - позволяет вызывать приложения, но прежде нужно прописать их в параметры $PATH. Устанавливается как отдельное прложение.
-
-Exec [--no-стартап-ID] <команда>		Задать выполнение команд при старте i3
-exec_always [--no-стартап-ID] <команда>
-
-Можно распределить окна на нескольких экранах.
+=== Настройка
 
 i3lock - блокировка экрана
-__________________________________________________________________________
-Раскладка в Х11
+dmenu (mod4+d) - позволяет вызывать приложения, но прежде нужно прописать их в параметры $PATH. Устанавливается как отдельное прложение.
 
-setxkbmap -layout "us,ru"
-setxkbmap -option "grp:caps_toggle,grp_led:scroll,compose:ralt"   
-
-Или прописать в Xorg.conf
-
-Section "InputClass"
-	Identifier             "keyboard-layout"
-	MatchIsKeyboard        "on"
-	Option "XkbLayout" "us,ru"
-	Option "XkbOptions" "grp:caps_toggle,grp_led:scroll"
-EndSectionSection "InputClass"
-	Identifier             "keyboard-layout"
-	MatchIsKeyboard        "on"
-	Option "XkbLayout" "us,ru"
-	Option "XkbOptions" "grp:caps_toggle,grp_led:scroll"
-EndSection
-_____________________________
-
-_____________________________Section "InputClass"
-	Identifier             "keyboard-layout"
-	MatchIsKeyboard        "on"
-	Option "XkbLayout" "us,ru"
-	Option "XkbOptions" "grp:caps_toggle,grp_led:scroll"
-EndSection
-_____________________________
-
+Выполнять команду при старте
+exec --no-startup-id conky 
+exec_always [--no-стартап-ID] <команда>
 
 feh --bg-scale /path/to/image.file - установить обои
 "sh ~/.fehbg &" - прописать команду в ~/.xinitrc - прописать обои в автозагрузку
+
+
+
 
 ___________________________________________________
 

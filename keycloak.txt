@@ -1,3 +1,21 @@
 realm - пространство приложения
 Master realm - пространство используемое keycloak
 
+
+== Запуск на докере и mysql
+
+docker run -p "8080:8080" -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=pass jboss/keycloak
+
+docker run --name mysql -d -e MYSQL_DATABASE=keycloak -e MYSQL_USER=keycloak -e MYSQL_PASSWORD=password -e MYSQL_ROOT_PASSWORD=root_password mysql
+
+
+docker run -p "8080:8080" -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=pass -e
+DB_VENDOR=mysql -e DB_ADDR=172.17.0.2 -e DB_USER=keycloak -e DB_PASSWORD=password  --name keycloak jboss/keycloak
+
+
+== Создать админа на realm
+Create regular user in a realm.
+Go to Role Mapping tab:
+Select realm-management under Client Roles.
+Select all available roles and press Add selected.
+Go to http://keycloak/auth/admin/REALM_NAME/console 

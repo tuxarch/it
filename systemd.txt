@@ -54,7 +54,7 @@ systemctl mask (unmask) unit - маскировка, сделать невозм
 
 systemctl cat unit - вывести содержимое
 systemd-deltа - аналог diff
-systemctl edit unit - редактирование и автоперезагрузка
+systemctl edit --full unit - редактирование и автоперезагрузка
 systemctl revert - отменить изменения сделанные в unit
 systemctl daemon-reload - перегрузить systemd для поиска новых юнитов
 

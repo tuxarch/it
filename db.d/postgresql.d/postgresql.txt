@@ -1,5 +1,8 @@
 sudo -u postgres psql template1 - работаем из под пользователя postgresql
 
+== Подключаемся к машине
+psql -d db_name -h acid-pg-cluster.ru -U zalando_user 
+
 su postgres - логинимся 
 psql - заходим в базу
 psql db -U user  - после настройки можно логиниться.
