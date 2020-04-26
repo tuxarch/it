@@ -1,0 +1,7 @@
+=== Работа с sc
+
+Хранилка создается в докер поде
+
+меняем имя стораджа и создаем pvc
+https://raw.githubusercontent.com/rancher/local-path-provisioner/master/examples/pod.yaml
+https://raw.githubusercontent.com/rancher/local-path-provisioner/master/deploy/local-path-storage.yaml

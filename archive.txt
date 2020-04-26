@@ -19,6 +19,7 @@ XZ_OPT="-9e --threads=3" tar cfJ <archive.tar.xz> <files> - xz archive
 zip -r zipfile.zip directory - создать с рекурсией
 
 ## rar
+unrar x archive.rar - извлечь
 unrar e archive.rar file.exe - извлечь один файл из архива
 
 ## zstd
@@ -30,3 +31,7 @@ tar --use-compress-program zstd -cf directory.tar.zst directory/
 decompress:
 tar -I zstd -xvf archive.tar.zst
 
+## 7z
+7z a <имя архива> <имя файла> - создать архив
+7z l archive.7z - смотрим содержимое
+7z x archive.7z - извлекаем 

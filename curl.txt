@@ -1,9 +1,9 @@
-= Curl
+=== Curl
 
-=== Использование
+== Использование
 
 https и порт
-curl -s https://ya.ru:443 
+curl -k https://ya.ru:443 
 
 Используем прокси:
 curl -v --socks5-hostname 52.59.253.120:1080 -U user:pass https://2ip.ru
@@ -13,6 +13,10 @@ curl -O https://transfer.sh/Rf5pG/fadsf.dat
 
 Загрузить файл:
 --upload-file file.txt https://transfer.sh/file.txt 
+
+
+== Ключи
+-s - silent mode
 
 
 === Ресурсы
