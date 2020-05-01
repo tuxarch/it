@@ -50,3 +50,5 @@ Hammerdb - тестирование баз даных
 
 ## Stress test
 https://github.com/flaviostutz/web-stress-simulator - от Сереги
+яндекс-танк,ab,wrk - нагрузочное тестирование http-сервера
+stress-ng - сpu, memory

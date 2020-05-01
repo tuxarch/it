@@ -32,3 +32,210 @@ StorageClasses - динамическое выделение
 
 Helm 
 PosInstall/PosDelete - jobs выполняемые при жизненном цикле
+
+
+==== Мониторинг
+Probes
+cAdvisor
+metrics-server
+kube-state-metrics
+
+= Probes 
+Переодические проверки подов на жизнеспособность
+
+execAction - выполняем на контейнере exit code 0
+tcpSocketAction - открыт ли порт
+HTTPGetAction - проверка запроса
+
+livenessProbe - перезапуск в случаее если контейнер недоступен
+  tcpSocket:
+    port: 8080
+
+readinessProbe - удалить под из балансировки
+  httpGet:
+
+
+= cAdvisor 
+Встроен в kubelet
+Получает информацию о контейнерах
+экспортер для prometheus
+Метрики с нод
+
+= metrics-server
+Собирает метрики cAdvisor, дальнейшее развитие Heapster
+
+= kube-state-metrics
+Cобирает инфо от API об pod,job,depl
+Работает как экспортер для prometheus
+
+= prometheus 
+Cоздан разработчиками google, на базе borgmon
+Собирает метрики от
+kube-state-metrics
+node-exporter
+
+/metrics
+/api/v1/nodes/
+
+Роли:
+Node - api,
+endpoints - 
+
+service
+ annotations:
+   prometheus.io/scrape
+ 
+History:
+1.1 (2015) - Horizontal pod scalling, http-lb , rol-update, job
+1.2 - configmap, daemonset, tls
+1.3 - statefulsets, cni, federation, ini-container
+1.4 (2016) - kubeadm, cronjob, afinity
+1.5 - cri
+1.6 - rbac, 
+1.7 - local-storage, crd, networkpolicy
+1.8 - ipvs, metrics-server
+1.9 (2017) kubectl diff, coredns
+1.10 - stable
+1.11 - stable
+1.13 (2018) - --server-dry-run
+1.14 (2019) - pidlimit, kustomize, 
+1.15 (2019) - kubeadm-certificate-mana, 
+
+
+Привязать, гугл к новому аккаунту со старой картой
+
+===
+Запуск Pod
+
+.kube/cache/discovery - получает информацию о схеме /apis - с сервера
+kube-apiserver - идентификация
+Авторизация (RBAC)
+Admission Contole 
+
+kube-scheduler - планирует ноду для запуска и делает binding
+
+
+Pending - создан в хранилище, спланирован, но незапущен
+Unknown - 
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+
+kubelet - запирает список подов со своим nodename и сравнивает со своим
+состоянием
+kubelet - создает cgroup, монтирует volumes, 
+
+pause-container - нужен для инициализации Pod
+
+kubelet - обрабатывает livenessProve, readinessProbe 
+
+hooks выполняются при старте и завершении контейнера прописываются в livecycle
+postStart, preStop - для коректного завершения подов
+
+grace-period=0 - после котрого жесткое завершение
+
+ReplicationControler - core/v1 - число подов равно задоному
+ReplicaSet - тоже что и RC только более расширенная работа с селекторами
+
+kubectl rollout status
+kubectl rollout history
+
+StatefulSet - резервирование имени, pvc при пересоздании.
+DaemonSet - привелигированный под,
+
+=== Безопасность в kubernetes
+Три AAA 
+аутентификация - кто ты
+авторизация - что ты можешь
+адмишон контрол - доп настройки
+
+ServiceAcount - пользовательский досту для процесса
+
+Доступ по сертификатам:
+Сертификаты - выписывать на короткий срок
+StaticPasswordFile (пароли, токены) - для маленького окружения
+
+--basic-auth-file=string
+--token-auth-file=string
+--anonymous-auth=true
+
+
+Создаем file
+passwd,admin,100,"system:masters"
+
+minikube mount /usr/home/user:/var/lib/minikube/certs
+
+kubectl cluster-info dump
+
+следующий kubeconfig file
+apiVersion: v1
+contexts:
+- context:
+    cluster: minikube
+    user: static-admin
+  name: minikube-static
+kind: Config
+users:
+- name: static-admin
+  user:
+    username: admin
+    password: passwd
+
+KUBECONFIG=~conf1:conf2 - несколько файлов
+
+
+Создаем сервис акаунт и отдаем его пользователю:
+
+Авторизация:
+--authorization-mode=Node,RBAC - прописывает в api-server
+
+Node - позволяет kubelet обращаться к api
+
+RBAC
+Роль+Операция+ресук
+Webhook - разрешение о действии получают через веб-хук
+
+
+ClusterRoleBinding 
+RoleBinding  - на нейм спейс
+
+
+Разные права пользователя на разные неймспейсы
+
+kubectl auth can-i get deployments --as system:serviceaccunt:dev:alice -n dev
+
+Admission control
+grep enable-adission
+
+NamespacesLifecycle - не позволяет удалять системные неймспейсы
+ResourceQuota - 
+Mutating - изменяет действия
+
+Шифрование трафика между подами сильно отзывается на производительности
+
+Secret - могу быть шифрованны с версии 1.13
+Либо просто лежат в base64
+
+
+== Сеть в кубе
+CoreDNS - negativecaching
+ExternalDNS - если нужно расшарить внутренние ресурсы
+
+dnsPolicy на подах
+Default - на resolv.conf ноды
+ClusterFirst - на coreDNS (по умолчанию)
+
+options ndots:5 политика 5 точек, пытается резолвить ресурс как локальный
+
+ipvs c версии 1.11
+
+Поды имеют интерфейс feth, объединяются в бридж на ноде
+Типы сервисов:
+ClusterIP
+Headliess
+ExternalName
+
+

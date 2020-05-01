@@ -19,13 +19,13 @@ k logs pods - получить логи из stdout контейнера
 k logs pods -f - интерактивный режим вывода лога
 
 
-### Run
+=== Run
 
 Запустить депоймент и расшарить его ip. Но в сервисах его нет, но можно найти описание через describe
 k run httpexposed --image=katacoda/docker-http-server:latest --replicas=1 --port=80 --hostport=8001
 
 
-## Yaml
+=== Yaml
 
 k apply -f file.yaml - приминить или обновить конфигурацию
 k delete  -f file.yaml - удалить обьекты
@@ -63,7 +63,7 @@ kubectl label pod $POD_NAME app=v1
 Удалить все ресурсы на кластере:  
 k delete daemonsets,replicasets,services,deployments,pods,rc --all  
 
-Удалить чере API:
+Удалить через API:
 kubectl proxy --port=8080
 curl -X DELETE  'localhost:8080/apis/extensions/v1beta1/namespaces/default/replicasets/frontend' \
 > -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Foreground"}' \
@@ -111,14 +111,28 @@ kubectl config set-cluster ash-kube.tk --insecure-skip-tls-verify=true --server=
 kubectl config set-context default/ash-kube.tk/user --user=user/ash-kube.tk --namespace=default --cluster=ash-kube.tk
 kubectl config use-context default/ash-kube.tk/user
 
-Объединить несколько файлов в один:
+Объединить несколько файлов в один kubeconfig:
 KUBECONFIG=file1:file2:file3 kubectl config view --merge --flatten > out.txt
+KUBECONFIG=~conf1:conf2 - прокинуть в переменную несколько сертификатов
+
+
+работа с контекстами:
+
+context:
+- name 
+- cluster
+- user
+- namespace
 
 
 
-= работа с контекстами:
+
 kubectl config get-contexts - просмотр контекстов
 kubectl config set-context default - переключение между контекстами
+
+
+
+
 
 # Создаем секрет для приватного репо, который затем подключаем при пулах
 kubectl create secret docker-registry regcred --docker-server=ash-devops.tk
@@ -127,6 +141,8 @@ kubectl create secret docker-registry regcred --docker-server=ash-devops.tk
 
 # port-forwarding
 kubectl port-forward -n ingress-nginx svc/nginx-ingress-prometheus-discovery 10254
+kubectl proxy  - позволяет взаимодействовать с API
+
 
 ### Auth
 Проверить першишен для пользователя
@@ -136,3 +152,9 @@ kubectl auth can-i get pods --as nginx-ingress-role
 Работа с cert-manager
 kubectl logs -l app=cert-manager -n kube-system --kubeconfig=admin.kubeconfig-pub
 kubectl describe challenges --all-namespaces --kubeconfig=admin.kubeconfig-pub
+
+
+=== Включение отключение нод
+k drain node - выселяем ноды с хоста
+k uncordon node4 - включаем
+kubectl delete nodes node6 - удалить ноду

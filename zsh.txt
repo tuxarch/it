@@ -1,0 +1,27 @@
+=== Установка
+pacman -S zsh zsh-completions
+
+Ставим оболочкой по умолчанию:
+chsh -l 
+chsh -s /usr/bin/zsh
+
+
+=== Ohmyzsh
+sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+Обновляем:
+upgrade_oh_my_zsh
+
+Ставим тему:
+ZSH_THEME="agnoster"
+
+Редактируем колор:
+vi ~/.oh-my-zsh/themes/agnoster.zsh-theme
+
+prompt_dir() {
+  prompt_segment green $CURRENT_FG '%~'
+}
+
+
+
+

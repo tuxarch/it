@@ -1,50 +1,41 @@
-# Установка helm2
-kubectl -n kube-system create serviceaccount tiller
-kubectl create clusterrolebinding tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller
-helm init --service-account=tiller
-helm install stable/prometheus-operator
+=== Helm
+
+== Установка
+wget https://get.helm.sh/helm-v3.1.2-linux-amd64.tar.gz && \
+tar xvf helm-v3.1.2-linux-amd64.tar.gz && \
+sudo linux-amd64/helm /usr/bin/helm3
+
+Ставим дефолтный репозиторий:
+helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+helm3 repo update
+
+Поиск по репо
+helm3 search hub ingress
+
+Посмотреть список всех установленных чартов:
+helm3 ls -A
+
+Удалить чарт:
+helm3 delete --namespace kubeapps kubeapps
+
+== Работа с репо
+helm repo add codecentric https://codecentric.github.io/helm-chart
+helm repo update
+helm repo list
 
 
-Обновить tiller-server
-helm init --upgrade
+Скачать и разархивировать чарт:
+helm pull codecentric/keycloak --untar -d .
 
+Обновить чарт:
+helm upgrade keycloak -n keycloak codecentric/keycloak -f keycloak.yaml
 
+Установка чарта:
+helm install gangway stable/gangway -f ganway.yml
 
-## helm
-Пакетный менеджер для kube
-Мощный шаблонизатор go. Поддерживает условия, циклы, функции, пайплайны
-Используем хуки для настроки, тесты для проверки
-
-# Архитектура
-helm - клиент общается по gRPC (Удал.Вызов.Процедур.)
-Tiller - сервер управляющий через kube REST API
-Написан на golang
-
-
-
-
-
-
-# Команды helm2
-helm init  - становка tiller
-helm search
-helm install - устанавливаем charts в кластер
-helm ls - смотрим что запущенно
-helm delete - удаляем чарт
-helm create - создаем чарт
-package - упаковать в архив 
-helm rollback - откат
-helm repo index ./ --url https://name.github.io/mychart - создать index.yml
-для дальнейшей публикации чарта
-helm inspect package - информация о пакете
-
-helm ls --tls - список запущенных билдов
-helm del --purge nfs-provisioner --tls - удалить с мастера
 
 
 ## Flags
--h юзаем после подкоманды
---untar - разархивировать скаченный образ
 --wait - дождаться конца деплоя
 --debug 
 
@@ -55,13 +46,15 @@ Unpacked chart directory (helm install path/to/foo)
 full URL (helm install https://example.com/charts/foo-1.2.3.tgz)
 
 
-# chart project
+== Структура чарта
 chart.yaml - содержит описания чарта
 templaytes - содержит манифесты
 values.yaml - содержит переменные
 requirements.yml - описывает зависимые пакеты
 
 В первую очередь работаем с values переменными
+
+==
 
 
 # Плагины
@@ -93,3 +86,36 @@ helm repo update
 ## Search
 helm search github/ - поиск в репозитории
 
+
+
+== Helm2
+ Установка helm2
+kubectl -n kube-system create serviceaccount tiller
+kubectl create clusterrolebinding tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller
+helm init --service-account=tiller
+helm install stable/prometheus-operator
+
+Обновить tiller-server
+helm init --upgrade
+
+Архитектура
+helm - клиент общается по gRPC (Удал.Вызов.Процедур.)
+Tiller - сервер управляющий через kube REST API
+Написан на golang
+
+
+Команды helm2
+helm init  - становка tiller
+helm search
+helm install - устанавливаем charts в кластер
+helm ls - смотрим что запущенно
+helm delete - удаляем чарт
+helm create - создаем чарт
+package - упаковать в архив 
+helm rollback - откат
+helm repo index ./ --url https://name.github.io/mychart - создать index.yml
+для дальнейшей публикации чарта
+helm inspect package - информация о пакете
+
+helm ls --tls - список запущенных билдов
+helm del --purge nfs-provisioner --tls - удалить с мастера

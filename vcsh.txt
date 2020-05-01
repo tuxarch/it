@@ -1,0 +1,24 @@
+=== vcsh
+Управление конфигом $HOME
+
+
+= Создаем репо на гите, с поддержкой шифрования:
+vcsh init vim
+vcsh enter vim
+git-crypt init
+git-crypt add-gpg-user --trusted ash-gpg
+vi .gitattributes
+git add .gitattributes .vimrc
+git commit -m "init_crypt_commit"
+git remote add origin git@github.com:chetnuy/vcsh-vim.git
+git push origin master
+exit
+
+= восстановление
+vcsh enter vim
+git remote add origin git@gitserver:vim.git
+git pull -u origin master
+
+
+= управление 
+https://www.linuxjournal.com/content/manage-your-configs-vcsh

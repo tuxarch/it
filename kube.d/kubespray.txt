@@ -1,32 +1,7 @@
-== Чистим /tmp от фактов от старых установок
-== Удаляем лимиты memory_limit
-./roles/kubernetes/preinstall/defaults/main.yml
-== cri-o ubuntu
-Ставим по документации из гита, добавляем репо
+Готовим инвентори
 
-
-
-ставим requirements.txt через virtualenv
-
-Kопируем шаблон inventory/sample as inventory/mycluster
-
-Генерируем inventory
-declare -a IPS=(172.16.2.2 172.16.2.3 172.16.2.4 172.16.2.5 172.16.2.6)
-~]# CONFIG_FILE=inventory/mycluster/hosts.ini python36 contrib/inventory_builder/inventory.py ${IPS[@]}
-
-
-Возможно придется добавить в host.ini
-
-ansible_connection=ssh
-ansible_become=true
-ansible_become_user=root
-ansible_user= vagrant
-ansible_ssh_pass=vagrant
-ansible_python_interpreter=/usr/bin/python3
-
-Cтавим
+Cтавим:
 ansible-playbook -i inventory/mycluster/hosts.yml --become --become-user=root cluster.yml
-ansible-playbook -i inventory/mycluster/hosts.ini cluster.yml
 
 Расширяем после изменения инвентори
 ansible-playbook -i inventory/mycluster/hosts.ini scale.yml
@@ -37,29 +12,11 @@ ansible-playbook -i inventory/mycluster/hosts.ini remove-node.yml
 Удаляем установку
 ansible-playbook -i inventory/mycluster/hosts.ini reset.yml
 
-
-__________________
-
 Настройка kubectl
 копируем с мастера /etc/kubernetes/admin.conf ~/.kube/config
 
-Минимальное значение на память:
-roles/kubernetes/preinstall/defaults/main.yml 
-
-
-
-Поставить helm:
-inventory/sample/group_vars/k8s-cluster/addons.yml
-helm_enabled: true # устанавливаем helm на ноды
-local_volume_provisioner_enabled: true # активируем local volume provisioner
-ingress_nginx_enabled: true # активируем ingress controller
-
-
-
-===================
-Последний раз ставил на версиях:
-kubespray release-2.11
-python3.6
-ubuntu18.10 2.0.2 vagrant
-
+Чистим /tmp от фактов старых установок или 
 ansible-playbook -i inventory/mycluster/hosts.yml --become --become-user=root cluster.yml --flush-cache
+
+Удаляем лимиты memory_limit
+./roles/kubernetes/preinstall/defaults/main.yml
