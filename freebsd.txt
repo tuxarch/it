@@ -1,0 +1,9 @@
+==packet manager
+pkg update
+pkg install python
+
+
+== Команды
+
+Просмотр памяти:
+grep memory /var/run/dmesg.boot

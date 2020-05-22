@@ -1,11 +1,15 @@
+==== Prometheus
+
+перегрузить конфиг файл systemctl reload
+
 Написан на golang и ruby
 
 Особенности:
-Prometheus - хранит в себе полученные метрики 15 дней, а также для их получения делает
-Pull- запрос. Нет горизонтального масштабирования (thanos).
+Prometheus - хранит в себе полученные метрики 15 дней, а также для их получения делает pull-запрос.
+Нет горизонтального масштабирования (thanos).
 Как проходить через nat?
 
-prometheus.yaml - конфиг файл
+/etc/prometheus/prometheus.yaml - конфиг файл
 
 Используется база данных временных рядов.
 Соединяется с визуализатором через PromQL, подключается Grafana
@@ -14,12 +18,215 @@ AlertManager - отвечает за доставку уведомлений о 
 
 Prometheus, Grafana и Node Exporter являются основой системы мониторинга Prometheus
 Node Exporter - так сказать клиент
-В графане добавляем прометей как источник данных, а затем качаем json-панель,
-например 1860.
+В графане добавляем прометей как источник данных, а затем качаем json-панель, например 1860.
 
 9100 - порт node_exporter
 9090 - prometheus
+9030 - alertmanager
 3000 - grafana 
 
 
 
+=== Команды
+Проверить конфиг:
+promtool check config prometheus.yml
+
+
+=== Установка prometheus
+Ставим из исходников:
+export RELEASE="2.18"
+wget https://github.com/prometheus/prometheus/releases/download/v${RELEASE}/prometheus-${RELEASE}.linux-amd64.tar.gz
+
+Создаем группу и пользователя:
+groupadd --system prometheus
+useradd -s /sbin/nologin -r -g prometheus prometheus
+
+Создаем конфигурационные файлы:
+mkdir -p /etc/prometheus/{rules,rules.d,files_sd}  /var/lib/prometheus
+cp prometheus promtool /usr/local/bin/
+cp -r consoles/ console_libraries/ /etc/prometheus/
+
+------------------------------------------------------
+
+cat << \EOF > /etc/systemd/system/prometheus.service
+[Unit]
+Description=Prometheus systemd service unit
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=prometheus
+Group=prometheus
+ExecReload=/bin/kill -HUP $MAINPID
+ExecStart=/usr/local/bin/prometheus \
+--config.file=/etc/prometheus/prometheus.yml \
+--storage.tsdb.path=/var/lib/prometheus \
+--web.console.templates=/etc/prometheus/consoles \
+--web.console.libraries=/etc/prometheus/console_libraries \
+--web.listen-address=0.0.0.0:9090
+
+SyslogIdentifier=prometheus
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+------------------------------------------------------
+
+cat <<\EOF >  /etc/prometheus/prometheus.yml
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets:
+
+rule_files:
+
+scrape_configs:
+  - job_name: "prome"
+    scrape_interval: "15s"
+    static_configs:
+    - targets: ['localhost:9090']
+EOF
+------------------------------------------------------
+
+Задаем права и стартуем:
+chown -R prometheus:prometheus /etc/prometheus/  /var/lib/prometheus/
+chmod -R 775 /etc/prometheus/ /var/lib/prometheus/
+
+systemctl start prometheus
+systemctl --now enable prometheus
+
+
+Идем на http://192.168.122.11:9090
+
+
+=== Установка клиента для примера
+# Fetch the client library code and compile example.
+git clone https://github.com/prometheus/client_golang.git
+cd client_golang/examples/random
+go get -d
+go build
+
+# Start 3 example targets in separate terminals:
+./random -listen-address=:8080
+./random -listen-address=:8081
+./random -listen-address=:8082
+
+Получаем метрики http://localhost:8080
+
+
+=== Установка alertmanager
+
+wget https://github.com/prometheus/alertmanager/releases/download/v0.20.0/alertmanager-0.20.0.linux-amd64.tar.gz
+
+cp amtool alertmanager /usr/local/bin/
+useradd --no-create-home --shell /bin/false alertmanager
+chown alertmanager:alertmanager /usr/local/bin/alertmanager
+chown alertmanager:alertmanager /usr/local/bin/amtool
+mkdir /etc/alertmanager
+chown alertmanager:alertmanager -R /etc/alertmanager
+
+------------------------------------------------------
+cat << \EOF > /etc/systemd/system/alertmanager.service
+[Unit]
+Description=Alertmanager
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=alertmanager
+Group=alertmanager
+Type=simple
+WorkingDirectory=/etc/alertmanager/
+ExecStart=/usr/local/bin/alertmanager --config.file=/etc/alertmanager/alertmanager.yml --web.external-url http://0.0.0.0:9093
+
+[Install]
+WantedBy=multi-user.target
+EOF
+------------------------------------------------------
+
+cat << \EOF > /etc/alertmanager/alertmanager.yml
+global:
+  smtp_smarthost: 'mail.dtln.ru:587'
+  smtp_from: 'user@dtln.ru'
+  smtp_require_tls: true
+  smtp_hello: 'alertmanager'
+  smtp_auth_username: 'user@dtln.ru'
+  smtp_auth_password: 'passwd'
+
+  slack_api_url: 'https://hooks.slack.com/services/x/xx/xxx'
+
+route:
+  group_by: ['instance', 'alert']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 3h
+  receiver: team-1
+
+receivers:
+  - name: 'team-1'
+    email_configs:
+      - to: 'user@domain.com'
+      - to: 'kubernetes@dtln.ru'
+    slack_configs:
+      # https://prometheus.io/docs/alerting/configuration/#slack_config
+      - channel: 'system_events'
+      - username: 'AlertManager'
+      - icon_emoji: ':joy:'
+EOF
+------------------------------------------------------
+
+Чтобы в письме был верный url, добавляем в юниты --web.external-url
+http://0.0.0.0:9093 прома и алерта
+
+Добавляем секцию в /etc/prometheus/prometheus.yml
+...
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets:
+      - localhost:9093
+...
+
+
+=== Установка node_exporter
+
+wget https://github.com/prometheus/node_exporter/releases/download/v1.0.0-rc.0/node_exporter-1.0.0-rc.0.linux-amd64.tar.gz
+
+useradd -M -r -s /bin/false node_exporter
+cp node_exporter /usr/local/bin/
+
+------------------------------------------------------
+cat << \EOF > /etc/systemd/system/node_exporter.service
+[Unit]
+Description=Prometheus Node Exporter
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=node_exporter
+Group=node_exporter
+Type=simple
+#ExecStart=/usr/local/bin/node_exporter
+ExecStart=/usr/local/bin/node_exporter --collector.cpu --collector.meminfo --collector.loadavg --collector.filesystem
+
+[Install]
+WantedBy=multi-user.target
+EOF
+------------------------------------------------------
+
+systemctl daemon-reload
+systemctl --now enable node_exporter.service
+
+== node_exporter добавление в prometheus, grafana
+
+scrape_configs:
+- job_name: 'node'
+  static_configs:
+  - targets: ['localhost:9100']

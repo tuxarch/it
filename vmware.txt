@@ -1,0 +1,10 @@
+== Конвертирование образа qcow2 в ovf
+ставим vmware-workstation
+
+Конвертируем образ в vmdk:
+qemu-img convert -p -f qcow2 -O vmdk image_2.0.6.img freebsd.vmdk
+
+Монтируем образ диска к машине через vmware
+
+Сжимаем образ виртуалки:
+ovftool Ubuntu.vmx freebsd.ovf

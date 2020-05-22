@@ -1,0 +1,2 @@
+== Удалить все выселенные ноды
+kubectl get po -A |grep Evicted|awk '{print "kubectl delete po -n ",$1,$2}'|bash -x

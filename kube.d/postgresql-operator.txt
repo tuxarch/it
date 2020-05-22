@@ -1,0 +1,11 @@
+Узнать пароль по дефолту:
+k get secret -n keycloak postgres.acid-pg-cluster.credentials.postgresql.acid.zalan.do -o yaml
+
+echo 'WmZIU21SNUZONA==' | base64 --decode
+
+Выбрасываем последний символ %
+
+
+== Метрики
+curl pg-exporter:9187/metrics
+
