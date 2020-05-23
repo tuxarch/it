@@ -1,5 +1,8 @@
 wc - подсчет строк
 
+удалить файлы старше 30 дней:
+find /opt/gitlab/backups/* -mtime +30 -type f -delete
+
 
 Подсчитать количество файлов в папках и подпапках
 ls -laR \!mostread/ | grep ^- | wc
@@ -26,3 +29,8 @@ cat <<EOF >> script.py
 > #!/bin/bash
 > print("hello")
 > EOF
+
+== Пишем в текстовый файл для разворачивания
+cat << \EOF > /etc/systemd/system/prometheus.service
+=======
+EOF

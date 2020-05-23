@@ -1,3 +1,6 @@
+Поиск файла по маске: 
+sudo find / -name '*surf*'
+
 Поиск содержимого в файлах
 grep -rnw '/path/to/somewhere/' -e 'pattern'
 

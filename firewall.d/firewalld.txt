@@ -1,0 +1,20 @@
+== Centos7
+
+Ставим, запрещаем все по умолчанию
+sudo yum install firewalld
+sudo systemctl start firewalld 
+
+Открыть
+firewall-cmd --zone=public --permanent --add-port=5555/tcp
+firewall-cmd --reload
+
+Закрыть:
+firewall-cmd --zone=public --permanent --remove-port=5555/tcp
+firewall-cmd --reload
+
+
+== iptables
+Закрыть порт:
+iptables -A INPUT -p tcp --destination-port 2222 -j DROP (или REJECT для явного сброса)
+Открыть:
+iptables -D INPUT -p tcp --destination-port 2222 -j DROP

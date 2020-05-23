@@ -1,0 +1,3 @@
+Для того чтобы скрейпить метрики
+Servicemonitor
+PrometheusRules - для алертов

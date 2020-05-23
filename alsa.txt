@@ -1,5 +1,4 @@
-﻿
-alsa-utils - установка пакета
+﻿alsa-utils - установка пакета
 смотрим ядро
 
 ALSA_CARDS="intel8x0" - use-flags
