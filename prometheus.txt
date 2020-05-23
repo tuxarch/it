@@ -20,6 +20,3 @@ Node Exporter - так сказать клиент
 9100 - порт node_exporter
 9090 - prometheus
 3000 - grafana 
-
-
-

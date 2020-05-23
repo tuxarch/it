@@ -5,3 +5,31 @@
 меняем имя стораджа и создаем pvc
 https://raw.githubusercontent.com/rancher/local-path-provisioner/master/examples/pod.yaml
 https://raw.githubusercontent.com/rancher/local-path-provisioner/master/deploy/local-path-storage.yaml
+
+Конфиг шарит порт на ip, и настраивает ingress
+
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+networking:
+  apiServerAddress: "10.5.5.24"
+  apiServerPort: 6443
+nodes:
+  - role: control-plane
+    kubeadmConfigPatches:
+    - |
+      kind: InitConfiguration
+      nodeRegistration:
+        kubeletExtraArgs:
+          node-labels: "ingress-ready=true"
+          authorization-mode: "AlwaysAllow"
+    extraPortMappings:
+    - containerPort: 80
+      hostPort: 80
+      protocol: TCP
+    - containerPort: 443
+      hostPort: 443
+      protocol: TCP
+
+  - role: worker
+  - role: worker
+  - role: worker

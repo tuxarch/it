@@ -51,6 +51,9 @@ docker stop $(docker ps -a -q)
 Удалить все имиджи
 docker rmi $(docker images -a -q)
 
+Удалить все контейнеры:
+docker rm $(docker container ls -a -q)
+
 Сохранить контейнер можно также 
 docker save -o /mnt/data/video/ubu удалить контейнер при выходеntu.tar ubuntu
 docker load -i file.tar - загрузить

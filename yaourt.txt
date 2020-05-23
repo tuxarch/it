@@ -1,5 +1,9 @@
 Установкa yaourt
 
+Ставим все пакеты:
+sudo pacman -S --needed base-devel git wget yajl
+
+
 git clone https://aur.archlinux.org/package-query.git
 cd package-query
 makepkg -si
