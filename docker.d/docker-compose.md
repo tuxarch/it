@@ -1,4 +1,5 @@
 ### docker-compose 
+up - запустить проект
 docker-compose ps - list run containers
 
 ## Kompose

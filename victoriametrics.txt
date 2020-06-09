@@ -1,0 +1,44 @@
+=== Victoria Metrics
+
+40$ за тб на gce
+Influex, Graphite, Opentsdb
+
+Кластерная версия имеет следующие компоненты:
+vmselect - promql, обрабатывает запросы, парсит
+vmstorage
+vminsert - принимает данные
+
+Необходим оператор для обработки событий масштабирования
+
+--memory.AllowedPercent
+--retentionPeriod - сколько хранить данные (1месяц)
+
+
+
+== Kubernetes
+Write API:
+Get the Victoria Metrics insert service URL by running these commands in the same shell:
+export POD_NAME=$(kubectl get pods --namespace vm -l "app=vminsert" -o jsonpath="{.items[0].metadata.name}")
+kubectl --namespace vm port-forward $POD_NAME 8480
+
+Read API:
+export POD_NAME=$(kubectl get pods --namespace vm -l "app=vmselect" -o jsonpath="{.items[0].metadata.name}")
+kubectl --namespace vm port-forward $POD_NAME 8481
+
+
+Создание снапшотов:
+
+Создание снапшотов
+curl http://victoria-metrics-cluster-vmstorage.vm.svc.cluster.local:8482/snapshot/create
+curl http://victoria-metrics-cluster-vmstorage.vm.svc.cluster.local:8482/snapshot/list
+curl http://victoria-metrics-cluster-vmstorage.vm.svc.cluster.local:8482/snapshot/delete_all
+
+
+
+== Prometheus operator
+values.yml prom chart:
+remote_write:
+  - url: "http://victoria-metrics-cluster-vminsert.vm.svc.cluster.local:8480/insert/0/prometheus/"
+
+Input for URL field in Grafana kubernetes:
+http://victoria-metrics-cluster-vmselect.vm.svc.cluster.local:8481/select/0/prometheus/"
