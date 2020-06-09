@@ -26,7 +26,6 @@ Node Exporter - так сказать клиент
 3000 - grafana 
 
 
-
 === Команды
 Проверить конфиг:
 promtool check config prometheus.yml

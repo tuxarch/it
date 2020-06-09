@@ -1,6 +1,16 @@
 == hotkeys
+Вставка
 ctrl+shift+v
 ctrl+shift+c
+
+Размер шрифта
+ctrl+0 скинуть, сtrl+, ctrl-
+
+Insert-mode
+ctrl+shitf+space
+y-копировать
+i-выход
+
 
 == Определение терминала
 TERM=xterm-color

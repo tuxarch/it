@@ -20,7 +20,7 @@ mount -o remount,ro /dev/xxx
 fsarchiver savefs /mnt/backup/gentoo-rootfs.fsa /dev/sda1
 
 Информация об архиве:
-fsarchiver archinfo
+fsarchiver archinfo -c password
 
 Восстанавливаем бэкап:
 fsarchiver restfs filesystems.fsa id=0,dest=/dev/sda1 id=1,dest=/dev/sdb1
