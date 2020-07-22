@@ -13,3 +13,7 @@ tune2fs -o discard /dev/sdXY - статический способ
 
 /etc/fstab ext3 не поддерживается:
 /dev/sda2  /home   ext4   ..,..,discard   0  2
+
+
+Включаем запуск раз в неделю
+sudo systemctl enable fstrim.timer
