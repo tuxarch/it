@@ -1,0 +1,17 @@
+=== Шифрование с помощью cryptsetup
+= Установка
+pkg install cryptsetup
+truncate --size 200M main.img
+cryptsetup luksFormat --type luks2 main.img
+sudo cryptsetup open main.img luks
+pkg install e2fsprogs
+sudo mkfs.ext4 /dev/mapper/luks
+sudo mount /dev/mapper/luks /data/data/com.termux/files/home/test
+chown -R u0_a224:u0_a224 test
+
+= Монтируем раздел
+sudo cryptsetup open main.img luks
+sudo mount /dev/mapper/luks /data/data/com.termux/files/home/main
+
+= Отмонтировать раздел
+cd ~ && sudo umount /dev/mapper/luks && sudo cryptsetup close luks

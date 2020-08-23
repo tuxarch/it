@@ -9,8 +9,12 @@ Namebootforbot
 curl https://api.telegram.org/bot[key]/getMe
 
 Отправить сообщение в чат:
-curl
-https://api.telegram.org/bot[key]\?chat_id=[number]\&text='This messagess'
+curl https://api.telegram.org/bot[key]\?chat_id=[number]\&text='This messagess'
+curl -X POST "https://api.telegram.org/bot968:AAFfQMbJ8/sendMessage" -d "chat_id=-2663214&text=text to chat"
+
+
+Отправить файл:
+curl -v -F "chat_id=-2668214" -F document=@/home/user/text.txt https://api.telegram.org/bot139546:QH56Zo5OhgS08ZJv6jMbtJ9cDB3hjJ8/sendDocument
 
 
 proxychains curl -s -X POST https://api.telegram.org/[key]/sendMessage  -F chat_id='99990' -F text='test message'

@@ -31,6 +31,7 @@ helm pull codecentric/keycloak --untar -d .
 helm upgrade keycloak -n keycloak codecentric/keycloak -f keycloak.yaml
 
 Установка чарта:
+helm upgrade --install - обновление либо установка
 helm install gangway stable/gangway -f ganway.yml
 
 

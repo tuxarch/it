@@ -36,6 +36,11 @@ kubectl create -f <url> --edit - скачиваем и редактируем
 k diff - используем для сравнения
 kubectl create -f https://application/nginx/ - указать каталог с файлами
 
+=== Edit
+
+kubectl create -f <url> --edit - скачиваем и редактируем
+kubectl edit <resource>
+
 
 
 ### Exec in container

@@ -31,3 +31,9 @@ rit clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 
 == Hotkeys
 Esc esc - добавить sudo 
+ctrl+s - обратный поиск по истории
+
+vi-hotkeys
+$,^ - конец/начало строки
+
+
