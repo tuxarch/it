@@ -1,5 +1,6 @@
 ﻿Запустить от другого юзера:
 sudo -S -u user /bin/zsh
+su - ashley --command whoami
 
 sudo -l - какие команды можно выполнять
 sudo -ll для вывода текущей конфигурации

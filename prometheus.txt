@@ -152,11 +152,11 @@ EOF
 
 cat << \EOF > /etc/alertmanager/alertmanager.yml
 global:
-  smtp_smarthost: 'mail.dtln.ru:587'
-  smtp_from: 'user@dtln.ru'
+  smtp_smarthost: 'mail.mail.ru:587'
+  smtp_from: 'user@mail.ru'
   smtp_require_tls: true
   smtp_hello: 'alertmanager'
-  smtp_auth_username: 'user@dtln.ru'
+  smtp_auth_username: 'user@mail.ru'
   smtp_auth_password: 'passwd'
 
   slack_api_url: 'https://hooks.slack.com/services/x/xx/xxx'
@@ -172,7 +172,7 @@ receivers:
   - name: 'team-1'
     email_configs:
       - to: 'user@domain.com'
-      - to: 'kubernetes@dtln.ru'
+      - to: 'kubernetes@mail.ru'
     slack_configs:
       # https://prometheus.io/docs/alerting/configuration/#slack_config
       - channel: 'system_events'
