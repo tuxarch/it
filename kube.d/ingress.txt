@@ -3,3 +3,7 @@ Ingress Controller
 - обратного прокси
 - контроллер взаимодействующий с мастером
 
+
+Установка DaemonSet, NodePort
+helm install ingress stable/nginx-ingress --set controller.kind=DaemonSet --set controller.service.type=NodePort --set controller.service.nodePorts.http=32222
+

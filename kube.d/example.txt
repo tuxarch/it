@@ -27,3 +27,9 @@ http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kube
 === Простое создание ingress
 docker run --rm -it strm/helloworld-http
 
+=== Удалить наймспейс
+kubectl get namespace rook-nfs -o json | jq 'del(.spec.finalizers[] | select("kubernetes"))' | kubectl replace --raw "/api/v1/namespaces/rook-nfs/finalize" -f -
+
+=== Удалить crd
+k patch crd/nfsservers.nfs.rook.io -p '{"metadata":{"finalizers":[]}}' --type=merge
+k delete customresourcedefinitions.apiextensions.k8s.io nfsservers.nfs.rook.io

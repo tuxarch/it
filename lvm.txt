@@ -90,5 +90,12 @@ lvconvert --merge /dev/vg0/backup
 существенно может отразиться на скорости чтения записи.
 
 
+Подключить дополнительный диск:
+pvcreate /dev/sdc - инициализируем диск
+vgextend vg_centos /dev/sdc - добавляем к группе
+lvextend -l +100%FREE vg_centos/lv_var - отправляем все свободное пространство
+resize2fs /dev/mapper/vg_centos-lv_var - ресайзим
+
+
 ___________________
 zfs -  как альтернатива

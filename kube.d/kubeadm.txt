@@ -40,3 +40,214 @@ kubeadm init
 
 На нодах
 kg
+
+
+
+
+
+Установка на centos7
+
+== Отключаем swap, selinux
+setenforce 0
+sed -i --follow-symlinks 's/^SELINUX=.*/SELINUX=disabled/g' /etc/sysconfig/selinux
+
+== Включаем бридж
+ncat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF
+sudo sysctl --system
+
+
+== Добавляем репо с kubeadm
+cat << \EOF > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=http://yum.kubernetes.io/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=0
+repo_gpgcheck=0
+EOF
+
+или
+
+cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOF
+
+
+
+== Ставим cri-o
+curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:1.18.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:1.18/CentOS_7/devel:kubic:libcontainers:stable:cri-o:1.18.repo
+
+yum -y install cri-o kubelet kubeadm kubectl kubernetes-cni
+sudo systemctl enable --now cri-o
+
+
+kubeadm config images pull
+kubeadm init --upload-certs --control-plane-endpoint 192.168.122.101:6443 --pod-network-cidr=10.10.0.0/16
+
+Установка с калико
+kubeadm init --upload-certs --control-plane-endpoint 95.181.23.68:63443 --pod-network-cidr=192.168.0.0/16
+
+
+
+== Обновить сертификаты:
+Проверка сертификатов:
+kubeadm alpha certs check-expiration
+
+Обновить объекты:
+kubeadm alpha certs renew all 
+
+
+kubeadm alpha certs renew admin.conf - только кубконфиг
+
+
+== Обновить версию кластера:
+sudo kubeadm upgrade plan
+
+
+1. Обновление control-plane прошло успешно, если не считать того что kubeadm не смог выполнить upgrade node для второй и третьей ноды, пришлось действовать вручную:
+kubeadm config view > kubeadm-config.yaml
+kubeadm init phase control-plane all --config kubeadm-config.yaml
+systemctl restart docker kubelet
+2. Джойн новых нод в кластер не работает, потому что User "system:bootstrap:w1omzr" cannot get resource "nodes" in API group "" at the cluster scope
+
+kubeadm upgrade apply --force
+
+== dtln/ubuntu/kubeadm/containerd
+
+ update, disable swap, hostname
+hostnamectl set-hostname ash-m2
+sed -i 's/ubuntu18.cloudlite.ru/ash-m2/g' /etc/hosts
+swapoff -a
+lvremove /dev/vg_ubuntu/lv_swap
+rm -rf /swapfile
+sed -i '/swap/d' /etc/fstab
+apt update && apt upgrade -y && reboot
+do-release-upgrade -d
+apt autoremove -y
+
+# lvm
+vgextend vg_ubuntu /dev/sdb
+lvextend -l +100%FREE vg_ubuntu/lv_root
+resize2fs /dev/mapper/vg_ubuntu-lv_root
+
+pvcreate /dev/sdc
+vgcreate vg_etcd /dev/sdc
+lvcreate -n lv_etcd -l +100%FREE vg_etcd
+mkfs.ext4 /dev/mapper/vg_etcd-lv_etcd
+mkdir /var/lib/etcd
+echo /dev/mapper/vg_etcd-lv_etcd /var/lib/etcd ext4 defaults 0 0 >> /etc/fstab
+mount /var/lib/etcd
+
+
+# sysctl
+cat <<EOF | tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+net.ipv4.ip_forward=1
+EOF
+
+sysctl --system
+modprobe br_netfilter
+
+
+# keepalived
+useradd -g users -M keepalived_script
+chmod +x /etc/keepalived/check_apiserver.sh
+chown keepalived_script:users /etc/keepalived/check_apiserver.sh
+apt install keepalived -y
+/etc/keepalived/keepalived.conf
+/etc/keepalived/check_apiserver.sh
+systemctl enable --now keepalived
+
+# install packages
+apt-get update && sudo apt-get install -y apt-transport-https curl
+
+wget https://storage.googleapis.com/cri-containerd-release/cri-containerd-1.3.4.linux-amd64.tar.gz
+tar xzf cri-containerd-1.3.4.linux-amd64.tar.gz -C /
+
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
+deb https://apt.kubernetes.io/ kubernetes-xenial main
+EOF
+
+apt update && apt install -y kubelet kubeadm kubectl
+
+cat <<EOF > /etc/systemd/system/kubelet.service.d/0-containerd.conf
+[Service]
+Environment="KUBELET_EXTRA_ARGS=--container-runtime=remote --runtime-request-timeout=15m --container-runtime-endpoint=unix:///run/containerd/containerd.sock"
+EOF
+
+systemctl daemon-reload
+systemctl enable --now containerd 
+systemctl enable --now kubelet 
+
+
+kubeadm init --upload-certs --control-plane-endpoint 10.10.20.3:63443 --pod-network-cidr=192.168.0.0/16 --apiserver-cert-extra-sans 176.107.161.21
+
+
+
+# C воркера
+
+hostnamectl set-hostname ash-w4
+sed -i 's/ubuntu18.cloudlite.ru/ash-w4/g' /etc/hosts
+swapoff -a
+lvremove /dev/vg_ubuntu/lv_swap
+rm -rf /swapfile
+sed -i '/swap/d' /etc/fstab
+
+lvextend -l +100%FREE vg_ubuntu/lv_root
+resize2fs /dev/mapper/vg_ubuntu-lv_root
+
+do-release-upgrade -d
+apt update && apt upgrade -y
+apt autoremove -y
+
+pvcreate /dev/sdc
+vgcreate vg_containerd /dev/sdc
+lvcreate -n lv_containerd -l +100%FREE vg_containerd
+mkfs.ext4 /dev/mapper/vg_containerd-lv_containerd
+mkdir /var/lib/containerd
+
+echo /dev/mapper/vg_containerd-lv_containerd /var/lib/containerd ext4 defaults 0 0 >> /etc/fstab
+mount /var/lib/containerd
+
+cat <<EOF | tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+net.ipv4.ip_forward=1
+EOF
+
+sysctl --system
+modprobe br_netfilter
+
+apt-get update && sudo apt-get install -y apt-transport-https curl
+
+wget https://storage.googleapis.com/cri-containerd-release/cri-containerd-1.3.4.linux-amd64.tar.gz
+tar xzf cri-containerd-1.3.4.linux-amd64.tar.gz -C /
+
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+
+cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
+deb https://apt.kubernetes.io/ kubernetes-xenial main
+EOF
+
+apt update && apt install -y kubelet kubeadm kubectl
+
+cat <<EOF > /etc/systemd/system/kubelet.service.d/0-containerd.conf
+[Service]
+Environment="KUBELET_EXTRA_ARGS=--container-runtime=remote --runtime-request-timeout=15m --container-runtime-endpoint=unix:///run/containerd/containerd.sock"
+EOF
+
+systemctl daemon-reload
+systemctl enable --now containerd
+systemctl enable --now kubelet
+kubeadm join 10.10.20.3:6443 --token 9qkekt.reibblm67edik2rc     --discovery-token-ca-cert-hash sha256:b2cdfc3acc5ae3aac207f8397e189b17a82adfa8cebc7e9d01caa5c7145a4532

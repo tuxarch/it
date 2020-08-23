@@ -29,3 +29,9 @@ kubectl resource-capacity -p
 
 Посмотреть используемые имиджи:
 kubectl images
+
+
+=== Полезные плагины 
+debug
+ksniff
+

@@ -22,6 +22,10 @@ export TF_LOG=0 - вывести отладочную информацию
 Удалить определенный элемент:
 terraform destroy -target=vcd_vm_internal_disk.node-worker-containers[4]
 
+
+= Пометить элемент для пересоздания
+terraform taint vcd_vapp_vm.k8s-w[3]
+
 = Работа с переменными:
 Прописываем переменную в конфиге:
 output "ssh" {} output "public_ip" {}

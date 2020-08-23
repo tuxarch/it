@@ -12,11 +12,31 @@ k get pods -w - интерактивный режим
 k get ing - ingress просмотр
 k get pv - persistent volume - хранилища
 k get pvc - зарезервированное место
-k get events  
+k get events - просмотр событий в кластере
 k config view  
 k get services
+
 k logs pods - получить логи из stdout контейнера
 k logs pods -f - интерактивный режим вывода лога
+k logs  --selector - все поды по селектору
+	--since - период
+	--all-containers=true
+	--previous - от предыдущего пода
+kubectl logs -f -n monitoring  pod init-chown-data
+
+=== Otus
+k edit pod alpine
+k port-forward 
+k attach - STDOUT
+k exec
+k cp - скопировать
+k debug pod --port-forward (1.18)
+	запускаем strace -p -c
+	apk install
+	perf
+	tcpdump -ltni eth0
+
+k sniff
 
 
 === Run
@@ -131,7 +151,9 @@ kubectl config get-contexts - просмотр контекстов
 kubectl config set-context default - переключение между контекстами
 
 
-
+# Экспортируем сертификат и ключ
+kubectl create secret tls my-tls-cert --key /path/to/tls.key --cert /path/to/tls.crt
+kubectl create secret tls letsencrypt-secret-prom --key dtln.cloud.key --cert dtln.cloud.chained -n monitoring
 
 
 # Создаем секрет для приватного репо, который затем подключаем при пулах
@@ -158,3 +180,13 @@ kubectl describe challenges --all-namespaces --kubeconfig=admin.kubeconfig-pub
 k drain node - выселяем ноды с хоста
 k uncordon node4 - включаем
 kubectl delete nodes node6 - удалить ноду
+
+
+
+=== Отключение и включение планировщика нод на мастерах kubeadm
+kubectl taint nodes --all node-role.kubernetes.io/master-
+
+kubectl taint nodes ticket-m3 node-role.kubernetes.io/master:NoSchedule
+
+=== Добавить комплит на машину
+kubectl completion bash > /usr/share/bash-completion/completions/kubectl
