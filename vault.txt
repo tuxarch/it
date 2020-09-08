@@ -1,8 +1,7 @@
 === HASHICORP VAULT
 
-key-value хранилище
-Написан на go
-
+Просмотр секретов в движке
+vault kv list kv/
 
 
 Можно создать любое количество токенов
@@ -42,7 +41,10 @@ vault kv delete secret/hello
 Нужно подключить движок для хранения секретов
 kv = secret/
 vault secrets enable -path=kv kv
+vault secrets disable kv
 vault secrets list
+
+
 
 Создаем:
 vault write kv/air type=boening class=878

@@ -113,6 +113,14 @@ kubeadm alpha certs renew admin.conf - только кубконфиг
 sudo kubeadm upgrade plan
 
 
+Сначало обновляем kubeadm
+apt update && apt upgdate -y
+
+Затем запускаем:
+kubeadm upgrade apply v1.19.0
+И затем обновляемся на нодах:
+apt update && apt upgdate -y
+
 1. Обновление control-plane прошло успешно, если не считать того что kubeadm не смог выполнить upgrade node для второй и третьей ноды, пришлось действовать вручную:
 kubeadm config view > kubeadm-config.yaml
 kubeadm init phase control-plane all --config kubeadm-config.yaml

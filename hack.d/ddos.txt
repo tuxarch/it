@@ -1,0 +1,4 @@
+WAF - сервис через прокси
+
+Листаем историю DNS-имени
+git clone https://github.com/vincentcox/bypass-firewalls-by-DNS-history.git

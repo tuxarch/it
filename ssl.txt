@@ -1,18 +1,97 @@
+====== Openssl ======
+
+=== Check
 Получить сертификат сайта:
 openssl s_client -showcerts -connect srg-it.ru:443 </dev/null 2>/dev/null|openssl x509 -outform PEM
 
-Проверить сертификат:
+Посмотреть всю цепочку сертификатов сайта:
+openssl s_client -showcerts -verify 5 -connect test2.ru:443 < /dev/null
+
+Инфо по CA-сертификату или сертификату домена:
+openssl x509 -in CA.pem -noout -text
 openssl x509 -in new.srg-it.ru.crt.chained -text -noout
 
+Проверить соответствие ключей для CA-сертификата, домена и csr-запроса:
+openssl pkey -in domain.key -pubout -outform pem | sha256sum
+openssl x509 -in domain.pem -pubkey -noout -outform pem | sha256sum
+openssl req -in domain.csr -pubkey -noout -outform pem | sha256sum
 
-Проверить что ключ принадлежит ssl сертификату:
-openssl pkey -in privateKey.key -pubout -outform pem | sha256sum
-openssl x509 -in certificate.crt -pubkey -noout -outform pem | sha256sum
-openssl req -in CSR.csr -pubkey -noout -outform pem | sha256sum
+Проверить что сертификат от домена подписан CA:
+openssl verify -verbose -CAfile CA.pem test.ru.crt
+
+Проверить CA-сертификат
+curl --cacert rootCA.crt https://localhost
 
 
 
-Сгенерировать самоподписной:
+=== Сгенерировать самоподписной для домена:
 openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -days 365 -subj '/CN=localhost'
 
 
+
+
+
+
+
+=== Работа с самоподписанными сертификатами в проде
+
+Генерируем CA-ключ и CA, задаем пароль
+openssl req -x509 -newkey rsa:4096 -keyout CA.key -out CA.pem -days 1825
+
+Тоже что и выше но двумя командами:
+openssl genrsa -des3 -out CA.key 4096 
+openssl req -x509 -new -nodes -key CA.key -sha256 -days 1825 -out CA.pem
+
+Генерируем ключ для домена и запрос на подпись:
+openssl genrsa -out $DOMAIN.key 2048
+openssl req -new -sha256 -key $DOMAIN.key -subj "/C=RU/ST=Moscow/O=Dtln/CN=$DOMAIN" -out $DOMAIN.csr
+
+Обрабатываем запрос на подпись:
+openssl x509 -req -in $DOMAIN.csr -CA CA.pem -CAkey CA.key -CAcreateserial -out $DOMAIN.crt -days 500 -sha256
+
+Или обработка для SAN сертификата:
+openssl x509 -req -in $DOMAIN.csr -CA CA.pem -CAkey CA.key \
+             -CAcreateserial -out $DOMAIN.crt -days 3650 -extensions SAN \
+             -extfile <(printf "[SAN]\nsubjectAltName=DNS:$DOMAIN,DNS:ns-$DOMAIN,IP:127.0.0.1")
+
+
+Создаем цепочку:
+cat $DOMAIN.crt CA.pem > $DOMAIN.chained
+
+Итог:
+CA.key - ключ с паролем для СA-root
+CA.pem - CA-сертификат
+$DOMAIN.csr - CERTIFICATE REQUEST/запрос на подпись
+$DOMAIN.crt - сертификат от домена
+$DOMAIN.key - ключ от домена
+$DOMAIN.chained - цепочка сертификатов
+
+
+=== Управление самоподписанными сертами
+
+
+== В пользовательской среде firefox, chromium
+После добавления, удаления лучше перегрузиться, рутовые системные CA должны
+также подхватываться
+
+
+Посмотреть возможные сертификаты:
+certutil -d $HOME/.pki/nssdb -L
+
+Добавить CA:
+certutil -d $HOME/.pki/nssdb -A -i ca.pem -n "dtln_CA" -t TCP,TCP,TCP
+Добавить сертификать для сайта:
+certutil -d sql:$HOME/.pki/nssdb -A -n 'example.com' -i example.com.cert -t P,P,P
+
+Удалить:
+сertutil -D -d $HOME/.pki/nssdb -n "GoAgent"
+
+
+== В archlinux
+sudo trust anchor --remove ca.pem
+sudo trust anchor --store ca.pem
+
+=== Добавить самоподписанный CA в ubuntu:
+sudo mkdir /usr/share/ca-certificates/extra
+sudo cp *.crt /usr/share/ca-certiciates/extra
+sudo dpkg-reconfigure ca-certificates

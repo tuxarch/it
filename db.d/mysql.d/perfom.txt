@@ -1,0 +1,13 @@
+== Включаем лог медленных запросов к базе
+
+Посмотреть текущее значение в базе
+show global variables like 'slow%log%'
+
+Добавляем в my.cnf
+slow_query_log  = /var/log/mysql/mysql-slow.log
+long_query_time = 1
+
+Либо
+SET GLOBAL slow_query_log = 'ON'; FLUSH LOGS;
+
+

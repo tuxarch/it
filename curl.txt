@@ -2,8 +2,11 @@
 
 == Использование
 
-https и порт
+Небезопасный https 
 curl -k https://ya.ru:443 
+
+Подключаемся с CA сертификатом
+curl --cacert ~/ca.pem https://test.domain
 
 Используем прокси:
 curl -v --socks5-hostname 52.59.253.120:1080 -U user:pass https://2ip.ru

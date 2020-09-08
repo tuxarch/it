@@ -1,11 +1,12 @@
-## Информация по железу
+######## Информация по железу ########
 dmidecode - информация по железу
 hardinfo - позволяет снять отчеты, легкий gui
 lshw 
 mpstat - анализ CPU и shedduler
 bash <(wget --no-check-certificate -O - https://raw.github.com/mgutz/vpsbench/master/vpsbench)
 
-## I/O, storage, disks
+######## I/O, storage, disks ########
+ionice - изменить приоритет процессу на запись
 iostat
 dio - инфо по чтению и записи
 hddtemp
@@ -14,13 +15,13 @@ ide-smart - информация по SMART
 hdparm -Tt /dev/sda - тест rw
 dd if=/dev/zero of=/tmp/output bs=8k count=10k; rm -f /tmp/o - тест rw
 
-## Сеть
+######## Сеть ########
 netstat - сокеты, TCP/IP, Интерфейсы
 ss 
 iperf - померить пропускную способность между узлами сети
 host - dns резолвер
 
-## Операционная система
+######## Операционная система ########
 
 lttng - отладка ядра, необходимо ставить модули
 strace - посмотреть системные вызовы
@@ -30,25 +31,25 @@ slabtop - инфо о буферах, кэшей, структур ядра
 perf top - узнать на что система тратит свое время
 ulimit - управление пользовательскими ресурсами
 
-## Cофт
+######## Cофт ########
 gdb - отладчик c/с++ кода
 ldd - просмотреть используемые приложением библиотеки
 ltrace - используемые библиотеки
 
-## Multitool
+######## Multitool ########
 sysdig - сетевые соединения, I/O, системные вызовы
 perf - анализ производительности железа, софта
 dstat - проц, память, сеть, (dstat -tldnpms 10)
 sar - сбор, сохранение и отчет о системе
 
-## security
+######## security ########
 lstat - проверка настроек на безопасность
 
-## app
+######## app ########
 ngxtop - nginx монитор
 Hammerdb - тестирование баз даных
 
-## Stress test
+######## Stress test ########
 https://github.com/flaviostutz/web-stress-simulator - от Сереги
 яндекс-танк,ab,wrk - нагрузочное тестирование http-сервера
 stress-ng - сpu, memory

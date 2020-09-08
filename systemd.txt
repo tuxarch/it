@@ -91,3 +91,7 @@ systemctl getty@tty4.service
 
 sudo
 journalctl _COMM=sudo - комманды запущенные с sudo
+
+
+== Работа с таймерами
+sudo systemctl list-timers

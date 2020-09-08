@@ -7,6 +7,9 @@ rpm -i install.rpm
 rpm U update.rpm
 rpm -e delete.rpm
 
+Из какого пакета файл:
+rpm -qf /etc/httpd
+
 Информация о пакете:
 rpm -qi tmux 
 

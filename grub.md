@@ -19,3 +19,9 @@ efibootmgr -c -L sabayon -l \\EFI\\sabayon\\grubx64.efi
 
 Возможные варианты загрузки ищем в /boot/efi
 
+Посмотреть конфигурацию загрузки:
+efibootmgr -v 
+
+Установить порядок загрузки:
+efibootmgr -o 0004,0002
+

@@ -15,3 +15,7 @@ pavucontrol - регулировка громкости в pulseaudio
 
 amixer set Master 50%
 
+
+=== Настройка микрофона
+Главное выбрать в pavcontol правильное устройство
+

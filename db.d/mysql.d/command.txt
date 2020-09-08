@@ -1,3 +1,8 @@
+= Узнать версию и конфиг
+SHOW VARIABLES 
+SHOW VARIABLES LIKE "%version%";
+
+
 =Подключиться или выполнить команду:
 mysql -u user -p -e 'show processlist'
 mysql --host=172.17.0.2 -u root -p  подключиться к базе удаленно.

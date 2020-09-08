@@ -105,10 +105,15 @@ docker rmi hello-node -f
 ### Rollout
 
 kubectl rollout status - статус 
-
 k rollout history deployment redis - история деплоймента
-k rollout undo deployment/flask - откатиться на старую версию
 k rollout status deployment/flask -w - история изменения
+
+
+k rollout undo deployment/flask --to-revision=2  - откатиться на старую версию
+k rollout undo deployment/flask 
+
+k rollout restart deployment/flask - применить последнюю версию
+
 
 
 ## Expose
@@ -195,3 +200,10 @@ kubectl taint nodes ticket-m3 node-role.kubernetes.io/master:NoSchedule
 
 === Добавить комплит на машину
 kubectl completion bash > /usr/share/bash-completion/completions/kubectl
+
+
+=== Горизонтальное автомасштабирование
+
+kubectl get hpa
+
+kubectl autoscale deployment my-dep min=1 max=6 cpu-percent=80

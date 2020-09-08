@@ -1,0 +1,29 @@
+=== Rsyslog
+По документации из syslog-ng считается более сложночитаемым по конфигу
+при фильтрации
+
+В убунту стоит по дефолту:
+systemctl status rsyslog.service
+
+Для включения приема логов /etc/rsyslog.conf :
+
+$ModLoad imudp
+$UDPServerRun 514
+$ModLoad imtcp
+$InputTCPServerRun 514
+
+====vs====
+
+# provides UDP syslog reception
+module(load="imudp")
+input(type="imudp" port="514")
+# provides TCP syslog reception
+module(load="imtcp")
+input(type="imtcp" port="514")
+
+Для отправки дефолтных логов /etc/rsyslog/all.conf:
+*.* @@192.168.0.15:514
+
+
+=== Включаем шифрование TLS
+

@@ -20,3 +20,7 @@ while true; do curl http://192.168.122.11; done
 Для запуска скрипта с одним и тем же набором команд 
 flock
 run-one
+
+
+Запуск скрипта возможен только в одном экземпляре
+flock -w 600 /var/tmp/test_script.lock ./flock.sh

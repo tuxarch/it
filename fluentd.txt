@@ -1,0 +1,93 @@
+=== Fluentd
+Установка клиента td-agent
+curl -L https://toolbelt.treasuredata.com/sh/install-ubuntu-bionic-td-agent4.sh | sh
+
+Смотрим статус:
+systemctl status td-agent
+
+Основной файл конфигурации
+/etc/td-agent/td-agent.conf
+
+source — об источнике данных;
+match — куда нужно передавать полученные данные; - порядок секций важен!
+include — содержит информацию о типах файлов;
+system — содержит настройки системы.
+
+
+== Тестирование
+
+<source>
+  @type http
+  port 8888
+  bind 0.0.0.0
+  body_size_limit 32m
+  keepalive_timeout 10s
+</source>
+
+<match test.all>
+  type file
+  path /var/log/td-agent/td-agent-test.log
+</match>
+
+curl -X POST -d 'json={"action":"login","user":2}' http://localhost:8888/test.all;
+
+
+== Перенаправление fluentd-fluend c самоподписанным сертификатом
+
+= node
+<match test.forward>
+ @type forward
+ send_timeout 10s
+ transport tls
+ tls_cert_path /etc/td-agent/ssl.pem
+ tls_verify_hostname false
+ #tls_allow_self_signed_cert true
+ #tls_insecure_mode true - отключает проверку
+  <security>
+    self_hostname test.ru
+    shared_key blah_blah
+  </security>
+
+  <server>
+    host 192.168.122.101
+    port 8889
+    weight 60
+    username tagomoris
+    password foobar012
+  </server>
+
+  <secondary>
+    @type file
+    path /var/log/td-agent/td-agent-failed.log
+  </secondary>
+
+</match>
+
+= master
+<source>
+  @type forward
+  port 8889
+  <transport tls>
+    cert_path /etc/td-agent/ssl.pem
+    private_key_path /etc/td-agent/ssl.key
+  </transport>
+  <security>
+    self_hostname test2.ru
+    shared_key blah_blah
+    user_auth true
+    <user>
+      username tagomoris
+      password foobar012
+    </user>
+  </security>
+  bind 0.0.0.0
+</source>
+
+<match test.forward>
+  type file
+  path /var/log/td-agent/td-agent-test.log
+</match>
+
+
+== Over SSL
+
